@@ -141,6 +141,8 @@ function welcomeText(username, link) {
     ``,
     `Hemos reservado @${username} para ti. Cuando abramos Kumbra te avisaremos antes que a nadie para que crees tu cuenta con ese nombre.`,
     ``,
+    `Una pregunta: ¿en qué rocódromo escalas? Responde a este email y cuéntanoslo. Lo leemos todo y nos ayuda a saber dónde abrir primero.`,
+    ``,
     `Tu Pack Fundador:`,
     ...PACK.map(([title, detail]) => `- ${title}: ${detail}`),
     ``,
@@ -175,7 +177,8 @@ function welcomeHtml(username, link) {
         <tr><td bgcolor="#1A1324" style="padding:28px 28px 8px;background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);">
           <span style="display:inline-block;padding:5px 11px;border-radius:99px;background-color:#E8B53A;background-image:linear-gradient(#E8B53A,#E8B53A);color:#3A2108;font:800 11px ${font};letter-spacing:1px;">▲ FUNDADOR</span>
           <div class="gs"><div class="gd"><h1 style="margin:16px 0 8px;font:900 30px/1.1 ${font};letter-spacing:-0.5px;color:#F5EFE6;">Ya estás dentro, ${handle}.</h1>
-          <p style="margin:0;font:400 15px/1.55 ${font};color:#C9BFD3;">Hemos reservado <b style="color:#F5EFE6;">${handle}</b> para ti. Cuando abramos Kumbra te avisaremos antes que a nadie para que crees tu cuenta con ese nombre.</p></div></div>
+          <p style="margin:0;font:400 15px/1.55 ${font};color:#C9BFD3;">Hemos reservado <b style="color:#F5EFE6;">${handle}</b> para ti. Cuando abramos Kumbra te avisaremos antes que a nadie para que crees tu cuenta con ese nombre.</p>
+          <p style="margin:16px 0 0;font:400 15px/1.55 ${font};color:#C9BFD3;"><b style="color:#F5EFE6;">Una pregunta: ¿en qué rocódromo escalas?</b> Responde a este email y cuéntanoslo. Lo leemos todo y nos ayuda a saber dónde abrir primero.</p></div></div>
         </td></tr>
         <tr><td bgcolor="#1A1324" style="padding:20px 28px 4px;background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);">
           <div class="gs"><div class="gd"><p style="margin:0 0 6px;font:700 11px ${font};letter-spacing:2px;color:#F2B44A;">TU PACK FUNDADOR</p>
