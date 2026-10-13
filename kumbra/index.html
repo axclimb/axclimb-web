@@ -39,6 +39,9 @@ a { color: inherit; }
 .sky { position: fixed; inset: 0; background: radial-gradient(120% 70% at 50% 100%, #6B2340 0%, #2B1531 38%, #120D1D 70%, var(--night) 100%); }
 #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
 #scene.drag { cursor: grabbing; }
+#fogc { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0; animation: fogin 2.4s .6s ease forwards; }
+.fog { display: none; }
+body.fog-css .fog { display: block; }
 .fog { position: fixed; left: 0; right: 0; bottom: 0; height: 46vh; pointer-events: none; overflow: hidden; opacity: 0; animation: fogin 3s 1s ease forwards; }
 .fog i { position: absolute; left: -50%; width: 200%; bottom: 0; transform: translate3d(calc(var(--fx, 0px) * var(--k)), 0, 0); will-change: transform; }
 .fog i::before { content: ""; position: absolute; inset: 0; animation: drift var(--d) ease-in-out infinite alternate; background:
@@ -131,6 +134,12 @@ form { display: grid; gap: 8px; }
 .otag span { display: block; transform: translate(-50%, -100%); margin-top: -8px; padding: 3px 7px; border-radius: 99px; background: rgba(14,11,22,.6); font: 700 10.5px/1 var(--sans); color: rgba(245,239,230,.9); white-space: nowrap; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .tag span { display: block; margin-bottom: 16px; padding: 6px 10px; border-radius: 99px; background: rgba(14,11,22,.75); box-shadow: inset 0 0 0 1px rgba(242,180,74,.5); font: 800 12px/1 var(--sans); color: var(--amber); white-space: nowrap; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
+/* who's joining: real sign-ups only (a total once it's worth showing, otherwise the latest @) */
+.live { display: flex; align-items: center; gap: 8px; margin: 0 2px 8px; min-height: 1.4em; font-size: 12.5px; color: var(--dim); transition: opacity .5s; }
+.live b { color: var(--ink); font-weight: 800; }
+.live i { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 10px var(--amber); animation: blink 2.4s ease-in-out infinite; }
+.live.out { opacity: 0; }
+
 /* founder pack */
 .packline { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 2px 10px; font-size: 13.5px; color: var(--dim); }
 .packline b { color: var(--ink); font-weight: 800; }
@@ -220,6 +229,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 <body>
   <div class="sky"></div>
   <canvas id="scene" aria-hidden="true"></canvas>
+  <canvas id="fogc" aria-hidden="true"></canvas>
   <div class="fog" id="fog"><i></i><i></i><i></i></div>
   <div class="mist"></div>
   <div class="grain"></div>
@@ -242,6 +252,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     <section class="bottom">
       <div class="glass">
         <div id="form-view">
+          <p class="live" id="live" hidden aria-live="polite"><i></i><span id="live-text"></span></p>
           <p class="packline"><span>Reserva ahora y entras con el <b>Pack Fundador</b>.</span><button type="button" data-pack>Ver qué trae</button></p>
           <form id="waitlist" novalidate>
             <label class="field" id="u-field"><span>@</span><input id="username" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="reserva_tu_nombre" maxlength="20" aria-label="Tu @" aria-describedby="username-hint"></label>
@@ -456,6 +467,8 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
       var off = (portrait ? -0.02 : 0) + Math.min(1, focus * 1.6) * (portrait ? 0.26 : 0.16) * panel;
       if (off) camera.setViewOffset(W, H, 0, H * off, W, H); else camera.clearViewOffset();
       fogEl.style.setProperty("--fx", (Math.sin(yaw) * 60).toFixed(1) + "px");
+      // the new fog (below) follows the mountain: how far the mountain has turned
+      var KF = window.KFOG = window.KFOG || {}; KF.yaw = yaw;
       // chalk drifts up and wraps
       var cp = chalk.geometry.attributes.position;
       for (var i = 0; i < cp.count; i++) { var y = cp.getY(i) + 0.004 + Math.sin(t + i) * 0.001; cp.setY(i, y > 12 ? 2.2 : y); cp.setX(i, cp.getX(i) + Math.sin(t * 0.3 + i) * 0.002); }
@@ -605,6 +618,46 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     if (preview || !LIVE) { lit.others(SAMPLE.filter(function (n) { return n !== me; })); done(); return; }
     fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : { names: [] }; }).then(function (b) { lit.others((b.names || []).filter(function (n) { return n !== me && /^[a-z0-9_.]{3,20}$/.test(n); })); done(); }).catch(done);
   }
+
+  // ================= Who's joining =================
+  // Only real data: the total once it's worth showing (LIVE_MIN), and the latest sign-ups of the last two weeks.
+  var LIVE_MIN = 50, LIVE_DAYS = 14, liveEl = document.getElementById("live"), liveText = document.getElementById("live-text"), liveTimer = null;
+  function ago(iso) {
+    var m = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+    if (m < 5) return "hace un momento";
+    if (m < 60) return "hace " + m + " min";
+    var h = Math.round(m / 60);
+    if (h < 24) return "hace " + h + " h";
+    var d = Math.round(h / 24);
+    return d === 1 ? "ayer" : "hace " + d + " días";
+  }
+  // Independent of the mountain (it works without WebGL too). Preview: a sample so it can be seen.
+  setTimeout(function () {
+    if (!LIVE) {
+      var now = Date.now();
+      showLive({ total: SAMPLE.length, recent: SAMPLE.slice(0, 3).map(function (n, k) { return { name: n, at: new Date(now - [12, 95, 1500][k] * 60000).toISOString() }; }) });
+      return;
+    }
+    fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : {}; }).then(showLive).catch(function () {});
+  }, 2400);
+  function showLive(b) {
+    if (!liveEl || liveTimer) return;
+    var lines = [];
+    if ((b.total || 0) >= LIVE_MIN) lines.push("Ya hay <b>" + b.total + "</b> escaladores en la montaña");
+    (b.recent || []).forEach(function (r) {
+      if (!/^[a-z0-9_.]{3,20}$/.test(r.name) || Date.now() - new Date(r.at).getTime() > LIVE_DAYS * 864e5) return;
+      lines.push("<b>@" + r.name + "</b> se ha unido " + ago(r.at));
+    });
+    if (!lines.length) return;
+    var i = 0;
+    liveText.innerHTML = lines[0];
+    liveEl.hidden = false;
+    if (lines.length < 2 || reduceMotion) return;
+    liveTimer = setInterval(function () {
+      liveEl.classList.add("out");
+      setTimeout(function () { i = (i + 1) % lines.length; liveText.innerHTML = lines[i]; liveEl.classList.remove("out"); }, 500);
+    }, 4000);
+  }
   function selectLink() { var r = document.createRange(); r.selectNodeContents(document.getElementById("share-link")); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
 
   // ================= Who's on the mountain =================
@@ -639,6 +692,142 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   // "Ver la montaña": the panel folds into a bar at the bottom, so the mountain is free to turn
   document.getElementById("again").addEventListener("click", function () { document.body.classList.add("collapsed"); });
   document.getElementById("unfold").addEventListener("click", function () { document.body.classList.remove("collapsed"); });
+})();
+</script>
+<script>
+// ================= The fog =================
+// Real fog instead of soft ellipses: layers of drifting, curling noise drawn in a small WebGL canvas (half
+// resolution, it's all soft anyway). It has a little physics: your finger pushes it and leaves a gap that
+// slowly closes, and turning the mountain slides the near layers more than the far ones.
+// The mountain's loop writes window.KFOG.yaw; the old CSS fog stays as a fallback without WebGL.
+(function () {
+  "use strict";
+  var KFOG = window.KFOG = window.KFOG || { yaw: 0 };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = document.getElementById("fogc"), gl = null;
+  try { gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false }); } catch (e) {}
+  if (!gl) { document.body.classList.add("fog-css"); cv.remove(); return; }
+
+  var VS = "attribute vec2 a;varying vec2 v;void main(){v=a*.5+.5;gl_Position=vec4(a,0.,1.);}";
+  var FS = [
+    "precision mediump float;",
+    "varying vec2 v;uniform float uT,uYaw,uAsp,uIn,uB;uniform sampler2D uF;",
+    "float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}",
+    "float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);",
+    " return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}",
+    "float fb(vec2 p){float s=0.,a=.5;mat2 r=mat2(.8,.6,-.6,.8);for(int i=0;i<4;i++){s+=a*n(p);p=r*p*2.03+3.1;a*=.5;}return s;}",
+    // one layer: depth d (bigger = nearer), how far above the foot it sits, strength
+    "float layer(vec2 uv,vec3 F,float d,float off,float k,float seed){",
+    " vec2 p=vec2(uv.x*uAsp,uv.y)*(2.2/d)+vec2(uYaw*.6*d+uT*.02*d+seed,-uT*.012);",
+    " p-=F.xy*vec2(uAsp,1.)*3.*d;",                                   // pushed by your finger (nearer moves more)
+    " vec2 q=vec2(fb(p*.7+vec2(0.,uT*.05)),fb(p*.7+vec2(5.2,1.3)-uT*.04));", // curl it
+    " float f=fb(p+2.2*q);",
+    " float y=uv.y-(uB+off);",
+    " float band=exp(-y*y/(y>0.?.005+.016*f*f:.016));",                // tight on top (wisps), deeper below
+    " float m=smoothstep(.34,.8,f*1.15*band+band*.3-.05);",
+    " return m*k*(1.-F.z*(.4+.4*d));}",                              // the gap you leave
+    "void main(){vec2 uv=v;vec4 t=texture2D(uF,uv);vec3 F=vec3((t.xy-.5)*.5,t.z);",
+    " float rise=(1.-uIn)*.03;",                                      // starts a bit higher, settles as it clears
+    " float far=layer(uv,F,.6,.05+rise,.5,0.);",
+    " float mid=layer(uv,F,1.,.01+rise,.7,7.3);",
+    " float nr=layer(uv,F,1.6,-.06+rise,.85,13.1);",
+    " float a=1.-(1.-far)*(1.-mid)*(1.-nr);",
+    " vec3 c=mix(vec3(.55,.40,.62),vec3(.97,.84,.88),clamp(nr*.9+mid*.5+far*.2,0.,1.));",  // lilac, warmer close to you
+    " a*=smoothstep(.04,.2,uv.y)*smoothstep(.36,.24,uv.y);",                                   // keeps the footer clear
+    " a*=.85*uIn;gl_FragColor=vec4(c*a,a);}"
+  ].join("\n");
+  function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+  var pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { document.body.classList.add("fog-css"); cv.remove(); return; }
+  gl.useProgram(pr);
+  var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  var aLoc = gl.getAttribLocation(pr, "a"); gl.enableVertexAttribArray(aLoc); gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
+  var U = {}; ["uT", "uYaw", "uAsp", "uIn", "uB", "uF"].forEach(function (k) { U[k] = gl.getUniformLocation(pr, k); });
+
+  // ---- the physics: a coarse grid of velocity, displacement (how far the fog has been pushed) and gap ----
+  var GW = 24, GH = 40, N = GW * GH;
+  var vx = new Float32Array(N), vy = new Float32Array(N), dx = new Float32Array(N), dy = new Float32Array(N), gap = new Float32Array(N);
+  var tvx = new Float32Array(N), tvy = new Float32Array(N), px = new Uint8Array(N * 4);
+  var tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.uniform1i(U.uF, 0);
+
+  function samp(a, x, y) { // bilinear, grid coords
+    x = Math.max(0, Math.min(GW - 1.001, x)); y = Math.max(0, Math.min(GH - 1.001, y));
+    var i = x | 0, j = y | 0, fx = x - i, fy = y - j, o = j * GW + i;
+    return (a[o] * (1 - fx) + a[o + 1] * fx) * (1 - fy) + (a[o + GW] * (1 - fx) + a[o + GW + 1] * fx) * fy;
+  }
+  // a stir: velocity (screen heights per second) poured in around a point (uv, y up)
+  function stir(u, w, svx, svy) {
+    var r = 0.11, cx = u * (GW - 1), cy = w * (GH - 1), asp = W / H;
+    for (var j = 0; j < GH; j++) for (var i = 0; i < GW; i++) {
+      var ex = (i - cx) / (GW - 1) * asp, ey = (j - cy) / (GH - 1), g = Math.exp(-(ex * ex + ey * ey) / (r * r));
+      if (g < 0.01) continue; var o = j * GW + i;
+      vx[o] += svx * g; vy[o] += svy * g;
+      // a little swirl around the finger, like air does
+      vy[o] += ex * g * Math.abs(svx) * 0.5;
+    }
+  }
+  function step(dt) {
+    var damp = Math.exp(-dt * 2.2), back = Math.exp(-dt * 0.32), heal = Math.exp(-dt * 0.5);
+    for (var j = 0; j < GH; j++) for (var i = 0; i < GW; i++) { // carried along by itself (semi-Lagrangian)
+      var o = j * GW + i, bx = i - vx[o] * dt * (GW - 1) * H / W, by = j - vy[o] * dt * (GH - 1);
+      tvx[o] = samp(vx, bx, by) * damp; tvy[o] = samp(vy, bx, by) * damp;
+    }
+    for (var j2 = 0; j2 < GH; j2++) for (var i2 = 0; i2 < GW; i2++) { // spreads a bit
+      var k = j2 * GW + i2, l = i2 > 0 ? k - 1 : k, r = i2 < GW - 1 ? k + 1 : k, d = j2 > 0 ? k - GW : k, u = j2 < GH - 1 ? k + GW : k;
+      vx[k] = tvx[k] * 0.6 + (tvx[l] + tvx[r] + tvx[d] + tvx[u]) * 0.1;
+      vy[k] = tvy[k] * 0.6 + (tvy[l] + tvy[r] + tvy[d] + tvy[u]) * 0.1;
+      var sp = Math.sqrt(vx[k] * vx[k] + vy[k] * vy[k]);
+      dx[k] = (dx[k] + vx[k] * dt * 0.5) * back; dy[k] = (dy[k] + vy[k] * dt * 0.5) * back;
+      gap[k] = Math.min(0.85, gap[k] * heal + sp * dt * 0.9);
+      px[k * 4] = Math.max(0, Math.min(255, 128 + dx[k] * 255)); px[k * 4 + 1] = Math.max(0, Math.min(255, 128 + dy[k] * 255));
+      px[k * 4 + 2] = gap[k] * 255; px[k * 4 + 3] = 255;
+    }
+  }
+
+  // ---- the finger (and the mouse) ----
+  var last = null, W = 1, H = 1;
+  function onMove(e) {
+    if (reduce || (e.target && e.target.id !== "scene")) { last = null; return; }
+    if (e.pointerType !== "mouse" && !e.buttons && e.pressure === 0) { last = null; return; }
+    var now = performance.now(), u = e.clientX / W, w = 1 - e.clientY / H;
+    if (last && now > last.t) {
+      var s = Math.min(0.05, (now - last.t) / 1000), svx = (u - last.u) / s * W / H, svy = (w - last.w) / s;
+      var m = Math.sqrt(svx * svx + svy * svy), cap = 3; if (m > cap) { svx *= cap / m; svy *= cap / m; }
+      stir(u, w, svx * 0.35, svy * 0.35);
+    }
+    last = { u: u, w: w, t: now };
+  }
+  window.addEventListener("pointermove", onMove, { passive: true });
+  window.addEventListener("pointerup", function () { last = null; }, { passive: true });
+  window.addEventListener("pointercancel", function () { last = null; }, { passive: true });
+
+  var SCALE = 0.5;
+  function size() {
+    W = window.innerWidth; H = window.innerHeight;
+    var w = Math.max(2, Math.round(W * SCALE)), h = Math.max(2, Math.round(H * SCALE));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+  }
+  window.addEventListener("resize", size); size();
+  gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+  var t0 = performance.now(), prev = t0, yawPrev = null, baseY = 0.2;
+  function frame(now) {
+    var dt = Math.min(0.05, (now - prev) / 1000), t = (now - t0) / 1000; prev = now;
+    // the fog thins out as the mountain rises (the page starts it at 1 s)
+    var rise = reduce ? 1 : Math.min(1, Math.max(0, (t - 0.6) / 3.4)); rise = rise * rise * (3 - 2 * rise);
+    // spinning the mountain pushes the air a little too
+    var yaw = KFOG.yaw || 0; if (yawPrev !== null && !reduce) { var wv = (yaw - yawPrev) / Math.max(dt, 1e-3); if (Math.abs(wv) > 0.3) for (var o = 0; o < N; o++) vx[o] += -wv * dt * 0.05; } yawPrev = yaw;
+    if (!reduce) step(dt);
+    gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, GW, GH, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    gl.uniform1f(U.uT, reduce ? 0 : t + 40); gl.uniform1f(U.uYaw, yaw); gl.uniform1f(U.uAsp, W / H); gl.uniform1f(U.uB, baseY); gl.uniform1f(U.uIn, 0.35 + 0.65 * rise);
+    gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(frame);
+  }
+  for (var o = 0; o < N; o++) { px[o * 4] = 128; px[o * 4 + 1] = 128; px[o * 4 + 3] = 255; }
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>

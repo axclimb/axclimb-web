@@ -97,19 +97,33 @@ export default async function handler(req, res) {
   let welcome = true;
   try {
     const link = `https://www.axclimb.com/kumbra?ref=${encodeURIComponent(username)}`;
-    await transporter.sendMail({
-      from: `Kumbra <${process.env.EMAIL_USER}>`,
+    const welcomeMail = {
       to: email,
       subject: `@${username}, ya eres Fundador de Kumbra`,
       text: welcomeText(username, link),
       html: welcomeHtml(username, link),
-    });
+    };
+    // With RESEND_API_KEY in Vercel it goes out from our own domain (axclimb.com, verified in Resend
+    // with SPF/DKIM), so it lands in the inbox instead of spam. Without it, Gmail as before.
+    if (process.env.RESEND_API_KEY) await sendWithResend(welcomeMail);
+    else await transporter.sendMail({ from: `Kumbra <${process.env.EMAIL_USER}>`, ...welcomeMail });
   } catch (error) {
     welcome = false;
     console.error("kumbraWaitlist welcome email failed:", error && error.message);
   }
 
   return res.status(200).json({ ok: true, welcome });
+}
+
+const RESEND_FROM = process.env.RESEND_FROM || "Kumbra <hola@axclimb.com>";
+
+async function sendWithResend({ to, subject, text, html }) {
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: RESEND_FROM, to: [to], reply_to: "axclimb@gmail.com", subject, text, html }),
+  });
+  if (!r.ok) throw new Error(`Resend ${r.status}: ${(await r.text()).slice(0, 200)}`);
 }
 
 const PACK = [
