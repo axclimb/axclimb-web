@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.axclimb.kumbra",
+    "sha256_cert_fingerprints": ["77:64:6B:24:BF:56:93:F6:44:8A:25:DA:4B:0D:A3:67:D0:21:C9:36:B5:9B:85:1D:CB:B6:97:32:41:6F:72:F2"]
+  }
+}]

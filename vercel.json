@@ -1,5 +1,19 @@
 {
   "rewrites": [
-    { "source": "/u/:handle", "destination": "/invita?u=:handle" }
+    {
+      "source": "/u/:handle",
+      "destination": "/invita?u=:handle"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/.well-known/assetlinks.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
   ]
 }
