@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["P88UK832W4.com.axclimb.kumbra"],
+        "components": [
+          { "/": "/u/*" },
+          { "/": "/invita" },
+          { "/": "/invita/*" }
+        ]
+      }
+    ]
+  }
+}
