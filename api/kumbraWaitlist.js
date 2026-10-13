@@ -74,8 +74,7 @@ export default async function handler(req, res) {
   });
 
   try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    const teamMail = {
       to: "axclimb@gmail.com",
       replyTo: email,
       subject: `Kumbra lista de espera: @${username}`,
@@ -86,7 +85,10 @@ export default async function handler(req, res) {
         `Guardado en Supabase: ${saved === "ok" ? "sí" : "no (apúntalo a mano)"}`,
         `Fecha: ${new Date().toISOString()}`,
       ].join("\n"),
-    });
+    };
+    // Through Resend when it's set up (no Gmail password needed); otherwise Gmail as before.
+    if (process.env.RESEND_API_KEY) await sendWithResend(teamMail);
+    else await transporter.sendMail({ from: process.env.EMAIL_USER, ...teamMail });
   } catch (error) {
     console.error("kumbraWaitlist team email failed:", error && error.message);
     // Already saved in Supabase: the sign-up counts even if our copy didn't go.
@@ -117,11 +119,11 @@ export default async function handler(req, res) {
 
 const RESEND_FROM = process.env.RESEND_FROM || "Kumbra <hola@axclimb.com>";
 
-async function sendWithResend({ to, subject, text, html }) {
+async function sendWithResend({ to, subject, text, html, replyTo }) {
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: RESEND_FROM, to: [to], reply_to: "axclimb@gmail.com", subject, text, html }),
+    body: JSON.stringify({ from: RESEND_FROM, to: [to], reply_to: replyTo || "axclimb@gmail.com", subject, text, ...(html ? { html } : {}) }),
   });
   if (!r.ok) throw new Error(`Resend ${r.status}: ${(await r.text()).slice(0, 200)}`);
 }
