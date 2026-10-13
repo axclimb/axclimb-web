@@ -114,6 +114,8 @@ form { display: grid; gap: 8px; }
 .done > * { min-width: 0; }
 .done h2 { margin: 0; font: 900 25px/1.05 var(--sans); letter-spacing: -0.03em; }
 .done p { margin: 0; color: var(--dim); font-size: 14.5px; }
+.done p.mailhint { font-size: 12.5px; line-height: 1.45; }
+.done p.mailhint b { color: var(--ink); font-weight: 700; }
 .badge { justify-self: center; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 99px; background: linear-gradient(135deg, #F7D488, #E8B53A); color: #3A2108; font: 800 11.5px/1 var(--sans); letter-spacing: .04em; }
 .share { display: flex; align-items: center; gap: 8px; border-radius: 14px; background: rgba(245,239,230,.06); box-shadow: inset 0 0 0 1px var(--faint); padding: 6px 6px 6px 14px; text-align: left; }
 .share code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13px/1.2 var(--mono); -webkit-user-select: all; user-select: all; }
@@ -270,6 +272,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
           <span class="badge">▲ FUNDADOR</span>
           <h2 id="done-title">Ya estás dentro.</h2>
           <p>Tu luz ya está en la montaña y tu <button class="linkish inline" type="button" data-pack>Pack Fundador</button>, reservado.</p>
+          <p class="mailhint">Te hemos enviado un email de bienvenida. Si no lo ves, mira en <b>Promociones</b> o en spam, y muévelo a tu bandeja principal para no perderte el aviso del lanzamiento.</p>
           <div class="share"><code id="share-link"></code><button type="button" id="copy">Copiar</button></div>
           <div class="row2"><a class="wa" id="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="ghost" type="button" id="again">Ver la montaña</button></div>
           <button class="linkish" type="button" data-explore>Busca a tus amigos en la montaña</button>
