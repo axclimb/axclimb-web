@@ -116,6 +116,14 @@ form { display: grid; gap: 8px; }
 .done p { margin: 0; color: var(--dim); font-size: 14.5px; }
 .done p.mailhint { font-size: 12.5px; line-height: 1.45; }
 .done p.mailhint b { color: var(--ink); font-weight: 700; }
+.gyms { display: grid; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(245,239,230,.05); box-shadow: inset 0 0 0 1px var(--faint); }
+.gyms .gq { font: 800 14px/1.2 var(--sans); }
+.gchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.gchips button, .gother button { appearance: none; border: 0; cursor: pointer; min-height: 34px; padding: 0 12px; border-radius: 99px; background: rgba(245,239,230,.1); color: var(--ink); font: 700 13px/1 var(--sans); }
+.gchips button.on { background: var(--ink); color: var(--night); }
+.gother { display: flex; gap: 6px; }
+.gother input { flex: 1; min-width: 0; min-height: 34px; border-radius: 99px; border: 0; padding: 0 14px; background: rgba(245,239,230,.08); color: var(--ink); font: 500 14px var(--sans); box-shadow: inset 0 0 0 1px var(--faint); }
+.gyms .gthanks { font-size: 12.5px; color: #7EE2A0; }
 .badge { justify-self: center; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 99px; background: linear-gradient(135deg, #F7D488, #E8B53A); color: #3A2108; font: 800 11.5px/1 var(--sans); letter-spacing: .04em; }
 .share { display: flex; align-items: center; gap: 8px; border-radius: 14px; background: rgba(245,239,230,.06); box-shadow: inset 0 0 0 1px var(--faint); padding: 6px 6px 6px 14px; text-align: left; }
 .share code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13px/1.2 var(--mono); -webkit-user-select: all; user-select: all; }
@@ -273,6 +281,14 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
           <h2 id="done-title">Ya estás dentro.</h2>
           <p>Tu luz ya está en la montaña y tu <button class="linkish inline" type="button" data-pack>Pack Fundador</button>, reservado.</p>
           <p class="mailhint">Te hemos enviado un email de bienvenida. Si no lo ves, mira en <b>Promociones</b> o en spam, y muévelo a tu bandeja principal para no perderte el aviso del lanzamiento.</p>
+          <div class="gyms" id="gyms">
+            <b class="gq">¿Dónde escalas?</b>
+            <div class="gchips">
+              <button type="button" data-gym="Sputnik">Sputnik</button><button type="button" data-gym="Sharma">Sharma</button><button type="button" data-gym="Rocktown">Rocktown</button><button type="button" data-gym="Arkose">Arkose</button><button type="button" data-gym="Climbat">Climbat</button><button type="button" data-gym="The Climb">The Climb</button><button type="button" data-gym-other>Otro</button>
+            </div>
+            <form class="gother" id="gym-other" hidden><input id="gym-name" maxlength="60" autocomplete="off" placeholder="Nombre del rocódromo" aria-label="Nombre del rocódromo"><button type="submit">Enviar</button></form>
+            <p class="gthanks" id="gym-thanks" hidden></p>
+          </div>
           <div class="share"><code id="share-link"></code><button type="button" id="copy">Copiar</button></div>
           <div class="row2"><a class="wa" id="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="ghost" type="button" id="again">Ver la montaña</button></div>
           <button class="linkish" type="button" data-explore>Busca a tus amigos en la montaña</button>
@@ -580,7 +596,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     fetch("/api/kumbraWaitlist", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.value.trim(), username: v, ref: ref, website: document.getElementById("website").value })
+      body: JSON.stringify({ email: (myEmail = email.value.trim()), username: v, ref: ref, website: document.getElementById("website").value })
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (b) { return { ok: r.ok, body: b }; }); })
       .then(function (res) { if (!res.ok) throw new Error(res.body.error === "taken" || res.body.error === "exists" ? res.body.error : "server"); showDone(v, false); })
       .catch(function (err) {
@@ -589,7 +605,24 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
         submit.disabled = false; submit.textContent = "Reservar mi nombre";
       });
   });
+  var myEmail = "";
+  // "¿Dónde escalas?" after joining: optional, one tap, saved with the sign-up (the email + @ must match).
+  function setupGyms(v, preview) {
+    var box = document.getElementById("gyms"), other = document.getElementById("gym-other"), name = document.getElementById("gym-name"), thanks = document.getElementById("gym-thanks");
+    var send = function (gym, btn) {
+      gym = gym.trim().slice(0, 60); if (!gym) return;
+      [].forEach.call(box.querySelectorAll(".gchips button"), function (b) { b.classList.toggle("on", b === btn); });
+      thanks.hidden = false; thanks.textContent = "¡Gracias! Lo tenemos en cuenta para saber dónde abrir primero.";
+      if (preview || !LIVE) return;
+      fetch("/api/kumbraGym", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: myEmail, username: v, gym: gym }) }).catch(function () {});
+    };
+    [].forEach.call(box.querySelectorAll("[data-gym]"), function (b) { b.onclick = function () { other.hidden = true; send(b.getAttribute("data-gym"), b); }; });
+    var ob = box.querySelector("[data-gym-other]");
+    ob.onclick = function () { [].forEach.call(box.querySelectorAll(".gchips button"), function (b) { b.classList.toggle("on", b === ob); }); other.hidden = false; thanks.hidden = true; name.focus(); };
+    other.onsubmit = function (e) { e.preventDefault(); send(name.value, ob); other.hidden = true; };
+  }
   function showDone(v, preview) {
+    setupGyms(v, preview);
     if (document.activeElement) document.activeElement.blur();
     var link = (LIVE ? location.origin : "https://www.axclimb.com") + "/kumbra?ref=" + encodeURIComponent(v);
     document.getElementById("form-view").hidden = true;
