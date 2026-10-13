@@ -60,7 +60,7 @@ body.fog-css .fog { display: block; }
 .grain { position: fixed; inset: -50%; pointer-events: none; opacity: .07; -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 70%); mask-image: linear-gradient(to bottom, #000 45%, transparent 70%); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); animation: grain 1s steps(4) infinite; }
 @keyframes grain { 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } }
 
-.ui { position: fixed; left: 0; right: 0; top: 0; height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; padding: calc(18px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
+.ui { position: fixed; z-index: 3; left: 0; right: 0; top: 0; height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; padding: calc(18px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
 .ui > * { pointer-events: auto; }
 header { display: flex; justify-content: space-between; align-items: center; }
 .logo { display: flex; align-items: center; gap: 9px; font: 800 19px/1 var(--sans); letter-spacing: -0.02em; }
@@ -116,14 +116,14 @@ form { display: grid; gap: 8px; }
 .done p { margin: 0; color: var(--dim); font-size: 14.5px; }
 .done p.mailhint { font-size: 12.5px; line-height: 1.45; }
 .done p.mailhint b { color: var(--ink); font-weight: 700; }
-.gyms { display: grid; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(245,239,230,.05); box-shadow: inset 0 0 0 1px var(--faint); }
-.gyms .gq { font: 800 14px/1.2 var(--sans); }
-.gchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-.gchips button, .gother button { appearance: none; border: 0; cursor: pointer; min-height: 34px; padding: 0 12px; border-radius: 99px; background: rgba(245,239,230,.1); color: var(--ink); font: 700 13px/1 var(--sans); }
+.gyms { display: grid; gap: 8px; padding-top: 4px; }
+.gymstep h2 { font-size: 22px; }
+.gymstep .skip { justify-self: center; color: var(--dim); font-weight: 700; }
+.gchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
+.gchips button, .gother button { appearance: none; border: 0; cursor: pointer; min-height: 38px; padding: 0 14px; border-radius: 99px; background: rgba(245,239,230,.1); color: var(--ink); font: 700 14px/1 var(--sans); }
 .gchips button.on { background: var(--ink); color: var(--night); }
 .gother { display: flex; gap: 6px; }
 .gother input { flex: 1; min-width: 0; min-height: 34px; border-radius: 99px; border: 0; padding: 0 14px; background: rgba(245,239,230,.08); color: var(--ink); font: 500 14px var(--sans); box-shadow: inset 0 0 0 1px var(--faint); }
-.gyms .gthanks { font-size: 12.5px; color: #7EE2A0; }
 .badge { justify-self: center; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 99px; background: linear-gradient(135deg, #F7D488, #E8B53A); color: #3A2108; font: 800 11.5px/1 var(--sans); letter-spacing: .04em; }
 .share { display: flex; align-items: center; gap: 8px; border-radius: 14px; background: rgba(245,239,230,.06); box-shadow: inset 0 0 0 1px var(--faint); padding: 6px 6px 6px 14px; text-align: left; }
 .share code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13px/1.2 var(--mono); -webkit-user-select: all; user-select: all; }
@@ -186,6 +186,8 @@ form { display: grid; gap: 8px; }
 body.collapsed .done > *:not(.minibar) { display: none !important; }
 body.collapsed .minibar { display: flex; }
 body.collapsed .glass { padding: 10px 14px; }
+/* After joining the card holds more text: less see-through, so the names on the mountain behind don't mix with it. */
+.glass.isdone { background: rgba(20,14,28,.86); }
 body.collapsed .foot { display: none; }
 .explore-link { appearance: none; border: 0; background: none; cursor: pointer; color: var(--dim); font: 500 13px/1.3 var(--sans); padding: 2px 6px; }
 .explore-link b { color: var(--amber); font-weight: 800; }
@@ -276,22 +278,24 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
             <button class="go" id="submit" type="submit">Reservar mi nombre</button>
           </form>
         </div>
-        <div id="done-view" class="done" hidden>
-          <span class="badge">▲ FUNDADOR</span>
-          <h2 id="done-title">Ya estás dentro.</h2>
-          <p>Tu luz ya está en la montaña y tu <button class="linkish inline" type="button" data-pack>Pack Fundador</button>, reservado.</p>
-          <p class="mailhint">Te hemos enviado un email de bienvenida. Si no lo ves, mira en <b>Promociones</b> o en spam, y muévelo a tu bandeja principal para no perderte el aviso del lanzamiento.</p>
+        <div id="gym-view" class="done gymstep" hidden>
+          <span class="badge">▲ RESERVADO</span>
+          <h2>Última cosa: ¿dónde escalas?</h2>
+          <p>Para saber en qué rocódromos se mueve la comunidad.</p>
           <div class="gyms" id="gyms">
-            <b class="gq">¿Dónde escalas?</b>
             <div class="gchips">
               <button type="button" data-gym="Sputnik">Sputnik</button><button type="button" data-gym="Sharma">Sharma</button><button type="button" data-gym="Rocktown">Rocktown</button><button type="button" data-gym="Arkose">Arkose</button><button type="button" data-gym="Climbat">Climbat</button><button type="button" data-gym="The Climb">The Climb</button><button type="button" data-gym-other>Otro</button>
             </div>
-            <form class="gother" id="gym-other" hidden><input id="gym-name" maxlength="60" autocomplete="off" placeholder="Nombre del rocódromo" aria-label="Nombre del rocódromo"><button type="submit">Enviar</button></form>
-            <p class="gthanks" id="gym-thanks" hidden></p>
+            <form class="gother" id="gym-other" hidden><input id="gym-name" maxlength="60" autocomplete="off" placeholder="Nombre del rocódromo" aria-label="Nombre del rocódromo"><button type="submit">Seguir</button></form>
           </div>
+          <button class="linkish skip" type="button" id="gym-skip">Saltar</button>
+        </div>
+        <div id="done-view" class="done" hidden>
+          <span class="badge">▲ FUNDADOR</span>
+          <h2 id="done-title">Ya estás dentro.</h2>
+          <p>Tu <button class="linkish inline" type="button" data-pack>Pack Fundador</button> está reservado. Te lo hemos enviado por email; si no lo ves, mira en Promociones.</p>
           <div class="share"><code id="share-link"></code><button type="button" id="copy">Copiar</button></div>
-          <div class="row2"><a class="wa" id="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="ghost" type="button" id="again">Ver la montaña</button></div>
-          <button class="linkish" type="button" data-explore>Busca a tus amigos en la montaña</button>
+          <div class="row2"><a class="wa" id="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="ghost" type="button" id="again" data-explore>Ver la montaña</button></div>
           <div class="mystery"><span class="q">?</span><div><b>Trae a 3 amigos con tu enlace</b><small>Y descubre la recompensa que solo tiene quien invita.</small><div class="progress"><i></i><i></i><i></i></div></div></div>
           <p class="note" id="preview-note" hidden>Vista previa: no se ha enviado nada.</p>
           <button class="minibar" type="button" id="unfold"><span class="badge">▲</span><b id="mini-name">@tú</b><span class="mb-r">Invitar y compartir <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg></span></button>
@@ -606,27 +610,27 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
       });
   });
   var myEmail = "";
-  // "¿Dónde escalas?" after joining: optional, one tap, saved with the sign-up (the email + @ must match).
-  function setupGyms(v, preview) {
-    var box = document.getElementById("gyms"), other = document.getElementById("gym-other"), name = document.getElementById("gym-name"), thanks = document.getElementById("gym-thanks");
-    var send = function (gym, btn) {
-      gym = gym.trim().slice(0, 60); if (!gym) return;
-      [].forEach.call(box.querySelectorAll(".gchips button"), function (b) { b.classList.toggle("on", b === btn); });
-      thanks.hidden = false; thanks.textContent = "¡Gracias! Lo tenemos en cuenta para saber dónde abrir primero.";
-      if (preview || !LIVE) return;
-      fetch("/api/kumbraGym", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: myEmail, username: v, gym: gym }) }).catch(function () {});
+  // "¿Dónde escalas?": one optional question right after joining (the @ is already saved), then the card.
+  function askGym(v, preview) {
+    var form = document.getElementById("form-view"), step = document.getElementById("gym-view"), done = document.getElementById("done-view");
+    var other = document.getElementById("gym-other"), name = document.getElementById("gym-name");
+    form.hidden = true; done.hidden = true; step.hidden = false;
+    var finish = function () { step.hidden = true; done.hidden = false; };
+    var send = function (gym) {
+      gym = gym.trim().slice(0, 60);
+      if (gym && !preview && LIVE) fetch("/api/kumbraGym", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: myEmail, username: v, gym: gym }) }).catch(function () {});
+      finish();
     };
-    [].forEach.call(box.querySelectorAll("[data-gym]"), function (b) { b.onclick = function () { other.hidden = true; send(b.getAttribute("data-gym"), b); }; });
-    var ob = box.querySelector("[data-gym-other]");
-    ob.onclick = function () { [].forEach.call(box.querySelectorAll(".gchips button"), function (b) { b.classList.toggle("on", b === ob); }); other.hidden = false; thanks.hidden = true; name.focus(); };
-    other.onsubmit = function (e) { e.preventDefault(); send(name.value, ob); other.hidden = true; };
+    [].forEach.call(step.querySelectorAll("[data-gym]"), function (b) { b.onclick = function () { send(b.getAttribute("data-gym")); }; });
+    step.querySelector("[data-gym-other]").onclick = function () { other.hidden = false; name.focus(); };
+    other.onsubmit = function (e) { e.preventDefault(); send(name.value); };
+    document.getElementById("gym-skip").onclick = finish;
   }
   function showDone(v, preview) {
-    setupGyms(v, preview);
+    document.querySelector(".glass").classList.add("isdone");
     if (document.activeElement) document.activeElement.blur();
     var link = (LIVE ? location.origin : "https://www.axclimb.com") + "/kumbra?ref=" + encodeURIComponent(v);
-    document.getElementById("form-view").hidden = true;
-    document.getElementById("done-view").hidden = false;
+    askGym(v, preview);
     document.querySelector(".explore-link").hidden = true;
     document.getElementById("preview-note").hidden = !preview;
     document.getElementById("done-title").textContent = "@" + v + ", ya estás dentro.";
@@ -726,7 +730,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   packBg.addEventListener("click", function () { pack(false); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") pack(false); });
   // "Ver la montaña": the panel folds into a bar at the bottom, so the mountain is free to turn
-  document.getElementById("again").addEventListener("click", function () { document.body.classList.add("collapsed"); });
+  // "Ver la montaña" opens the mountain with the search (find your friends); × brings the card back.
   document.getElementById("unfold").addEventListener("click", function () { document.body.classList.remove("collapsed"); });
 })();
 </script>
