@@ -132,7 +132,7 @@ const PACK = [
   ["Tu @, antes que nadie", "Nadie más podrá usarlo."],
   ["Insignia Fundador", "Junto a tu nombre en el feed, tu perfil y el ranking."],
   ["Fondo de perfil «Cumbre»", "La montaña de noche como cabecera de tu perfil."],
-  ["Precio Fundador en Pro", "19,99 € al año, para siempre."],
+  ["Precio Fundador en Pro", "19,99 € tu primer año."],
   ["Y detalles solo para fundadores", "Icono secreto, paleta Atardecer, avatares y logro Fundador."],
 ];
 

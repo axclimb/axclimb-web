@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Aprobar sitio · Kumbra</title>
+<!-- Kumbra: the team approves a gym or crag someone added in the app. The link comes in the
+     place-email message (Supabase Edge Function), signed; this page shows the place and only
+     approves when the button is pressed. -->
+<style>
+  :root { --bg: #18181A; --card: #232326; --ink: #F5EFE6; --muted: #B9B1A9; --accent: #E8622D; --ok: #34C759; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: var(--bg); color: var(--ink); font: 16px/1.45 -apple-system, system-ui, sans-serif; }
+  main { width: 100%; max-width: 420px; background: var(--card); border-radius: 20px; padding: 28px 24px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 22px; }
+  .brand img { width: 28px; height: 23px; }
+  h1 { font-size: 22px; margin: 0 0 14px; text-wrap: balance; }
+  .name { font-size: 20px; font-weight: 800; margin: 0; }
+  .meta { color: var(--muted); margin: 4px 0 0; }
+  p.note { color: var(--muted); margin: 16px 0 0; }
+  button { margin-top: 22px; width: 100%; padding: 15px; border: 0; border-radius: 14px; background: var(--accent); color: #fff; font: 700 17px system-ui, sans-serif; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: default; }
+  .done { color: var(--ok); }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><img src="/kumbra/apple-touch-icon.png" alt="" onerror="this.remove()">Kumbra · Equipo</div>
+  <div id="view"><p class="meta">Cargando…</p></div>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), ref = q.get('ref') || '', id = q.get('id') || '', sig = q.get('sig') || '';
+  var view = document.getElementById('view');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); };
+  if (!/^[a-z0-9]{20}$/.test(ref) || !id || !/^[0-9a-f]{64}$/.test(sig)) { view.innerHTML = '<h1>Enlace no válido</h1><p class="meta">Este enlace no es correcto.</p>'; return; }
+  var api = 'https://' + ref + '.supabase.co/functions/v1/place-email?id=' + encodeURIComponent(id) + '&sig=' + sig;
+  var place = function (p) { return '<p class="name">' + esc(p.name) + '</p><p class="meta">' + esc(p.kind) + (p.city ? ' · ' + esc(p.city) : '') + (p.region ? ', ' + esc(p.region) : '') + '</p>'; };
+  var fail = function (r) {
+    var msg = r && r.error === 'gone' ? 'Este sitio ya no existe.' : r && r.error === 'invalid' ? 'Este enlace no es correcto.' : 'No se ha podido cargar. Inténtalo otra vez.';
+    view.innerHTML = '<h1>Algo no ha ido bien</h1><p class="meta">' + msg + '</p>';
+  };
+  var show = function (p) {
+    if (p.status === 'approved') {
+      view.innerHTML = '<h1 class="done">' + (p.justApproved ? 'Aprobado ✓' : 'Ya está aprobado') + '</h1>' + place(p) + '<p class="note">Ya lo encuentra todo el mundo en Kumbra.</p>';
+      return;
+    }
+    view.innerHTML = '<h1>¿Aprobar este sitio?</h1>' + place(p) + '<p class="note">Comprueba que existe y que no está repetido. Al aprobarlo, todo el mundo lo encontrará en el buscador.</p><button id="go">Aprobar</button>';
+    document.getElementById('go').onclick = function () {
+      this.disabled = true; this.textContent = 'Aprobando…';
+      fetch(api, { method: 'POST' }).then(function (r) { return r.json(); }).then(function (r) { r.error ? fail(r) : show(r); }).catch(function () { fail(); });
+    };
+  };
+  fetch(api).then(function (r) { return r.json(); }).then(function (r) { r.error ? fail(r) : show(r); }).catch(function () { fail(); });
+})();
+</script>
+</body>
+</html>
