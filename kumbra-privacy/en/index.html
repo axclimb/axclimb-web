@@ -115,7 +115,7 @@ footer.site a { color: var(--muted); }
 
   <main class="wrap">
     <h1>Privacy Policy</h1>
-    <p class="muted">Last updated: 9 October 2026</p>
+    <p class="muted">Last updated: 14 October 2026</p>
 
     <p>
       This privacy policy governs the processing of the personal data of users of the Kumbra mobile application
@@ -138,8 +138,8 @@ footer.site a { color: var(--muted); }
         <thead><tr><th>Data category</th><th>Source</th><th>Purpose</th></tr></thead>
         <tbody>
           <tr>
-            <td><strong>Account data:</strong> email address, password (stored in encrypted form), first name, first surname and username.</td>
-            <td>Provided by the user when registering or when updating their personal details.</td>
+            <td><strong>Account data:</strong> email address, password (stored in encrypted form), first name, first surname and username. If the user signs in with Apple or Google, the account identifier and email (or Apple's relay email) provided by that provider, instead of the password.</td>
+            <td>Provided by the user when registering or when updating their personal details, or by Apple or Google when the user chooses to sign in with them.</td>
             <td>Creating and managing the account, authentication, password recovery and displaying the profile.</td>
           </tr>
           <tr>
@@ -153,9 +153,24 @@ footer.site a { color: var(--muted); }
             <td>Displaying them with the session on the user's profile and, if the user so chooses, in other users' feeds. They are reduced in size on the device before being uploaded.</td>
           </tr>
           <tr>
-            <td><strong>Social interaction data:</strong> users followed and followers, recognitions ("kudos"), muted or blocked users, reports submitted and their reason, and favourite places.</td>
+            <td><strong>Social interaction data:</strong> users followed and followers, recognitions ("kudos"), comments on sessions and their likes, challenges between friends (created or joined), muted or blocked users, reports submitted and their reason, and favourite places.</td>
             <td>Generated through use of the App.</td>
             <td>Providing the social features, enforcing blocks and mutes, and reviewing reports to keep the community safe.</td>
+          </tr>
+          <tr>
+            <td><strong>Private messages:</strong> conversations (one-to-one or group) with other users, their content, participants and date, and message requests accepted or declined.</td>
+            <td>Written by the user in the App.</td>
+            <td>Delivering messages to the participants of the conversation. Only the participants see them; an automatic filter for offensive content applies, and blocking stops messages from the blocked user.</td>
+          </tr>
+          <tr>
+            <td><strong>Kumbra Pro subscription data:</strong> plan, status, start and renewal dates and the store's purchase identifier. No payment details are received.</td>
+            <td>The App Store or Google Play, when the user subscribes or restores a purchase.</td>
+            <td>Enabling Kumbra Pro features on the user's account and handling subscription issues.</td>
+          </tr>
+          <tr>
+            <td><strong>Moderation data:</strong> reports received and, where applicable, account suspension and its duration.</td>
+            <td>Generated when reviewing reports.</td>
+            <td>Enforcing the community rules (terms of use) and preventing abuse.</td>
           </tr>
           <tr>
             <td><strong>Places added by the user:</strong> name of the gym or crag, town, province, discipline and, optionally, its location.</td>
@@ -165,7 +180,7 @@ footer.site a { color: var(--muted); }
           <tr>
             <td><strong>Notification data:</strong> the device's notification identifier, language, App version and notification preferences.</td>
             <td>The user's device, with prior authorisation.</td>
-            <td>Sending notifications about social activity (kudos and new followers).</td>
+            <td>Sending notifications about social activity (kudos, new followers, comments and messages) and the reminders the user turns on.</td>
           </tr>
         </tbody>
       </table>
@@ -188,8 +203,25 @@ footer.site a { color: var(--muted); }
     <p>The following data is processed exclusively on the user's device and is not transmitted to the Controller's servers:</p>
     <ul>
       <li><strong>Location</strong>, used only when the user looks for nearby places, unless the user chooses to attach it to a place they add.</li>
-      <li><strong>Apple Health data</strong> (heart rate, active energy and workouts), read only if the user enables the connection and solely to show the user the data of their sessions. The App does not write data to Apple Health or use it for advertising. As an exception, the metres climbed that the user chooses to save with a session are stored together with it.</li>
+      <li><strong>Heart rate and calories</strong> read from Apple Health or Health Connect (see "Health data").</li>
       <li><strong>Reminders</strong> and the Live Activity on the lock screen.</li>
+    </ul>
+
+    <h3 id="health-data">Health data</h3>
+    <p>
+      If the user so chooses, the App reads from Apple Health (iPhone) or Health Connect (Android) the data their
+      watch records while they climb: <strong>heart rate, active energy (calories), metres climbed and climbing
+      workouts</strong> (start and duration). Some of this is data concerning health, a special category of data
+      (Art. 9 GDPR).
+    </p>
+    <ul>
+      <li><strong>Purpose</strong>: showing the user the heart rate, zones and calories of their sessions and suggesting they log a session when their watch records a climbing workout.</li>
+      <li><strong>Legal basis</strong>: the user's explicit consent (Art. 9(2)(a) GDPR), collected on a dedicated screen in the App, with a box the user must tick, before the operating system asks for read permissions. The system permissions do not replace this consent. Giving consent is voluntary: the App works the same without it, and it does not depend on the Pro subscription.</li>
+      <li><strong>Where it is processed</strong>: heart rate and calories are processed only on the user's device; they are not sent to the Controller's servers and other users do not see them. The workout's duration is saved with the session if the user logs the session with it. Metres climbed are only saved with the session if the user expressly turns on "Save the watch's metres" in Settings; in that case whoever can see the session sees them. Whatever is saved with the session is hosted by Supabase in the European Union (Frankfurt, Germany).</li>
+      <li><strong>Writing</strong>: the Kumbra app for Apple Watch saves the sessions the user does with the watch to Apple Health as climbing workouts. The App writes no other data to Apple Health or Health Connect.</li>
+      <li><strong>Excluded uses</strong>: this data is not used for advertising, analytics or usage metrics, is not sold and is not shared with third parties.</li>
+      <li><strong>Retention</strong>: whatever is saved with a session is kept for as long as the session or the account exists. Data processed on the device is not stored on the Controller's servers.</li>
+      <li><strong>Withdrawing consent</strong>: at any time, from Settings → Apple Health (iPhone) or Settings → Health Connect (Android). The App then stops reading this data and deletes from its servers the metres climbed saved with the user's sessions. Turning off "Save the watch's metres" deletes them as well. System permissions can also be revoked in the Health app or in Health Connect. Withdrawal does not affect the lawfulness of processing carried out beforehand.</li>
     </ul>
 
     <h3>Usage metrics</h3>
@@ -202,9 +234,9 @@ footer.site a { color: var(--muted); }
 
     <h3>Device permissions</h3>
     <p>
-      The App requests access to the camera, microphone, photos, location (only while in use), Apple Health (read
-      only) and notifications only when needed for the corresponding feature. Users may refuse or revoke these
-      permissions at any time in the iOS settings.
+      The App requests access to the camera, microphone, photos, location (only while in use), Apple Health or
+      Health Connect (read) and notifications only when needed for the corresponding feature. Users may refuse or
+      revoke these permissions at any time in their device settings (iOS or Android).
     </p>
 
     <p>
@@ -216,7 +248,8 @@ footer.site a { color: var(--muted); }
     <p>
       Kumbra is a social network. The user's first name, the initial of their first surname, username, avatar, level,
       followers and following, and sessions (including their notes) are visible to other users of the App on the
-      profile, in the feed, on place pages and in the rankings. The email address is never shown to other users. A
+      profile, in the feed, on place pages and in the rankings. The email address is never shown to other users. Comments are shown with the
+      session to whoever can see it. Private messages are only seen by the participants of the conversation. A
       session's photos and videos are shown to other users unless the user chooses to show them only on their own
       profile. If the user shares a session on other platforms, it is done at their own decision and through the
       third-party app they choose. Blocked users lose access to the profile and activity of the user who blocked them.
@@ -225,7 +258,8 @@ footer.site a { color: var(--muted); }
     <h2>4. Legal basis for processing</h2>
     <ul>
       <li><strong>Performance of a contract</strong> (Art. 6(1)(b) GDPR): account, sports activity and social interaction data, necessary to provide the requested service.</li>
-      <li><strong>Consent</strong> (Art. 6(1)(a) GDPR): notifications, location and Apple Health. Consent may be withdrawn at any time, without affecting the lawfulness of processing carried out beforehand.</li>
+      <li><strong>Consent</strong> (Art. 6(1)(a) GDPR): notifications and location. Consent may be withdrawn at any time, without affecting the lawfulness of processing carried out beforehand.</li>
+      <li><strong>Explicit consent</strong> (Art. 9(2)(a) GDPR): health data from Apple Health and Health Connect, as detailed in "Health data".</li>
       <li><strong>Legitimate interest</strong> (Art. 6(1)(f) GDPR): handling reports, preventing abuse, keeping the service secure and anonymous usage metrics to improve it.</li>
       <li><strong>Compliance with legal obligations</strong> (Art. 6(1)(c) GDPR), where applicable.</li>
     </ul>
@@ -236,7 +270,8 @@ footer.site a { color: var(--muted); }
       <li><strong>Supabase, Inc.</strong>: database hosting, account management and sending account emails. Data is hosted in the European Union (Frankfurt, Germany).</li>
       <li><strong>Cloudflare, Inc.</strong>: storage and delivery of session photos and videos, which can only be accessed through signed, time-limited links.</li>
       <li><strong>Resend, Inc.</strong>: sending account emails and internal report alerts.</li>
-      <li><strong>Apple Inc.</strong>: delivery of notifications to the device.</li>
+      <li><strong>Apple Inc.</strong>: delivery of notifications on iPhone, Sign in with Apple and billing of the Kumbra Pro subscription on the App Store.</li>
+      <li><strong>Google LLC</strong>: delivery of notifications on Android (Firebase Cloud Messaging), Sign in with Google and billing of the Kumbra Pro subscription on Google Play.</li>
       <li><strong>Google LLC</strong> (Gmail) and <strong>Vercel Inc.</strong>: receiving waiting-list sign-ups and sending the confirmation email, and hosting the sign-up page, respectively.</li>
     </ul>
     <p>
@@ -248,7 +283,7 @@ footer.site a { color: var(--muted); }
     <h2>6. Retention period</h2>
     <p>
       Data is kept for as long as the account remains active. When the user deletes their account from the App
-      (Settings → Delete account), the account, profile, sessions, social activity, photos, videos and registered
+      (Settings → Delete account), the account, profile, sessions (including the metres climbed saved with them), social activity, photos, videos and registered
       devices are deleted immediately. Videos are deleted automatically twelve months after being published, and only
       their preview image is kept. The provider's backups are overwritten within a maximum of 30 days. Data stored only
       on the device is deleted when the App is uninstalled.

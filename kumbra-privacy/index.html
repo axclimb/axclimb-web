@@ -115,7 +115,7 @@ footer.site a { color: var(--muted); }
 
   <main class="wrap">
     <h1>Política de privacidad</h1>
-    <p class="muted">Última actualización: 9 de octubre de 2026</p>
+    <p class="muted">Última actualización: 14 de octubre de 2026</p>
 
     <p>
       La presente política de privacidad regula el tratamiento de los datos personales de los usuarios de la
@@ -138,8 +138,8 @@ footer.site a { color: var(--muted); }
         <thead><tr><th>Categoría de datos</th><th>Origen</th><th>Finalidad</th></tr></thead>
         <tbody>
           <tr>
-            <td><strong>Datos de la cuenta:</strong> correo electrónico, contraseña (almacenada de forma cifrada), nombre, primer apellido y nombre de usuario.</td>
-            <td>Facilitados por el usuario en el registro o al modificar sus datos personales.</td>
+            <td><strong>Datos de la cuenta:</strong> correo electrónico, contraseña (almacenada de forma cifrada), nombre, primer apellido y nombre de usuario. Si el usuario entra con Apple o Google, el identificador de la cuenta y el correo (o el correo de reenvío de Apple) que facilita ese proveedor, en lugar de la contraseña.</td>
+            <td>Facilitados por el usuario en el registro o al modificar sus datos personales, o por Apple o Google cuando el usuario elige iniciar sesión con ellos.</td>
             <td>Alta y gestión de la cuenta, autenticación, recuperación de la contraseña y visualización del perfil.</td>
           </tr>
           <tr>
@@ -153,9 +153,24 @@ footer.site a { color: var(--muted); }
             <td>Mostrarlos junto a la sesión en el perfil del usuario y, si este así lo elige, en el feed de otros usuarios. Antes de su envío se reducen de tamaño en el dispositivo.</td>
           </tr>
           <tr>
-            <td><strong>Datos de interacción social:</strong> usuarios seguidos y seguidores, reconocimientos («kudos»), usuarios silenciados o bloqueados, denuncias enviadas y su motivo, y lugares favoritos.</td>
+            <td><strong>Datos de interacción social:</strong> usuarios seguidos y seguidores, reconocimientos («kudos»), comentarios en las sesiones y sus «me gusta», retos entre amigos (creados o a los que se une el usuario), usuarios silenciados o bloqueados, denuncias enviadas y su motivo, y lugares favoritos.</td>
             <td>Generados por el uso de la Aplicación.</td>
             <td>Prestación de las funciones sociales, aplicación de los bloqueos y silencios, y revisión de denuncias para garantizar la seguridad de la comunidad.</td>
+          </tr>
+          <tr>
+            <td><strong>Mensajes privados:</strong> conversaciones (individuales o de grupo) con otros usuarios, su contenido, participantes y fecha, y las solicitudes de mensaje aceptadas o rechazadas.</td>
+            <td>Escritos por el usuario en la Aplicación.</td>
+            <td>Entregar los mensajes a los participantes de la conversación. Solo los ven los participantes; se aplica un filtro automático de contenido ofensivo y los bloqueos impiden recibir mensajes del usuario bloqueado.</td>
+          </tr>
+          <tr>
+            <td><strong>Datos de la suscripción Kumbra Pro:</strong> plan, estado, fechas de inicio y renovación e identificador de la compra en la tienda. No se reciben datos de pago.</td>
+            <td>El App Store o Google Play, cuando el usuario se suscribe o restaura una compra.</td>
+            <td>Activar las funciones de Kumbra Pro en la cuenta del usuario y atender incidencias con la suscripción.</td>
+          </tr>
+          <tr>
+            <td><strong>Datos de moderación:</strong> denuncias recibidas y, en su caso, suspensión de la cuenta y su duración.</td>
+            <td>Generados al revisar denuncias.</td>
+            <td>Aplicar las normas de la comunidad (términos de uso) y prevenir abusos.</td>
           </tr>
           <tr>
             <td><strong>Lugares añadidos por el usuario:</strong> nombre del rocódromo o zona, localidad, provincia, modalidad y, opcionalmente, su ubicación.</td>
@@ -165,7 +180,7 @@ footer.site a { color: var(--muted); }
           <tr>
             <td><strong>Datos de notificaciones:</strong> identificador de notificaciones del dispositivo, idioma, versión de la Aplicación y preferencias de aviso.</td>
             <td>Dispositivo del usuario, previa autorización.</td>
-            <td>Envío de notificaciones sobre la actividad social (reconocimientos y nuevos seguidores).</td>
+            <td>Envío de notificaciones sobre la actividad social (reconocimientos, nuevos seguidores, comentarios y mensajes) y de los recordatorios que el usuario activa.</td>
           </tr>
         </tbody>
       </table>
@@ -191,8 +206,25 @@ footer.site a { color: var(--muted); }
     <p>Los siguientes datos se tratan exclusivamente en el dispositivo del usuario y no se transmiten a los servidores del Responsable:</p>
     <ul>
       <li><strong>Ubicación</strong>, utilizada únicamente cuando el usuario solicita los lugares cercanos, salvo que decida asociarla a un lugar que añade.</li>
-      <li><strong>Datos de Apple Salud</strong> (frecuencia cardiaca, energía activa y entrenamientos), leídos solo si el usuario activa la conexión, con la única finalidad de mostrarle los datos de sus sesiones. La Aplicación no escribe datos en Apple Salud ni los utiliza con fines publicitarios. Como excepción, los metros escalados que el usuario decida guardar con una sesión se almacenan junto a esta.</li>
+      <li><strong>Frecuencia cardiaca y calorías</strong> leídas de Apple Salud o Health Connect (ver «Datos de salud»).</li>
       <li><strong>Recordatorios</strong> y actividad en directo de la pantalla de bloqueo.</li>
+    </ul>
+
+    <h3 id="datos-de-salud">Datos de salud</h3>
+    <p>
+      Si el usuario lo decide, la Aplicación lee de Apple Salud (iPhone) o de Health Connect (Android) los datos que
+      registra su reloj mientras escala: <strong>frecuencia cardiaca, energía activa (calorías), metros escalados y
+      entrenamientos de escalada</strong> (inicio y duración). Algunos de ellos son datos relativos a la salud, una
+      categoría especial de datos (art. 9 RGPD).
+    </p>
+    <ul>
+      <li><strong>Finalidad</strong>: mostrar al usuario el pulso, las zonas y las calorías de sus sesiones y proponerle registrar una sesión cuando su reloj registra un entrenamiento de escalada.</li>
+      <li><strong>Base jurídica</strong>: el consentimiento explícito del usuario (art. 9.2.a RGPD), que se recoge en una pantalla propia de la Aplicación, con una casilla que el usuario debe marcar, antes de que el sistema operativo solicite los permisos de lectura. Los permisos del sistema no sustituyen a este consentimiento. Dar el consentimiento es voluntario: la Aplicación funciona igual sin él, y no depende de la suscripción Pro.</li>
+      <li><strong>Dónde se tratan</strong>: la frecuencia cardiaca y las calorías se tratan solo en el dispositivo del usuario y no se transmiten a los servidores del Responsable ni las ven otros usuarios. La duración del entrenamiento se guarda con la sesión si el usuario la registra con ella. Los metros escalados solo se guardan con la sesión si el usuario activa expresamente «Guardar los metros del reloj» en Ajustes; en ese caso los ven quienes pueden ver la sesión. Lo que se guarda con la sesión se aloja en Supabase, en la Unión Europea (Fráncfort, Alemania).</li>
+      <li><strong>Escritura</strong>: la aplicación de Kumbra para Apple Watch guarda en Apple Salud, como entrenamiento de escalada, las sesiones que el usuario hace con el reloj. La Aplicación no escribe ningún otro dato en Apple Salud ni en Health Connect.</li>
+      <li><strong>Usos excluidos</strong>: estos datos no se utilizan con fines publicitarios ni de analítica o métricas de uso, no se venden y no se ceden a terceros.</li>
+      <li><strong>Conservación</strong>: lo guardado con una sesión se conserva mientras exista la sesión o la cuenta. Lo tratado en el dispositivo no se almacena en los servidores del Responsable.</li>
+      <li><strong>Retirada del consentimiento</strong>: en cualquier momento, desde Ajustes → Apple Salud (iPhone) o Ajustes → Health Connect (Android). Al retirarlo, la Aplicación deja de leer estos datos y elimina de los servidores los metros escalados guardados con las sesiones del usuario. Desactivar «Guardar los metros del reloj» los elimina igualmente. Los permisos del sistema pueden revocarse además desde la app Salud o desde Health Connect. La retirada no afecta a la licitud del tratamiento previo.</li>
     </ul>
 
     <h3>Métricas de uso</h3>
@@ -206,8 +238,9 @@ footer.site a { color: var(--muted); }
     <h3>Permisos del dispositivo</h3>
     <p>
       La Aplicación solicita los permisos de cámara, micrófono, fotografías, ubicación (solo durante su uso), Apple
-      Salud (solo lectura) y notificaciones únicamente cuando son necesarios para la función correspondiente. El
-      usuario puede denegarlos o revocarlos en cualquier momento desde los ajustes de iOS.
+      Salud o Health Connect (lectura) y notificaciones únicamente cuando son necesarios para la función
+      correspondiente. El usuario puede denegarlos o revocarlos en cualquier momento desde los ajustes de su
+      dispositivo (iOS o Android).
     </p>
 
     <p>
@@ -220,7 +253,8 @@ footer.site a { color: var(--muted); }
       Kumbra es una red social. El nombre, la inicial del primer apellido, el nombre de usuario, el avatar, el nivel,
       los seguidores y seguidos y las sesiones (incluidas sus notas) son visibles para el resto de usuarios de la
       Aplicación en el perfil, en el feed, en las páginas de los lugares y en las clasificaciones. La dirección de
-      correo electrónico no se muestra a ningún usuario. Las fotografías y los vídeos de una sesión se muestran a
+      correo electrónico no se muestra a ningún usuario. Los comentarios se muestran junto a la sesión a quien pueda
+      verla. Los mensajes privados solo los ven los participantes de la conversación. Las fotografías y los vídeos de una sesión se muestran a
       otros usuarios salvo que el usuario elija mostrarlos solo en su propio perfil. Si el usuario comparte una sesión
       en otras plataformas, dicha difusión se realiza por su decisión y a través de la aplicación de terceros que elija.
       Los usuarios bloqueados dejan de tener acceso al perfil y a la actividad de quien los ha bloqueado.
@@ -229,7 +263,8 @@ footer.site a { color: var(--muted); }
     <h2>4. Base jurídica del tratamiento</h2>
     <ul>
       <li><strong>Ejecución de un contrato</strong> (art. 6.1.b RGPD): datos de la cuenta, de actividad deportiva y de interacción social, necesarios para prestar el servicio solicitado.</li>
-      <li><strong>Consentimiento</strong> (art. 6.1.a RGPD): notificaciones, ubicación y Apple Salud. El consentimiento puede retirarse en cualquier momento, sin que ello afecte a la licitud del tratamiento previo.</li>
+      <li><strong>Consentimiento</strong> (art. 6.1.a RGPD): notificaciones y ubicación. El consentimiento puede retirarse en cualquier momento, sin que ello afecte a la licitud del tratamiento previo.</li>
+      <li><strong>Consentimiento explícito</strong> (art. 9.2.a RGPD): datos de salud de Apple Salud y Health Connect, como se detalla en «Datos de salud».</li>
       <li><strong>Interés legítimo</strong> (art. 6.1.f RGPD): gestión de denuncias, prevención de abusos, seguridad del servicio y métricas de uso anónimas para mejorarlo.</li>
       <li><strong>Cumplimiento de obligaciones legales</strong> (art. 6.1.c RGPD), cuando proceda.</li>
     </ul>
@@ -240,7 +275,8 @@ footer.site a { color: var(--muted); }
       <li><strong>Supabase, Inc.</strong>: alojamiento de la base de datos, gestión de cuentas y envío de los correos electrónicos de la cuenta. Los datos se alojan en la Unión Europea (Fráncfort, Alemania).</li>
       <li><strong>Cloudflare, Inc.</strong>: almacenamiento y distribución de las fotografías y los vídeos de las sesiones, a los que solo se accede mediante enlaces firmados y de validez limitada.</li>
       <li><strong>Resend, Inc.</strong>: envío de los correos electrónicos de la cuenta y de los avisos internos de denuncias.</li>
-      <li><strong>Apple Inc.</strong>: entrega de las notificaciones en el dispositivo.</li>
+      <li><strong>Apple Inc.</strong>: entrega de las notificaciones en iPhone, inicio de sesión con Apple y cobro de la suscripción Kumbra Pro en el App Store.</li>
+      <li><strong>Google LLC</strong>: entrega de las notificaciones en Android (Firebase Cloud Messaging), inicio de sesión con Google y cobro de la suscripción Kumbra Pro en Google Play.</li>
       <li><strong>Google LLC</strong> (Gmail) y <strong>Vercel Inc.</strong>: recepción de las inscripciones en la lista de espera y envío del correo de confirmación, y alojamiento de la página de inscripción, respectivamente.</li>
     </ul>
     <p>
@@ -253,7 +289,7 @@ footer.site a { color: var(--muted); }
     <h2>6. Plazo de conservación</h2>
     <p>
       Los datos se conservan mientras la cuenta permanezca activa. Cuando el usuario elimina su cuenta desde la
-      Aplicación (Ajustes → Eliminar cuenta), se suprimen de inmediato la cuenta, el perfil, las sesiones, la actividad
+      Aplicación (Ajustes → Eliminar cuenta), se suprimen de inmediato la cuenta, el perfil, las sesiones (incluidos los metros escalados guardados con ellas), la actividad
       social, las fotografías, los vídeos y los dispositivos registrados. Los vídeos se eliminan automáticamente
       transcurridos doce meses desde su publicación, conservándose solo su imagen de vista previa. Las copias de seguridad del proveedor se
       sobrescriben en un plazo máximo de 30 días. Los datos almacenados únicamente en el dispositivo se eliminan al desinstalar la Aplicación.
