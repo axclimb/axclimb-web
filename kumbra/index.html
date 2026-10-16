@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kumbra</title>
-  <meta name="description" content="Algo se mueve en tu rocódromo. La red social de la escalada, muy pronto. Reserva tu nombre antes que nadie.">
+  <meta name="description" content="Algo se mueve en tu rocódromo. La red social de escalada, muy pronto. Reserva tu nombre antes que nadie.">
   <meta property="og:title" content="Kumbra · Algo se mueve en tu rocódromo">
-  <meta property="og:description" content="La red social de la escalada. Muy pronto. Reserva tu @ antes que nadie.">
+  <meta property="og:description" content="La red social de escalada. Muy pronto. Reserva tu @ antes que nadie.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.axclimb.com/kumbra">
   <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg">
@@ -63,7 +63,7 @@ body.fog-css .fog { display: block; }
 .ui { position: fixed; z-index: 3; left: 0; right: 0; top: 0; height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; padding: calc(18px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
 .ui > * { pointer-events: auto; }
 header { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 9px; font: 800 19px/1 var(--sans); letter-spacing: -0.02em; }
+.logo { color: inherit; text-decoration: none; pointer-events: auto; -webkit-tap-highlight-color: transparent; display: flex; align-items: center; gap: 9px; font: 800 19px/1 var(--sans); letter-spacing: -0.02em; }
 .logo svg { width: 24px; height: 20px; }
 .mono { font: 500 11px/1.4 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
 
@@ -137,9 +137,9 @@ form { display: grid; gap: 8px; }
 .locked svg { width: 22px; height: 22px; flex: none; color: var(--amber); }
 .note { margin: 0; font-size: 11.5px; color: rgba(245,239,230,.4); }
 
-.tag { position: fixed; left: 0; top: 0; z-index: 2; pointer-events: none; transform: translate(-50%, -100%); opacity: 0; transition: opacity .6s; }
+.tag { position: fixed; left: 0; top: 0; z-index: 2; pointer-events: none; transform: translate(-50%, -100%); opacity: 0; transition: opacity .6s; will-change: transform; }
 .tag.on { opacity: 1; }
-.otag { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .5s; }
+.otag { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .5s; will-change: transform; }
 .otag.on { opacity: 1; }
 .otag span { display: block; transform: translate(-50%, -100%); margin-top: -8px; padding: 3px 7px; border-radius: 99px; background: rgba(14,11,22,.6); font: 700 10.5px/1 var(--sans); color: rgba(245,239,230,.9); white-space: nowrap; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .tag span { display: block; margin-bottom: 16px; padding: 6px 10px; border-radius: 99px; background: rgba(14,11,22,.75); box-shadow: inset 0 0 0 1px rgba(242,180,74,.5); font: 800 12px/1 var(--sans); color: var(--amber); white-space: nowrap; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
@@ -220,6 +220,8 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 .perks2 svg { width: 40px; height: 40px; }
 .perks2 b { display: block; font: 800 14px/1.2 var(--sans); }
 .perks2 small { display: block; color: var(--dim); font-size: 12.5px; margin-top: 2px; }
+.perks2 .price s { text-decoration-thickness: 1.5px; opacity: .75; }
+.perks2 .price em { font-style: normal; font-weight: 800; color: var(--amber); }
 .mystery { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: center; margin-top: 16px; padding: 12px 14px; border-radius: 18px; background: repeating-linear-gradient(135deg, rgba(242,180,74,.08) 0 7px, transparent 7px 14px); box-shadow: inset 0 0 0 1px rgba(242,180,74,.4); text-align: left; }
 @keyframes qpulse { 50% { box-shadow: inset 0 0 0 2px rgba(242,180,74,.25), 0 0 18px rgba(242,180,74,.35); } }
 .mystery .q { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 900 22px/1 var(--sans); color: var(--amber); box-shadow: inset 0 0 0 2px rgba(242,180,74,.7); animation: qpulse 2.4s ease-in-out infinite; }
@@ -250,12 +252,12 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 
   <div class="ui">
     <header>
-      <div class="logo"><svg viewBox="120 200 784 640" aria-hidden="true"><defs><linearGradient id="kl" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A"/><stop offset=".42" stop-color="#E5484D"/><stop offset="1" stop-color="#382562"/></linearGradient></defs><path d="M139.6,820 Q355.6,628 512,220 Q668.4,628 884.4,820 Z" fill="url(#kl)"/><path d="M427.1,416.6 L512,220 L596.9,416.6 L549.4,380.4 L515.4,431.1 L478,385.8 Z" fill="#fff"/></svg>Kumbra</div>
+      <a class="logo" href="/kumbra" id="logo" aria-label="Kumbra, volver al inicio"><svg viewBox="120 200 784 640" aria-hidden="true"><defs><linearGradient id="kl" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A"/><stop offset=".42" stop-color="#E5484D"/><stop offset="1" stop-color="#382562"/></linearGradient></defs><path d="M139.6,820 Q355.6,628 512,220 Q668.4,628 884.4,820 Z" fill="url(#kl)"/><path d="M427.1,416.6 L512,220 L596.9,416.6 L549.4,380.4 L515.4,431.1 L478,385.8 Z" fill="#fff"/></svg>Kumbra</a>
       <span class="mono">Muy pronto</span>
     </header>
 
     <section class="title">
-      <span class="mono kicker"><i></i>La red social de la escalada</span>
+      <span class="mono kicker"><i></i>La red social de escalada</span>
       <h1 id="h1">Algo se mueve en tu rocódromo.</h1>
       <p class="whisper" id="whisper">&nbsp;</p>
     </section>
@@ -325,7 +327,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     </div>
     <div class="group"><span class="mono">Y solo para ti</span>
       <div class="perks2">
-        <div><svg viewBox="0 0 54 54"><rect x="3" y="15" width="38" height="24" rx="12" fill="none" stroke="#F5EFE6" stroke-opacity=".6" stroke-width="2"/><text x="22" y="31.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="11" fill="#F5EFE6">PRO</text><circle cx="41" cy="14" r="11" fill="#F2B44A"/><text x="41" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="11" fill="#3A2108">%</text></svg><span><b>Precio Fundador en Pro</b><small>19,99 € tu primer año.</small></span></div>
+        <div><svg viewBox="0 0 54 54"><rect x="3" y="15" width="38" height="24" rx="12" fill="none" stroke="#F5EFE6" stroke-opacity=".6" stroke-width="2"/><text x="22" y="31.5" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="11" fill="#F5EFE6">PRO</text><circle cx="41" cy="14" r="11" fill="#F2B44A"/><text x="41" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="11" fill="#3A2108">%</text></svg><span><b>Precio Fundador en Pro</b><small class="price">Pro anual: <s>29,99 €</s> <em>19,99 €</em> tu primer año.</small></span></div>
         <div><svg viewBox="0 0 54 54"><defs><linearGradient id="pk3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B1531"/><stop offset="1" stop-color="#0E0B16"/></linearGradient><linearGradient id="pk4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF4E2"/><stop offset=".45" stop-color="#E8622D"/><stop offset="1" stop-color="#382562"/></linearGradient></defs><rect x="4" y="4" width="46" height="46" rx="12" fill="url(#pk3)" stroke="rgba(242,180,74,.6)"/><path d="M10 42 Q21 34 27 13 Q33 34 44 42Z" fill="url(#pk4)"/></svg><span><b>Detalles solo para fundadores</b><small>Icono secreto, paleta Atardecer, avatares y logro Fundador.</small></span></div>
       </div>
     </div>
@@ -419,6 +421,13 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     lit = { start: 0 };
     lit.loaded = false;
     lit.explore = function (on) { if (on && !exploreStart) exploreStart = performance.now(); if (!on && !lit.start) exploreStart = 0; };
+    /** Lights [name] if it isn't on the mountain (found by the search among everyone, not only the lit ones). */
+    lit.light = function (name) {
+      if (others.some(function (o) { return o.name === name; })) return;
+      var was = lit.loaded; lit.loaded = true;
+      lit.others([name]);
+      lit.loaded = was || lit.loaded;
+    };
     lit.find = function (q) {
       hitName = null; if (!q) return { total: others.length, found: null };
       var match = others.filter(function (o) { return o.name === q; })[0] || others.filter(function (o) { return o.name.indexOf(q) === 0; })[0] || others.filter(function (o) { return o.name.indexOf(q) >= 0; })[0];
@@ -436,23 +445,40 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     var others = [], otagBox = document.getElementById("otags"), dimGlow = glowTex();
     function normalAt(x, z) { var e = 0.06; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); }
     function seeded(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return function () { h = Math.imul(h ^ (h >>> 15), 2246822507); h = Math.imul(h ^ (h >>> 13), 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
+    // The mountain shows at most MAX_LIGHTS at once (the newest); anyone else lights up when searched for.
+    var MAX_LIGHTS = 120, lightSeq = 0;
+    function dropLight(o) { scene.remove(o.sp); o.sp.material.dispose(); o.el.remove(); others.splice(others.indexOf(o), 1); }
+    // Room for [n] more: the lights added longest ago go (never the one found by the search).
+    function makeRoom(n) {
+      while (others.length && others.length + n > MAX_LIGHTS) {
+        var oldest = null;
+        others.forEach(function (o) { if (o.name !== hitName && (!oldest || o.seq < oldest.seq)) oldest = o; });
+        if (!oldest) break;
+        dropLight(oldest);
+      }
+    }
     lit.others = function (names) {
-      if (lit.loaded) return; lit.loaded = true;
+      var first = !lit.loaded; lit.loaded = true;
       if (!ambientStart) ambientStart = performance.now();
-      names.slice(0, 120).forEach(function (name, i) {
+      var known = {}; others.forEach(function (o) { known[o.name] = true; });
+      // Newest first: the first MAX_LIGHTS; someone who joins while the page is open lights up now, without reloading.
+      var fresh = names.filter(function (n) { return !known[n]; }).slice(0, MAX_LIGHTS);
+      makeRoom(fresh.length);
+      var base = lightSeq + fresh.length; lightSeq = base;
+      fresh.forEach(function (name, i) {
         var rnd = seeded(name), ang = rnd() * Math.PI * 2, f = 0.12 + rnd() * 0.66, target = peak.y * f, pt = null;
         for (var r = 0.1; r < 14; r += 0.03) { var x = peak.x + Math.sin(ang) * r, z = peak.z + Math.cos(ang) * r; if (heightAt(x, z) <= target) { pt = new THREE.Vector3(x, heightAt(x, z) + 0.08, z); break; } }
         if (!pt) return;
         var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: dimGlow, transparent: true, depthWrite: false, fog: false, opacity: 0 })); sp.position.copy(pt); sp.scale.setScalar(0.32); scene.add(sp);
         var el = document.createElement("div"); el.className = "otag"; el.innerHTML = "<span></span>"; el.firstChild.textContent = "@" + name; otagBox.appendChild(el);
-        others.push({ name: name, sp: sp, n: normalAt(pt.x, pt.z), el: el, delay: (lit.start ? 0.6 : 0.2) + i * (lit.start ? 0.12 : 0.04), ph: rnd() * 6 });
+        others.push({ name: name, sp: sp, n: normalAt(pt.x, pt.z), el: el, delay: (lit.start ? 0.6 : 0.2) + i * (lit.start ? 0.12 : 0.04), ph: rnd() * 6, born: first ? 0 : performance.now() + i * 150, vis: false, seq: base - i });
       });
     };
 
     var W = 0, H = 0;
     function resize() { W = innerWidth; H = innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
     window.addEventListener("resize", resize); resize();
-    var px = 0, py = 0, tx = 0, ty = 0, drag = null, spin = 0, spinV = 0, tilt = 0, hintGone = false;
+    var px = 0, py = 0, tx = 0, ty = 0, drag = null, spin = 0, spinV = 0, tilt = 0, spinView = 0, tiltView = 0, hintGone = false;
     window.addEventListener("pointermove", function (e) { if (e.pointerType === "mouse") { tx = (e.clientX / W - 0.5) * 2; ty = (e.clientY / H - 0.5) * 2; } }, { passive: true });
     // turn it with your finger (or the mouse), and it keeps turning a little when you let go
     canvas.addEventListener("pointerdown", function (e) { drag = { x: e.clientX, y: e.clientY, t: performance.now() }; spinV = 0; canvas.classList.add("drag"); canvas.setPointerCapture(e.pointerId); if (!hintGone) { hintGone = true; document.getElementById("drag-hint").classList.add("gone"); } });
@@ -475,17 +501,17 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
       terrain.scale.y = Math.max(0.001, e); lines.scale.y = terrain.scale.y; lines.visible = false;
       scene.fog.density = 0.07 - 0.046 * Math.min(1, t / 3.5);
       px += (tx - px) * ease(2.4); py += (ty - py) * ease(2.4);
-      var portrait = W < H; if (!lit.start || reduceMotion) yawBase = reduceMotion ? 0.6 : 0.6 + t * 0.035; else yawBase += dt * 0.012; if (!drag) { spin += spinV * dt * 60; spinV *= Math.pow(0.94, dt * 60); tilt *= Math.pow(0.985, dt * 60); } var yaw = yawBase + spin + px * 0.12;
+      var portrait = W < H; if (!lit.start || reduceMotion) yawBase = reduceMotion ? 0.6 : 0.6 + t * 0.035; else yawBase += dt * 0.012; if (!drag) { spin += spinV * dt * 60; spinV *= Math.pow(0.94, dt * 60); tilt *= Math.pow(0.985, dt * 60); } spinView += (spin - spinView) * ease(drag ? 16 : 30); tiltView += (tilt - tiltView) * ease(drag ? 16 : 30); var yaw = yawBase + spinView + px * 0.12;
       var base = new THREE.Vector3(peak.x, peak.y * 0.55, peak.z), want = lit.start ? base.lerp(glow.position, Math.min(1, focus * 1.2)) : base;
       if (!camTarget) camTarget = want.clone(); camTarget.lerp(want, ease(3));
       var target = camTarget;
       var rad = (portrait ? 24 : 19) - focus * (portrait ? 8 : 6);
-      camera.position.set(peak.x + Math.sin(yaw) * rad, (portrait ? 6.5 : 5.5) - py * 0.8 + focus * 2 + tilt * 6, peak.z + Math.cos(yaw) * rad);
+      camera.position.set(peak.x + Math.sin(yaw) * rad, (portrait ? 6.5 : 5.5) - py * 0.8 + focus * 2 + tiltView * 6, peak.z + Math.cos(yaw) * rad);
       camera.lookAt(target);
       halo.position.copy(peak).add(peak.clone().sub(camera.position).setY(0).normalize().multiplyScalar(22)).add(new THREE.Vector3(0, 1.5, 0));
       var exploring = document.body.classList.contains("exploring");
       panel += ((document.body.classList.contains("collapsed") || exploring ? 0 : 1) - panel) * ease(4);
-      if (seekYaw !== null && !drag) { var dy = Math.atan2(Math.sin(seekYaw - yaw), Math.cos(seekYaw - yaw)); spin += dy * ease(2.5); if (Math.abs(dy) < 0.01) seekYaw = null; }
+      if (seekYaw !== null && !drag) { var goalYaw = yawBase + spin + px * 0.12, dy = Math.atan2(Math.sin(seekYaw - goalYaw), Math.cos(seekYaw - goalYaw)); spin += dy * ease(2.5); if (Math.abs(dy) < 0.01) seekYaw = null; }
       var off = (portrait ? -0.02 : 0) + Math.min(1, focus * 1.6) * (portrait ? 0.26 : 0.16) * panel;
       if (off) camera.setViewOffset(W, H, 0, H * off, W, H); else camera.clearViewOffset();
       fogEl.style.setProperty("--fx", (Math.sin(yaw) * 60).toFixed(1) + "px");
@@ -504,7 +530,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
         var pulse = 0.85 + Math.sin(now / 300) * 0.15; glow.scale.setScalar((0.7 + (p >= 1 ? 0.2 : 0)) * pulse); lamp.intensity = 2.2 * pulse;
         focus += ((p >= 1 ? 0.35 : 0.6) - focus) * ease(1.2);
         var sp = glow.position.clone().project(camera);
-        tagEl.style.transform = "translate(" + ((sp.x + 1) / 2 * W) + "px," + ((1 - sp.y) / 2 * H) + "px) translate(-50%, -100%)";
+        tagEl.style.transform = "translate3d(" + ((sp.x + 1) / 2 * W).toFixed(2) + "px," + ((1 - sp.y) / 2 * H).toFixed(2) + "px,0) translate(-50%, -100%)";
         tagEl.classList.toggle("on", p > 0.9 && sp.z < 1);
       }
       if (lit.start || exploreStart || ambientStart) {
@@ -514,19 +540,25 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
         var since = lit.start ? (now - lit.start) / 1000 - CLIMB : exploreStart ? (now - exploreStart) / 1000 : 0, shown = 0, camDir = new THREE.Vector3();
         if (exploring && exploreStart) since = Math.max(since, (now - exploreStart) / 1000);
         if (ambientStart) since = Math.max(since, (now - ambientStart) / 1000);
-        others.forEach(function (o) {
+        var cap = W < H ? 5 : 9, low = document.body.classList.contains("collapsed") || exploring ? -0.7 : -0.1;
+        // Names already showing go first and keep showing until they're clearly out (a looser edge), so turning
+        // slowly doesn't make them flicker on and off or swap with their neighbours.
+        var order = others.filter(function (o) { return o.vis; }).concat(others.filter(function (o) { return !o.vis; }));
+        order.forEach(function (o) {
           var a = Math.min(1, Math.max(0, (since - o.delay) / 0.8));
+          if (o.born) a = Math.min(a, Math.max(0, (now - o.born) / 800));
           o.sp.material.opacity = a * (0.65 + Math.sin(t * 2 + o.ph) * 0.25);
-          var q = o.sp.position.clone().project(camera), facing = o.n.dot(camDir.copy(camera.position).sub(o.sp.position).normalize()) > 0.15;
-          var onScreen = q.z < 1 && Math.abs(q.x) < 0.72 && q.y > (document.body.classList.contains("collapsed") || exploring ? -0.7 : -0.1) && q.y < 0.92;
+          var q = o.sp.position.clone().project(camera), face = o.n.dot(camDir.copy(camera.position).sub(o.sp.position).normalize());
+          var m = o.vis ? 0.06 : 0, facing = face > (o.vis ? 0.05 : 0.15);
+          var onScreen = q.z < 1 && Math.abs(q.x) < 0.72 + m && q.y > low - m && q.y < 0.92 + m;
           var hit = o.name === hitName;
-          var show = !ambient && a >= 1 && (hit ? q.z < 1 : facing && onScreen && shown < (W < H ? 5 : 9));
+          var show = !ambient && a >= 1 && (hit ? q.z < 1 : facing && onScreen && shown < cap);
           o.sp.scale.setScalar(hit ? 0.7 : 0.32); o.el.classList.toggle("hit", hit);
-          if (show) { if (!hit) shown++; o.el.style.transform = "translate(" + ((q.x + 1) / 2 * W) + "px," + ((1 - q.y) / 2 * H) + "px)"; }
-          o.el.classList.toggle("on", show);
+          if (show) { if (!hit) shown++; o.el.style.transform = "translate3d(" + ((q.x + 1) / 2 * W).toFixed(2) + "px," + ((1 - q.y) / 2 * H).toFixed(2) + "px,0)"; }
+          if (o.vis !== show) { o.vis = show; o.el.classList.toggle("on", show); }
         });
       } else if (others.length && others[0].sp.material.opacity > 0) {
-        others.forEach(function (o) { o.sp.material.opacity = 0; o.el.classList.remove("on", "hit"); });
+        others.forEach(function (o) { o.sp.material.opacity = 0; o.vis = false; o.el.classList.remove("on", "hit"); });
       }
       renderer.render(scene, camera);
       requestAnimationFrame(frame);
@@ -637,7 +669,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     document.getElementById("mini-name").textContent = "@" + v;
     [].forEach.call(document.querySelectorAll(".pvav"), function (e) { e.textContent = v.charAt(0).toUpperCase(); }); [].forEach.call(document.querySelectorAll(".pvname b"), function (e) { e.textContent = "@" + v; });
     document.getElementById("share-link").textContent = link.replace(/^https?:\/\//, "");
-    document.getElementById("whatsapp").href = "https://wa.me/?text=" + encodeURIComponent("Me he apuntado a Kumbra, la red social de la escalada, que está a punto de salir. Si reservas tu nombre con mi enlace entras con el Pack Fundador: " + link);
+    document.getElementById("whatsapp").href = "https://wa.me/?text=" + encodeURIComponent("Me he apuntado a Kumbra, la red social de escalada, que está a punto de salir. Si reservas tu nombre con mi enlace entras con el Pack Fundador: " + link);
     var copy = document.getElementById("copy");
     copy.onclick = function () {
       var ok = function () { copy.textContent = "Copiado"; setTimeout(function () { copy.textContent = "Copiar"; }, 1800); };
@@ -651,11 +683,12 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   // Who's already in. Live: from the site's endpoint (only real sign-ups; nothing until the list has a database).
   // Preview: a sample so the effect can be seen.
   var SAMPLE = ["lucia.boulder", "carlos_m", "marta.climbs", "javi_6c", "nuria.r", "pablo.crimp", "ines_bloque", "dani.vertical", "sara.trepa", "alex_dyno", "irene.top", "mario.flash", "lauraaa", "hugo_regleta", "ana.pies", "rober_7a", "clara.v", "diego.boulders", "paula_k", "sergio.escala", "noe.climb", "elena_6b", "adri.gecko", "bea.magnesio", "tomas_r", "julia.crux", "victor.on", "lola_bloc"];
+  var everyone = 0; // how many are on the list in total (the API's total), more than the lights once it's long
   function loadFounders(me, preview) {
     if (!lit || !lit.others) return;
     var done = function () { if (document.body.classList.contains("exploring")) showFound(); };
     if (preview || !LIVE) { lit.others(SAMPLE.filter(function (n) { return n !== me; })); done(); return; }
-    fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : { names: [] }; }).then(function (b) { lit.others((b.names || []).filter(function (n) { return n !== me && /^[a-z0-9_.]{3,20}$/.test(n); })); done(); }).catch(done);
+    fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : { names: [] }; }).then(function (b) { everyone = Math.max(everyone, b.total || 0); lit.others((b.names || []).filter(function (n) { return n !== me && /^[a-z0-9_.]{3,20}$/.test(n); })); done(); }).catch(done);
   }
 
   // ================= Who's joining =================
@@ -678,30 +711,47 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
       return;
     }
     fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : {}; }).then(showLive).catch(function () {});
+    // Every 30 s while the page is visible: new lights on the mountain and the latest sign-ups.
+    setInterval(function () {
+      if (document.hidden) return;
+      fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : null; }).then(function (b) {
+        if (!b) return;
+        everyone = Math.max(everyone, b.total || 0);
+        if (lit && lit.others && lit.loaded) { lit.others((b.names || []).filter(function (n) { return n !== meName && /^[a-z0-9_.]{3,20}$/.test(n); })); if (document.body.classList.contains("exploring")) showFound(); }
+        showLive(b, true);
+      }).catch(function () {});
+    }, 30000);
   }, 2400);
-  function showLive(b) {
-    if (!liveEl || liveTimer) return;
+  var liveLines = [];
+  function showLive(b, refresh) {
+    if (!liveEl || (liveTimer && !refresh)) return;
     var lines = [];
     if ((b.total || 0) >= LIVE_MIN) lines.push("Ya hay <b>" + b.total + "</b> escaladores en la montaña");
     (b.recent || []).forEach(function (r) {
       if (!/^[a-z0-9_.]{3,20}$/.test(r.name) || Date.now() - new Date(r.at).getTime() > LIVE_DAYS * 864e5) return;
       lines.push("<b>@" + r.name + "</b> se ha unido " + ago(r.at));
     });
-    if (!lines.length) return;
-    var i = 0;
-    liveText.innerHTML = lines[0];
+    if (!lines.length || lines.join() === liveLines.join()) return;
+    var fresh = !liveLines.length; liveLines = lines;
+    if (fresh || reduceMotion) liveText.innerHTML = lines[0];
     liveEl.hidden = false;
-    if (lines.length < 2 || reduceMotion) return;
+    if (liveTimer || reduceMotion) return;
+    var i = 0;
     liveTimer = setInterval(function () {
+      if (liveLines.length < 2 && liveText.innerHTML === liveLines[0]) return;
       liveEl.classList.add("out");
-      setTimeout(function () { i = (i + 1) % lines.length; liveText.innerHTML = lines[i]; liveEl.classList.remove("out"); }, 500);
+      setTimeout(function () { i = (i + 1) % liveLines.length; liveText.innerHTML = liveLines[i]; liveEl.classList.remove("out"); }, 500);
     }, 4000);
   }
   function selectLink() { var r = document.createRange(); r.selectNodeContents(document.getElementById("share-link")); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
 
   // ================= Who's on the mountain =================
   var findEl = document.getElementById("find"), findInfo = document.getElementById("find-info"), meName = null;
-  function explore(on) {
+  function explore(on, fromBack) {
+    var was = document.body.classList.contains("exploring");
+    // The search is a step of its own in the history: "atrás" closes it instead of leaving the page.
+    if (on && !was && !fromBack) { try { history.pushState({ kumbra: "explore" }, ""); } catch (e) {} }
+    if (!on && was && !fromBack && history.state && history.state.kumbra === "explore") { history.back(); return; }
     document.body.classList.toggle("exploring", on);
     document.body.classList.remove("collapsed");
     if (!lit) return;
@@ -709,15 +759,37 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     if (on) { loadFounders(meName, !LIVE); setTimeout(function () { findEl.focus({ preventScroll: true }); }, 300); findInfo.textContent = ""; showFound(); }
     else { findEl.value = ""; lit.find(""); }
   }
+  // Not every name has a light once the list is long: a name not lit is looked up among everyone and lit then.
+  var searchTimer = null, searchId = 0;
   function showFound() {
     var q = findEl.value.toLowerCase().replace(/^@/, "").replace(/[^a-z0-9_.]/g, ""), r = lit.find(q);
     if (findEl.value !== q) findEl.value = q;
-    if (!r.total) findInfo.textContent = LIVE ? "Todavía no se ve ninguna luz. Sé de los primeros." : "Cargando la montaña…";
-    else if (!q) findInfo.innerHTML = "<b>" + r.total + "</b> " + (r.total === 1 ? "luz" : "luces") + " en la montaña. Escribe un nombre para buscarlo.";
-    else if (r.found) findInfo.innerHTML = "<b>@" + r.found + "</b> ya está en la montaña.";
-    else findInfo.textContent = "@" + q + " aún no está. ¿Le mandas el enlace?";
+    var total = Math.max(r.total, everyone);
+    clearTimeout(searchTimer); searchId++;
+    if (!total) findInfo.textContent = LIVE ? "Todavía no se ve ninguna luz. Sé de los primeros." : "Cargando la montaña…";
+    else if (!q) findInfo.innerHTML = "<b>" + total + "</b> " + (total === 1 ? "luz" : "luces") + " en la montaña. Escribe un nombre para buscarlo.";
+    else if (r.found === q || !LIVE || total <= r.total) {
+      if (r.found) findInfo.innerHTML = "<b>@" + r.found + "</b> ya está en la montaña.";
+      else findInfo.textContent = "@" + q + " aún no está. ¿Le mandas el enlace?";
+    } else {
+      // A partial match among the lights may not be the one meant: ask the server for the exact name first.
+      if (r.found) findInfo.innerHTML = "<b>@" + r.found + "</b> ya está en la montaña.";
+      else findInfo.textContent = "Buscando @" + q + "…";
+      var id = searchId;
+      searchTimer = setTimeout(function () {
+        fetch("/api/kumbraFounders?q=" + encodeURIComponent(q)).then(function (res) { return res.ok ? res.json() : { matches: [] }; }).then(function (b) {
+          if (id !== searchId) return;
+          var matches = (b.matches || []).filter(function (n) { return /^[a-z0-9_.]{3,20}$/.test(n) && n !== meName; });
+          var best = matches.indexOf(q) >= 0 ? q : (r.found ? null : matches[0]);
+          if (best) { lit.light(best); r = lit.find(q === best ? q : best); }
+          if (r.found) findInfo.innerHTML = "<b>@" + r.found + "</b> ya está en la montaña.";
+          else findInfo.textContent = "@" + q + " aún no está. ¿Le mandas el enlace?";
+        }).catch(function () { if (id === searchId && !r.found) findInfo.textContent = "@" + q + " aún no está. ¿Le mandas el enlace?"; });
+      }, 300);
+    }
   }
   findEl.addEventListener("input", showFound);
+  window.addEventListener("popstate", function () { if (document.body.classList.contains("exploring")) explore(false, true); });
   [].forEach.call(document.querySelectorAll("[data-explore]"), function (b) { b.addEventListener("click", function () { explore(true); }); });
   document.querySelector("[data-explore-close]").addEventListener("click", function () { explore(false); });
 
@@ -731,6 +803,14 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   // "Ver la montaña": the panel folds into a bar at the bottom, so the mountain is free to turn
   // "Ver la montaña" opens the mountain with the search (find your friends); × brings the card back.
   document.getElementById("unfold").addEventListener("click", function () { document.body.classList.remove("collapsed"); });
+  // The logo goes back to the start: closes the search and the pack and brings the card back (a reservation stays).
+  document.getElementById("logo").addEventListener("click", function (e) {
+    e.preventDefault();
+    pack(false);
+    if (document.body.classList.contains("exploring")) explore(false);
+    document.body.classList.remove("collapsed");
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  });
 })();
 </script>
 <script>
