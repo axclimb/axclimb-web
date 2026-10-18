@@ -157,7 +157,7 @@ function welcomeText(username, link) {
 // Table layout and inline styles: what email clients (Gmail, Outlook, Apple Mail) render reliably.
 function welcomeHtml(username, link) {
   const handle = `@${username}`;
-  const wa = `https://wa.me/?text=${encodeURIComponent(`Me he apuntado a Kumbra, la red social de la escalada, que está a punto de salir. Si reservas tu nombre con mi enlace entras con el Pack Fundador: ${link}`)}`;
+  const wa = `https://wa.me/?text=${encodeURIComponent(`Me he apuntado a Kumbra, la red social de escalada, que está a punto de salir. Si reservas tu nombre con mi enlace entras con el Pack Fundador: ${link}`)}`;
   const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
   const rows = PACK.map(([title, detail]) => `
               <tr>
