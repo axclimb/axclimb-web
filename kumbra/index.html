@@ -296,6 +296,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
           <span class="badge">▲ FUNDADOR</span>
           <h2 id="done-title">Ya estás dentro.</h2>
           <p>Tu <button class="linkish inline" type="button" data-pack>Pack Fundador</button> está reservado. Te lo hemos enviado por email; si no lo ves, mira en Promociones.</p>
+          <p class="mailhint" id="mail-hint">Cuando abramos, crea tu cuenta en la app con este mismo email<span id="mail-hint-email"></span> y tu @ será tuyo.</p>
           <div class="share"><code id="share-link"></code><button type="button" id="copy">Copiar</button></div>
           <div class="row2"><a class="wa" id="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="ghost" type="button" id="again" data-explore>Ver la montaña</button></div>
           <div class="mystery"><span class="q">?</span><div><b>Trae a 3 amigos con tu enlace</b><small>Y descubre la recompensa que solo tiene quien invita.</small><div class="progress"><i></i><i></i><i></i></div></div></div>
@@ -665,6 +666,8 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     document.querySelector(".explore-link").hidden = true;
     document.getElementById("preview-note").hidden = !preview;
     document.getElementById("done-title").textContent = "@" + v + ", ya estás dentro.";
+    var mh = document.getElementById("mail-hint-email"); mh.textContent = "";
+    if (myEmail) { var mb = document.createElement("b"); mb.textContent = myEmail; mh.append(" (", mb, ")"); }
     document.getElementById("tag-name").textContent = "@" + v;
     document.getElementById("mini-name").textContent = "@" + v;
     [].forEach.call(document.querySelectorAll(".pvav"), function (e) { e.textContent = v.charAt(0).toUpperCase(); }); [].forEach.call(document.querySelectorAll(".pvname b"), function (e) { e.textContent = "@" + v; });

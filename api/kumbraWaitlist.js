@@ -102,8 +102,8 @@ export default async function handler(req, res) {
     const welcomeMail = {
       to: email,
       subject: `@${username}, ya eres Fundador de Kumbra`,
-      text: welcomeText(username, link),
-      html: welcomeHtml(username, link),
+      text: welcomeText(username, email, link),
+      html: welcomeHtml(username, email, link),
     };
     // With RESEND_API_KEY in Vercel it goes out from our own domain (axclimb.com, verified in Resend
     // with SPF/DKIM), so it lands in the inbox instead of spam. Without it, Gmail as before.
@@ -136,11 +136,11 @@ const PACK = [
   ["Y detalles solo para fundadores", "Icono secreto, paleta Atardecer, avatares y logro Fundador."],
 ];
 
-function welcomeText(username, link) {
+function welcomeText(username, email, link) {
   return [
     `Ya estás dentro, @${username}.`,
     ``,
-    `Hemos reservado @${username} para ti. Cuando abramos Kumbra te avisaremos antes que a nadie para que crees tu cuenta con ese nombre.`,
+    `Hemos reservado @${username} para ti. Cuando abramos Kumbra te avisaremos antes que a nadie. Ese día, crea tu cuenta en la app con este mismo email (${email}) y @${username} será tuyo.`,
     ``,
     `Tu Pack Fundador:`,
     ...PACK.map(([title, detail]) => `- ${title}: ${detail}`),
@@ -154,8 +154,10 @@ function welcomeText(username, link) {
   ].join("\n");
 }
 
+const esc = (v) => String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
 // Table layout and inline styles: what email clients (Gmail, Outlook, Apple Mail) render reliably.
-function welcomeHtml(username, link) {
+function welcomeHtml(username, email, link) {
   const handle = `@${username}`;
   const wa = `https://wa.me/?text=${encodeURIComponent(`Me he apuntado a Kumbra, la red social de escalada, que está a punto de salir. Si reservas tu nombre con mi enlace entras con el Pack Fundador: ${link}`)}`;
   const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
@@ -176,7 +178,7 @@ function welcomeHtml(username, link) {
         <tr><td bgcolor="#1A1324" style="padding:28px 28px 8px;background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);">
           <span style="display:inline-block;padding:5px 11px;border-radius:99px;background-color:#E8B53A;background-image:linear-gradient(#E8B53A,#E8B53A);color:#3A2108;font:800 11px ${font};letter-spacing:1px;">▲ FUNDADOR</span>
           <div class="gs"><div class="gd"><h1 style="margin:16px 0 8px;font:900 30px/1.1 ${font};letter-spacing:-0.5px;color:#F5EFE6;">Ya estás dentro, ${handle}.</h1>
-          <p style="margin:0;font:400 15px/1.55 ${font};color:#C9BFD3;">Hemos reservado <b style="color:#F5EFE6;">${handle}</b> para ti. Cuando abramos Kumbra te avisaremos antes que a nadie para que crees tu cuenta con ese nombre.</p></div></div>
+          <p style="margin:0;font:400 15px/1.55 ${font};color:#C9BFD3;">Hemos reservado <b style="color:#F5EFE6;">${handle}</b> para ti. Cuando abramos Kumbra te avisaremos antes que a nadie. Ese día, crea tu cuenta en la app con este mismo email (<b style="color:#F5EFE6;">${esc(email)}</b>) y será tuyo.</p></div></div>
         </td></tr>
         <tr><td bgcolor="#1A1324" style="padding:20px 28px 4px;background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);">
           <div class="gs"><div class="gd"><p style="margin:0 0 6px;font:700 11px ${font};letter-spacing:2px;color:#F2B44A;">TU PACK FUNDADOR</p>
