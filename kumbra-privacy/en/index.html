@@ -115,7 +115,7 @@ footer.site a { color: var(--muted); }
 
   <main class="wrap">
     <h1>Privacy Policy</h1>
-    <p class="muted">Last updated: 14 October 2026</p>
+    <p class="muted">Last updated: 18 October 2026</p>
 
     <p>
       This privacy policy governs the processing of the personal data of users of the Kumbra mobile application
@@ -171,6 +171,11 @@ footer.site a { color: var(--muted); }
             <td><strong>Moderation data:</strong> reports received and, where applicable, account suspension and its duration.</td>
             <td>Generated when reviewing reports.</td>
             <td>Enforcing the community rules (terms of use) and preventing abuse.</td>
+          </tr>
+          <tr>
+            <td><strong>Crash reports:</strong> when the App closes because of an error, the device model, the system and App versions, the time and the technical detail of the error, together with a random identifier of the installation. They don't include the account or the user's content.</td>
+            <td>Generated automatically by the App (Firebase Crashlytics).</td>
+            <td>Detecting and fixing errors in the App, on the basis of the legitimate interest in it working properly.</td>
           </tr>
           <tr>
             <td><strong>Places added by the user:</strong> name of the gym or crag, town, province, discipline and, optionally, its location.</td>
@@ -241,7 +246,8 @@ footer.site a { color: var(--muted); }
 
     <p>
       The Controller does not display advertising, does not sell or transfer data for commercial purposes, does not
-      track users across third-party apps or websites and does not use third-party analytics tools.
+      track users across third-party apps or websites and does not use third-party analytics tools. To detect
+      errors it uses Firebase Crashlytics, only with the crash reports described above.
     </p>
 
     <h2>3. Information visible to other users</h2>
@@ -271,7 +277,7 @@ footer.site a { color: var(--muted); }
       <li><strong>Cloudflare, Inc.</strong>: storage and delivery of session photos and videos, which can only be accessed through signed, time-limited links.</li>
       <li><strong>Resend, Inc.</strong>: sending account emails and internal report alerts.</li>
       <li><strong>Apple Inc.</strong>: delivery of notifications on iPhone, Sign in with Apple and billing of the Kumbra Pro subscription on the App Store.</li>
-      <li><strong>Google LLC</strong>: delivery of notifications on Android (Firebase Cloud Messaging), Sign in with Google and billing of the Kumbra Pro subscription on Google Play.</li>
+      <li><strong>Google LLC</strong>: delivery of notifications on Android (Firebase Cloud Messaging), Sign in with Google, billing of the Kumbra Pro subscription on Google Play and crash reports for the App (Firebase Crashlytics).</li>
       <li><strong>Google LLC</strong> (Gmail) and <strong>Vercel Inc.</strong>: receiving waiting-list sign-ups and sending the confirmation email, and hosting the sign-up page, respectively.</li>
     </ul>
     <p>
