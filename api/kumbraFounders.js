@@ -14,6 +14,9 @@ const QUERY_RE = /^[a-z0-9_.]{1,20}$/;
 const LIGHTS = 300;
 const MATCHES = 8;
 const RECENT = 6;
+// Names that never light up on the mountain (team members who prefer not to show their full name there).
+const HIDDEN = new Set(["alicia_retamosa"]);
+const shown = (n) => USERNAME_RE.test(n) && !HIDDEN.has(n);
 
 const clean = (n) => String(n || "").toLowerCase();
 // For PostgREST's ilike: "_" is a wildcard there, so it's escaped.
@@ -34,7 +37,7 @@ async function search(q, headers) {
   ]);
   const listed = waitlist.ok ? (await waitlist.json()).map((r) => r.username) : [];
   const beta = founders.ok ? (await founders.json()).map((r) => r.handle) : [];
-  const found = [...new Set([...listed, ...beta].map(clean).filter((n) => USERNAME_RE.test(n)))].sort();
+  const found = [...new Set([...listed, ...beta].map(clean).filter(shown))].sort();
   // The exact name first, then the rest in order.
   return [...found.filter((n) => n === q), ...found.filter((n) => n !== q)].slice(0, MATCHES);
 }
@@ -53,14 +56,21 @@ export default async function handler(req, res) {
     }
     const [waitlist, founders] = await Promise.all([
       fetchCounted(`${SUPABASE_URL}/rest/v1/waitlist?select=username,created_at&order=created_at.desc&limit=${LIGHTS}`, headers),
-      fetchCounted(`${SUPABASE_URL}/rest/v1/profiles?select=handle&is_founder=eq.true&order=created_at.desc&limit=${LIGHTS}`, headers).catch(() => ({ rows: [], total: 0 })),
+      fetchCounted(`${SUPABASE_URL}/rest/v1/profiles?select=handle,created_at&is_founder=eq.true&order=created_at.desc&limit=${LIGHTS}`, headers).catch(() => ({ rows: [], total: 0 })),
     ]);
-    const recent = waitlist.rows
-      .filter((r) => USERNAME_RE.test(clean(r.username)) && r.created_at)
-      .slice(0, RECENT)
-      .map((r) => ({ name: clean(r.username), at: r.created_at }));
+    // The latest arrivals: reservations on the list and founder accounts (people added by hand who never
+    // reserved), newest first, each name once.
+    // Someone on both lists counts from their reservation, not from when they opened the account.
+    const joined = new Map();
+    waitlist.rows.forEach((r) => joined.set(clean(r.username), r.created_at));
+    founders.rows.forEach((r) => { if (!joined.has(clean(r.handle))) joined.set(clean(r.handle), r.created_at); });
+    const recent = [...joined]
+      .filter(([name, at]) => shown(name) && at)
+      .map(([name, at]) => ({ name, at }))
+      .sort((x, y) => (x.at < y.at ? 1 : -1))
+      .slice(0, RECENT);
     // Newest first, so whoever just joined is on the mountain; the beta founders after.
-    const names = [...new Set([...waitlist.rows.map((r) => r.username), ...founders.rows.map((r) => r.handle)].map(clean).filter((n) => USERNAME_RE.test(n)))]
+    const names = [...new Set([...waitlist.rows.map((r) => r.username), ...founders.rows.map((r) => r.handle)].map(clean).filter(shown))]
       .slice(0, LIGHTS);
     // Everyone, not only the ones sent (a founder who also reserved counts once only while both lists fit).
     const total = Math.max(names.length, (waitlist.total ?? waitlist.rows.length) + (founders.total ?? founders.rows.length) - (waitlist.rows.length + founders.rows.length - names.length));
