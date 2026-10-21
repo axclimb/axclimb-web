@@ -57,8 +57,13 @@ small { color: var(--dim); font-size: 13px; }
   <small id="note">Al crear tu cuenta, pon su @ en «¿Quién te ha invitado?» y le seguirás desde el primer día.</small>
 </main>
 <script>
-  // App Store link once Kumbra is published; until then the first button goes to the waiting list.
-  var APP_STORE_URL = "";
+  // From 16 Nov 2026 at 00:00 in Madrid the first button goes to the store of the visitor's phone (?lanzamiento=1
+  // previews it); until then, to the waiting list with the ref.
+  var LAUNCHED = Date.now() >= Date.UTC(2026, 10, 15, 23, 0, 0) || new URLSearchParams(location.search).get("lanzamiento") === "1";
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua), isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && "ontouchend" in document);
+  var APP_STORE_URL = !LAUNCHED ? "" : isAndroid ? "https://play.google.com/store/apps/details?id=com.axclimb.kumbra" : isIOS ? "https://apps.apple.com/app/id6818507035" : "/kumbra";
+  if (LAUNCHED) document.querySelector("main > p").textContent = "La red social de escalada. Gratis en iPhone y Android: cada sesión que apuntas se convierte en una montaña.";
   var u = (new URLSearchParams(location.search).get("u") || "").toLowerCase().replace(/^@/, "").replace(/[^a-z0-9_.]/g, "").slice(0, 20);
   if (u) {
     var t = document.getElementById("title");
@@ -75,7 +80,10 @@ small { color: var(--dim); font-size: 13px; }
     document.getElementById("note").hidden = true;
     document.getElementById("open").style.display = "none";
   }
-  if (APP_STORE_URL) document.getElementById("join").textContent = "Descargar en la App Store";
+  if (APP_STORE_URL) {
+    document.getElementById("join").href = APP_STORE_URL;
+    document.getElementById("join").textContent = isAndroid ? "Descargar en Google Play" : isIOS ? "Descargar en la App Store" : "Descargar Kumbra";
+  }
 </script>
 </body>
 </html>

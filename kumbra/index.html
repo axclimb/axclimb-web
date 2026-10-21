@@ -238,6 +238,16 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 @media (max-height: 720px) { .title { margin-top: 1vh; } h1 { font-size: clamp(32px, 9vw, 76px); } .whisper { display: none; } .draghint { top: 50%; } }
 @media (max-width: 899px) { body.typing .title, body.typing .draghint { opacity: 0 !important; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } h1 span, .bottom { opacity: 1; transform: none; filter: none; } }
+/* Launch (from 16 Nov 2026, 00:00 Madrid): no card, the store badges straight on the fog. */
+body.launched .glass { background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; }
+.stores { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.store { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px 0 12px; border-radius: 10px; background: #000; color: #fff; text-decoration: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+.store svg { width: 22px; height: 22px; flex: none; }
+.store span { display: grid; line-height: 1; text-align: left; }
+.store small { font: 500 10px/1.15 var(--sans); }
+.store b { font: 700 17px/1.1 var(--sans); letter-spacing: -.01em; }
+.storenote { margin: 14px 0 0; text-align: center; font: 500 13px/1.4 var(--sans); color: var(--dim); }
+.storenote b { color: var(--amber); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -342,10 +352,31 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   "use strict";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // ================= Launch =================
+  // From 16 Nov 2026 at 00:00 in Madrid (23:00 UTC the day before) the page changes by itself: no reservation,
+  // the store badges instead. ?lanzamiento=1 previews it before then.
+  var LAUNCHED = Date.now() >= Date.UTC(2026, 10, 15, 23, 0, 0) || new URLSearchParams(location.search).get("lanzamiento") === "1";
+  var APP_STORE = "https://apps.apple.com/app/id6818507035";
+  var GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra";
+  if (LAUNCHED) {
+    document.body.classList.add("launched");
+    document.querySelector("header .mono").textContent = "Ya disponible";
+    document.getElementById("h1").textContent = "Kumbra ya está aquí.";
+    document.querySelector(".packline").hidden = true;
+    document.getElementById("waitlist").hidden = true;
+    var stores = document.createElement("div");
+    stores.innerHTML = '<div class="stores">' +
+      '<a class="store" href="' + APP_STORE + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8C7 7.4 5.6 8.3 4.8 9.7c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 2.9 2.4 1.2-.1 1.6-.8 3-.8s1.8.8 3 .7c1.3 0 2.1-1.2 2.8-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Descárgala en la</small><b>App Store</b></span></a>' +
+      '<a class="store" href="' + GOOGLE_PLAY + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.3 12l-9.7 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z" fill="#00D7FE"/><path d="m16.6 15.3-3.3-3.3 3.3-3.3 3.8 2.2c1 .6 1 1.6 0 2.2z" fill="#FFCE00"/><path d="M16.6 15.3 13.3 12l-9.7 9.7c.4.2.9.2 1.4-.1z" fill="#FF3A44"/><path d="M16.6 8.7 5 2.4c-.5-.3-1-.3-1.4-.1l9.7 9.7z" fill="#00F076"/></svg><span><small>Disponible en</small><b>Google Play</b></span></a>' +
+      '</div><p class="storenote"><b>¿Reservaste tu @?</b> Entra con el mismo email.</p>';
+    document.getElementById("form-view").appendChild(stores);
+    document.querySelector(".explore-link").innerHTML = "Los primeros ya están en la montaña. <b>Busca tu nombre</b>";
+  }
+
   // ================= Words =================
   var h1 = document.getElementById("h1");
   h1.innerHTML = h1.textContent.split(" ").map(function (w, i) { return '<span style="animation-delay:' + (0.5 + i * 0.16) + 's">' + w + "</span>"; }).join(" ");
-  var WHISPERS = ["Mira quién ha escalado hoy.", "Cada bloque que encadenas se pierde. Hasta ahora.", "Tus amigos van a querer verlo.", "Reta a tu gente y a ver quién suma más.", "Los primeros se quedan con su nombre."];
+  var WHISPERS = LAUNCHED ? ["Apunta cada bloque. Mira crecer tu cordillera.", "Mira quién ha escalado hoy.", "Tus amigos ya están dentro.", "Reta a tu gente y a ver quién suma más.", "Gratis en iPhone y Android."] : ["Mira quién ha escalado hoy.", "Cada bloque que encadenas se pierde. Hasta ahora.", "Tus amigos van a querer verlo.", "Reta a tu gente y a ver quién suma más.", "Los primeros se quedan con su nombre."];
   var wEl = document.getElementById("whisper"), wi = 0;
   function whisper() { wEl.classList.add("out"); setTimeout(function () { wEl.textContent = WHISPERS[wi++ % WHISPERS.length]; wEl.classList.remove("out"); }, 600); }
   setTimeout(function () { whisper(); setInterval(whisper, 4200); }, 1700);
