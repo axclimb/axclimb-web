@@ -696,7 +696,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 
   // ================= Who's joining =================
   // Only real data: the total once it's worth showing (LIVE_MIN), and the latest sign-ups of the last two weeks.
-  var LIVE_MIN = 50, LIVE_DAYS = 14, liveEl = document.getElementById("live"), liveText = document.getElementById("live-text"), liveTimer = null;
+  var LIVE_MIN = 70, LIVE_DAYS = 14, liveEl = document.getElementById("live"), liveText = document.getElementById("live-text"), liveTimer = null;
   function ago(iso) {
     var m = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
     if (m < 5) return "hace un momento";
@@ -770,7 +770,8 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
     var total = Math.max(r.total, everyone);
     clearTimeout(searchTimer); searchId++;
     if (!total) findInfo.textContent = LIVE ? "Todavía no se ve ninguna luz. Sé de los primeros." : "Cargando la montaña…";
-    else if (!q) findInfo.innerHTML = "<b>" + total + "</b> " + (total === 1 ? "luz" : "luces") + " en la montaña. Escribe un nombre para buscarlo.";
+    // The count only once it's worth showing (LIVE_MIN): "5 luces" would make the mountain look empty.
+    else if (!q) findInfo.innerHTML = total >= LIVE_MIN ? "<b>" + total + "</b> luces en la montaña. Escribe un nombre para buscarlo." : "Escribe un nombre para buscarlo en la montaña.";
     else if (r.found === q || !LIVE || total <= r.total) {
       if (r.found) findInfo.innerHTML = "<b>@" + r.found + "</b> ya está en la montaña.";
       else findInfo.textContent = "@" + q + " aún no está. ¿Le mandas el enlace?";
