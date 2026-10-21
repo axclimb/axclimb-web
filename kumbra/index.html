@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Kumbra</title>
-  <meta name="description" content="Algo se mueve en tu rocódromo. La red social de escalada, muy pronto. Reserva tu nombre antes que nadie.">
-  <meta property="og:title" content="Kumbra · Algo se mueve en tu rocódromo">
+  <meta name="description" content="Algo se mueve en la pared. La red social de escalada, muy pronto. Reserva tu nombre antes que nadie.">
+  <meta property="og:title" content="Kumbra · Algo se mueve en la pared">
   <meta property="og:description" content="La red social de escalada. Muy pronto. Reserva tu @ antes que nadie.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.axclimb.com/kumbra">
-  <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg?v=2">
+  <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg?v=3">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Kumbra: una montaña de noche y el texto «Algo se mueve en tu rocódromo»">
+  <meta property="og:image:alt" content="Kumbra: una montaña de noche y el texto «Algo se mueve en la pared»">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="apple-touch-icon" href="/kumbra/apple-touch-icon.png">
   <meta name="theme-color" content="#0E0B16">
@@ -258,7 +258,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
 
     <section class="title">
       <span class="mono kicker"><i></i>La red social de escalada</span>
-      <h1 id="h1">Algo se mueve en tu rocódromo.</h1>
+      <h1 id="h1">Algo se mueve en la pared.</h1>
       <p class="whisper" id="whisper">&nbsp;</p>
     </section>
 
@@ -345,7 +345,7 @@ body.exploring .title, body.exploring .draghint { opacity: 0 !important; pointer
   // ================= Words =================
   var h1 = document.getElementById("h1");
   h1.innerHTML = h1.textContent.split(" ").map(function (w, i) { return '<span style="animation-delay:' + (0.5 + i * 0.16) + 's">' + w + "</span>"; }).join(" ");
-  var WHISPERS = ["Mira quién ha escalado hoy en tu rocódromo.", "Cada bloque que encadenas se pierde. Hasta ahora.", "Tus amigos van a querer verlo.", "Reta a tu gente y a ver quién suma más.", "Los primeros se quedan con su nombre."];
+  var WHISPERS = ["Mira quién ha escalado hoy.", "Cada bloque que encadenas se pierde. Hasta ahora.", "Tus amigos van a querer verlo.", "Reta a tu gente y a ver quién suma más.", "Los primeros se quedan con su nombre."];
   var wEl = document.getElementById("whisper"), wi = 0;
   function whisper() { wEl.classList.add("out"); setTimeout(function () { wEl.textContent = WHISPERS[wi++ % WHISPERS.length]; wEl.classList.remove("out"); }, 600); }
   setTimeout(function () { whisper(); setInterval(whisper, 4200); }, 1700);
