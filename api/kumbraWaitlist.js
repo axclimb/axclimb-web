@@ -114,7 +114,51 @@ export default async function handler(req, res) {
     console.error("kumbraWaitlist welcome email failed:", error && error.message);
   }
 
+  // Whoever has just had 3 friends reserve their @ with their link gets the email (once each).
+  if (saved === "ok") await sendInviteRewards();
+
   return res.status(200).json({ ok: true, welcome });
+}
+
+/// Asks Supabase who has had 3 friends reserve their @ and hasn't had the email (it marks them as sent, so nobody
+/// gets it twice) and emails each one. Only with Resend: it's a courtesy and never blocks a sign-up.
+async function sendInviteRewards() {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!key || !process.env.RESEND_API_KEY) return;
+  let winners = [];
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/waitlist_take_rewards`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: key, Authorization: `Bearer ${key}` },
+      body: "{}",
+    });
+    if (!response.ok) {
+      console.error("waitlist_take_rewards", response.status, await response.text().catch(() => ""));
+      return;
+    }
+    winners = (await response.json()) || [];
+  } catch (error) {
+    console.error("waitlist_take_rewards", error);
+    return;
+  }
+  for (const winner of winners) {
+    try {
+      const link = `https://www.axclimb.com/kumbra?ref=${encodeURIComponent(winner.username)}`;
+      await sendWithResend({
+        to: winner.email,
+        subject: `@${winner.username}, ya tienes a tus 3 amigos`,
+        text: rewardText(winner, link),
+        html: rewardHtml(winner, link),
+      });
+      await sendWithResend({
+        to: "axclimb@gmail.com",
+        subject: `Kumbra: Aro dorado para @${winner.username}`,
+        text: `@${winner.username} (${winner.email}) ha traído a 3 amigos a la lista: ${(winner.friends || []).map((f) => "@" + f).join(", ")}. Le hemos mandado el correo; el Aro dorado se le activa cuando los 3 creen su cuenta.`,
+      });
+    } catch (error) {
+      console.error("invite reward email failed:", winner.username, error && error.message);
+    }
+  }
 }
 
 const RESEND_FROM = process.env.RESEND_FROM || "Kumbra <hola@axclimb.com>";
@@ -197,6 +241,73 @@ function welcomeHtml(username, email, link) {
         </td></tr>
         <tr><td bgcolor="#1A1324" style="padding:22px 28px 28px;background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);">
           <div class="gs"><div class="gd"><p style="margin:0;font:400 12px/1.6 ${font};color:#8C8197;">Si no te has apuntado tú o quieres salir de la lista, responde a este email y te borramos. <a href="https://www.axclimb.com/kumbra-privacy#lista-de-espera" style="color:#C9BFD3;">Privacidad</a></p>
+          <p style="margin:10px 0 0;font:700 12px ${font};color:#8C8197;">Kumbra · Hecho en Madrid</p></div></div>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`;
+}
+
+const friendsList = (friends) => {
+  const names = (friends || []).map((f) => `@${f}`);
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} y ${names[names.length - 1]}` : names.join("");
+};
+
+// The ring turns on in the app when those 3 friends create their account (already on for a few).
+const howToUse = (winner) => winner.has_ring
+  ? "ya lo tienes en la app. Ve a Perfil, toca tu avatar y elige «Aro dorado»."
+  : "se activa en cuanto tus 3 amigos creen su cuenta en la app (sale el 16 de noviembre). Crea tú la tuya con este mismo email y, cuando lo tengas, ve a Perfil, toca tu avatar y elige «Aro dorado». Avísales para que no se les pase.";
+
+function rewardText(winner, link) {
+  return [
+    `@${winner.username}, ya tienes a tus 3 amigos.`,
+    ``,
+    `${friendsList(winner.friends)} se han apuntado con tu enlace. Tu recompensa, la que solo tiene quien invita: el Aro dorado, un aro dorado alrededor de tu avatar para siempre.`,
+    ``,
+    `Cuándo es tuyo: ${howToUse(winner)}`,
+    ``,
+    `Puedes seguir invitando: ${link}`,
+    ``,
+    `Kumbra · Hecho en Madrid`,
+  ].join("\n");
+}
+
+// Same look as the welcome email. The avatar is the app's Aro dorado with the initial on top (Gmail and
+// Apple Mail show the background image; Outlook shows the initial on the orange cell).
+function rewardHtml(winner, link) {
+  const handle = `@${winner.username}`;
+  const initial = esc(winner.username.replace(/[^a-z0-9]/gi, "").charAt(0).toUpperCase() || "K");
+  const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+  const card = "background-color:#1A1324;background-image:linear-gradient(#1A1324,#1A1324);";
+  return `<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="supported-color-schemes" content="dark"><title>Ya tienes a tus 3 amigos</title>
+<style>u + .body .gs { background: #000; mix-blend-mode: screen; } u + .body .gd { background: #000; mix-blend-mode: difference; }</style></head>
+<body class="body" bgcolor="#0E0B16" style="margin:0;padding:0;background-color:#0E0B16;background-image:linear-gradient(#0E0B16,#0E0B16);">
+  <div style="display:none;max-height:0;overflow:hidden;">${esc(friendsList(winner.friends))} se han apuntado con tu enlace.</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0E0B16" style="background-color:#0E0B16;background-image:linear-gradient(#0E0B16,#0E0B16);">
+    <tr><td align="center" bgcolor="#0E0B16" style="padding:24px 12px;background-color:#0E0B16;background-image:linear-gradient(#0E0B16,#0E0B16);">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#1A1324" style="max-width:560px;${card}border-radius:24px;overflow:hidden;">
+        <tr><td align="center" bgcolor="#1A1324" style="padding:36px 28px 6px;${card}">
+          <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+            <td width="120" height="120" align="center" valign="middle" background="https://www.axclimb.com/kumbra/aro-dorado.png" bgcolor="#E8B53A" style="width:120px;height:120px;border-radius:60px;background-image:url('https://www.axclimb.com/kumbra/aro-dorado.png');background-size:120px 120px;background-position:center;font:900 44px ${font};color:#F5EFE6;">${initial}</td>
+          </tr></table>
+        </td></tr>
+        <tr><td align="center" bgcolor="#1A1324" style="padding:20px 28px 8px;${card}">
+          <span style="display:inline-block;padding:5px 11px;border-radius:99px;background-color:#E8B53A;background-image:linear-gradient(#E8B53A,#E8B53A);color:#3A2108;font:800 11px ${font};letter-spacing:1px;">3 DE 3 AMIGOS</span>
+          <div class="gs"><div class="gd"><h1 style="margin:16px 0 8px;font:900 30px/1.1 ${font};letter-spacing:-0.5px;color:#F5EFE6;">${handle}, ya tienes a tus 3 amigos.</h1>
+          <p style="margin:0;font:400 15px/1.55 ${font};color:#C9BFD3;">${esc(friendsList(winner.friends))} se han apuntado con tu enlace. Tu recompensa, la que solo tiene quien invita: el <b style="color:#F5EFE6;">Aro dorado</b>, un aro dorado alrededor de tu avatar para siempre.</p></div></div>
+        </td></tr>
+        <tr><td bgcolor="#1A1324" style="padding:18px 28px 6px;${card}">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #6B5530;border-radius:18px;">
+            <tr><td style="padding:18px;">
+              <div class="gs"><div class="gd"><p style="margin:0 0 4px;font:800 16px ${font};color:#F5EFE6;">Cuándo es tuyo</p>
+              <p style="margin:0;font:400 14px/1.5 ${font};color:#C9BFD3;">${esc(howToUse(winner).replace(/^./, (c) => c.toUpperCase())).replace("«Aro dorado»", '<b style="color:#F5EFE6;">Aro dorado</b>')}</p></div></div>
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td bgcolor="#1A1324" style="padding:22px 28px 28px;${card}">
+          <div class="gs"><div class="gd"><p style="margin:0;font:400 12px/1.6 ${font};color:#8C8197;">Puedes seguir invitando: <span style="color:#F2B44A;word-break:break-all;">${link.replace("https://", "")}</span></p>
           <p style="margin:10px 0 0;font:700 12px ${font};color:#8C8197;">Kumbra · Hecho en Madrid</p></div></div>
         </td></tr>
       </table>
