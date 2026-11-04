@@ -248,7 +248,7 @@ body.launched .glass { background: none; box-shadow: none; backdrop-filter: none
 .store b { font: 700 17px/1.1 var(--sans); letter-spacing: -.01em; }
 .storenote { margin: 14px 0 0; text-align: center; font: 500 13px/1.4 var(--sans); color: var(--dim); }
 .storenote b { color: var(--amber); font-weight: 700; }
-  </style>
+  .launch{margin-top:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}.launch .lcount{justify-content:center}.launch .lcount{display:flex;flex-wrap:wrap;gap:14px;font:800 26px/1 var(--sans);color:#F5EFE6;font-variant-numeric:tabular-nums}.launch .lcount span{display:flex;align-items:baseline;gap:4px}.launch .lcount small{font:600 11px/1 var(--sans);opacity:.7}</style>
   <!-- Vercel Web Analytics: visitas sin cookies (Vercel → Analytics). -->
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -272,6 +272,7 @@ body.launched .glass { background: none; box-shadow: none; backdrop-filter: none
       <span class="mono kicker"><i></i>La red social de escalada</span>
       <h1 id="h1">Algo se mueve en la pared.</h1>
       <p class="whisper" id="whisper">&nbsp;</p>
+      <div class="launch"><span class="mono">Salimos el 16 de noviembre</span><div class="lcount"><span><b id="cd">--</b><small>días</small></span><span><b id="ch">--</b><small>h</small></span><span><b id="cm">--</b><small>min</small></span><span><b id="cs">--</b><small>s</small></span></div></div>
     </section>
 
     <p class="draghint" id="drag-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12h10M7 12l3-3M7 12l3 3M17 12l-3-3M17 12l-3 3"/></svg>Gírala con el dedo</p>
@@ -505,7 +506,7 @@ body.launched .glass { background: none; box-shadow: none; backdrop-filter: none
         if (!pt) return;
         var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: dimGlow, transparent: true, depthWrite: false, fog: false, opacity: 0 })); sp.position.copy(pt); sp.scale.setScalar(0.32); scene.add(sp);
         var el = document.createElement("div"); el.className = "otag"; el.innerHTML = "<span></span>"; el.firstChild.textContent = "@" + name; otagBox.appendChild(el);
-        others.push({ name: name, sp: sp, n: normalAt(pt.x, pt.z), el: el, delay: (lit.start ? 0.6 : 0.2) + i * (lit.start ? 0.12 : 0.04), ph: rnd() * 6, born: first ? 0 : performance.now() + i * 150, vis: false, seq: base - i });
+        others.push({ idx: i, name: name, sp: sp, n: normalAt(pt.x, pt.z), el: el, delay: (lit.start ? 0.6 : 0.2) + i * (lit.start ? 0.12 : 0.04), ph: rnd() * 6, born: first ? 0 : performance.now() + i * 150, vis: false, seq: base - i });
       });
     };
 
@@ -586,7 +587,7 @@ body.launched .glass { background: none; box-shadow: none; backdrop-filter: none
           var m = o.vis ? 0.06 : 0, facing = face > (o.vis ? 0.05 : 0.15);
           var onScreen = q.z < 1 && Math.abs(q.x) < 0.72 + m && q.y > low - m && q.y < 0.92 + m;
           var hit = o.name === hitName;
-          var show = !ambient && a >= 1 && (hit ? q.z < 1 : facing && onScreen && shown < cap);
+          var rot = Math.floor(now / 2400); var show = a >= 1 && (hit ? q.z < 1 : (ambient ? (onScreen && (o.idx + rot * 4) % 9 < 4 && shown < (W < H ? 4 : 6)) : (facing && onScreen && shown < cap)));
           o.sp.scale.setScalar(hit ? 0.7 : 0.32); o.el.classList.toggle("hit", hit);
           if (show) { if (!hit) shown++; o.el.style.transform = "translate3d(" + ((q.x + 1) / 2 * W).toFixed(2) + "px," + ((1 - q.y) / 2 * H).toFixed(2) + "px,0)"; }
           if (o.vis !== show) { o.vis = show; o.el.classList.toggle("on", show); }
@@ -986,5 +987,6 @@ body.launched .glass { background: none; box-shadow: none; backdrop-filter: none
   requestAnimationFrame(frame);
 })();
 </script>
+<script>(function(){var t=new Date("2026-11-16T00:00:00+01:00").getTime();function p(n){return n<10?"0"+n:""+n}function tick(){var d=Math.max(0,t-Date.now());document.getElementById("cd").textContent=Math.floor(d/864e5);document.getElementById("ch").textContent=p(Math.floor(d/36e5)%24);document.getElementById("cm").textContent=p(Math.floor(d/6e4)%60);document.getElementById("cs").textContent=p(Math.floor(d/1e3)%60)}tick();setInterval(tick,1000)})();</script>
 </body>
 </html>
