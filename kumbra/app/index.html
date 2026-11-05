@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kumbra: la red social de escalada</title>
+  <meta name="description" content="Apunta cada bloque en el rocódromo con un toque, comparte tus sesiones y sube con tu gente. Kumbra, la red social de escalada, para iPhone y Android.">
+  <!-- Staging: quitar el noindex cuando esta página sustituya al teaser. -->
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Kumbra: la red social de escalada">
+  <meta property="og:description" content="Apunta cada bloque con un toque, comparte tus sesiones y sube con tu gente.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg?v=3">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kumbra: una montaña de noche">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#E8622D">
+  <link rel="apple-touch-icon" href="/kumbra/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/kumbra/app/img/kumbra-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@800;900&display=swap">
+  <style>
+:root {
+  --night: #1B1719; --cream: #F3EEE6; --ink: #1A1A1A; --white: #FFFFFF;
+  --plum: #382562; --violet: #533794; --magenta: #A7377B; --rose: #E5484D; --amber: #F2B44A;
+  --display: "Nunito", "Arial Rounded MT Bold", system-ui, sans-serif; --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: var(--night); color: var(--cream); font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 900; letter-spacing: -0.035em; text-wrap: balance; }
+p { text-wrap: pretty; }
+/* Brand amber ring with a dark inner line, so it shows on both the cream and the night sections */
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; box-shadow: 0 0 0 2px #1B1719; border-radius: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -64px; z-index: 100; padding: 10px 14px; border-radius: 10px; background: var(--cream); color: var(--ink); font-weight: 600; text-decoration: none; transition: top .2s var(--ease); }
+.skip:focus { top: 12px; }
+.wrap { width: min(1200px, 100% - 40px); margin: 0 auto; }
+.kicker { font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 99px; border: 0; cursor: pointer; font: 600 16px/1 var(--sans); text-decoration: none; transition: transform .35s var(--ease), background-color .3s var(--ease); }
+.btn:active { transform: scale(.97); }
+.btn.sun { background: linear-gradient(90deg, #E5484D, #A7377B); color: #fff; font-weight: 700; }
+.btn.dark { background: var(--night); color: var(--cream); }
+.btn.dark:hover { transform: translateY(-2px); }
+.btn.sm { min-height: 40px; padding: 0 18px; font-size: 14px; }
+.store { display: inline-flex; align-items: center; gap: 12px; min-height: 58px; padding: 0 22px 0 18px; border-radius: 18px; background: var(--night); color: var(--cream); text-decoration: none; transition: transform .35s var(--ease); }
+.store:hover { transform: translateY(-3px) rotate(-1deg); }
+.store:active { transform: scale(.97); }
+.store svg { width: 26px; height: 26px; flex: none; }
+.store small { display: block; font: 500 11px/1 var(--sans); opacity: .75; }
+.store b { display: block; margin-top: 3px; font: 900 18px/1 var(--display); letter-spacing: -0.02em; }
+.store.light { background: var(--cream); color: var(--ink); }
+.store[aria-disabled="true"] { background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; pointer-events: none; opacity: .85; }
+.stores { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* nav */
+nav { position: fixed; z-index: 60; top: 12px; left: 50%; transform: translateX(-50%); width: min(1000px, 100% - 24px); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 20px; border-radius: 99px; background: rgba(27,23,25,.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 10px 40px -12px rgba(0,0,0,.5); }
+nav .logo img { height: 28px; width: auto; }
+
+nav ul { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+nav ul a { display: block; padding: 10px 14px; border-radius: 99px; font: 500 14px/1 var(--sans); color: rgba(243,238,230,.75); text-decoration: none; transition: color .3s var(--ease), background-color .3s var(--ease); }
+nav ul a:hover { color: var(--cream); background: rgba(243,238,230,.1); }
+@media (max-width: 1000px) { nav ul a { padding: 10px 9px; font-size: 13px; } }
+nav ul a.on { color: var(--cream); background: rgba(243,238,230,.14); }
+section[id], .hoja[id] { scroll-margin-top: 92px; }
+nav .logo .lm { display: none; height: 28px; width: auto; }
+@media (max-width: 800px) {
+  nav { padding: 8px 8px 8px 14px; gap: 6px; }
+  nav .logo .lw { display: none; } nav .logo .lm { display: block; }
+  nav ul { display: flex; flex: 1; min-width: 0; margin: 0 2px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 14px), transparent); mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 14px), transparent); }
+  nav ul::-webkit-scrollbar { display: none; }
+  nav ul li { flex: none; }
+  /* Centre the links when they fit; auto-margin spacers (unlike justify-content) still let the row scroll when they do not */
+  nav ul::before, nav ul::after { content: ""; margin: auto; }
+  nav ul li.x { display: none; }
+  nav ul a { padding: 9px 9px; font-size: 13px; }
+  nav .btn.sm { padding: 0 14px; font-size: 13px; }
+}
+/* Three columns so the links sit in the true centre whatever the widths of the logo and the button */
+@media (min-width: 680px) { nav { display: grid; grid-template-columns: 1fr minmax(0, auto) 1fr; padding-left: 8px; padding-right: 8px; } nav .logo { justify-self: start; padding-left: 10px; } nav > .btn { justify-self: end; } }
+
+/* hero: the waiting-list mountain with a sun behind -> the sun floods the screen while the Kumbra letters fly into one modern phone */
+.hero { position: relative; height: 400svh; background: #0F0C14; --p: 0; --ds: 1; --c: 0; --f: 0; --na: 0; --ca: 1; --fl: 0; --w: 0; --tf: 0; }
+.hero .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(180deg, #0F0C14 0%, #1d1226 55%, #3a1a3a 100%); color: var(--cream); }
+.hero .sunwrap { position: absolute; z-index: 1; left: calc(var(--sx) * 1px); top: calc(var(--sy) * 1px); width: 0; height: 0; }
+.hero .sun { position: absolute; left: calc(var(--D) * -.5px); top: calc(var(--D) * -.5px); width: calc(var(--D) * 1px); height: calc(var(--D) * 1px); border-radius: 50%; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); box-shadow: 0 0 calc(var(--D) * .35px) rgba(240,138,60,.4); transform: scale(var(--ds)); will-change: transform; animation: khsun 2.6s var(--ease) .3s both; }
+@keyframes khsun { from { opacity: 0; translate: 0 36%; } to { opacity: 1; translate: 0 0; } }
+.hero canvas { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; opacity: var(--ca); }
+.hero.nogl canvas { display: none; }
+.hero .flood { position: absolute; inset: 0; z-index: 3; opacity: var(--fl); background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); }
+.hero .kick { position: absolute; z-index: 4; left: 0; right: 0; top: calc(var(--kt) * 1px); text-align: center; font: 700 clamp(12px, 1.4vw, 16px)/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: rgba(243,238,230,.9); opacity: calc(1 - var(--tf) * 1.6); animation: khfade 1s var(--ease) 2.2s backwards; text-shadow: 0 2px 20px rgba(15,12,20,.6); }
+@keyframes khfade { from { opacity: 0; } to { opacity: 1; } }
+.hero .cue { position: absolute; z-index: 4; left: 50%; bottom: 22px; translate: -50% 0; display: grid; justify-items: center; gap: 8px; font: 600 11px/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(243,238,230,.85); opacity: calc(1 - var(--p) * 14); }
+.hero .cue i { width: 1px; height: 34px; background: linear-gradient(var(--cream), transparent); animation: khcue 2s var(--ease) infinite; transform-origin: top; }
+@keyframes khcue { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+/* the wordmark: flies from the top of the screen into the phone and changes colour on the way */
+.hero .wm { position: absolute; z-index: 6; left: 50%; top: calc(var(--wt) * 1px); translate: -50% 0; transform: translate(0, calc(var(--ty) * 1px)) scale(var(--sc)); transform-origin: 50% 0; font: 900 var(--fs)/.9 var(--display); letter-spacing: -0.05em; white-space: nowrap; will-change: transform; }
+.hero .wm .row { display: flex; }
+.hero .wm .row.gr { position: absolute; inset: 0; opacity: var(--c); }
+.hero .wm i { font-style: normal; display: inline-block; will-change: transform; }
+.hero .wm .cr i { color: var(--cream); text-shadow: 0 10px 60px rgba(15,12,20,.5); opacity: 0; translate: 0 50%; filter: blur(10px); animation: khrise 1.2s var(--ease) forwards; animation-delay: calc(.9s + var(--i) * .09s); }
+.hero .wm .gr i { background: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@keyframes khrise { to { opacity: 1; translate: 0 0; filter: none; } }
+.hero .wm.hello .gr i { animation: khhello 1s var(--ease) both; animation-delay: calc(var(--i) * .13s); }
+@keyframes khhello { 0% { transform: translateY(0) scale(1); filter: none; } 35% { transform: translateY(-.14em) scale(1.14); filter: brightness(1.35) drop-shadow(0 0 .12em rgba(247,206,137,.9)); } 100% { transform: translateY(0) scale(1); filter: none; } }
+.hero .wp { position: absolute; z-index: 4; inset: 0; pointer-events: none; font: 900 clamp(40px, 7vw, 124px)/.92 var(--display); letter-spacing: -0.045em; color: #1B1719; }
+.hero .wp span { position: absolute; top: 40%; opacity: var(--w); }
+.hero .wp .l { right: calc(50% + var(--pw) * .5px + 28px); text-align: right; transform: translateX(calc((1 - var(--w)) * -70px)); }
+.hero .wp .r { left: calc(50% + var(--pw) * .5px + 28px); text-align: left; transform: translateX(calc((1 - var(--w)) * 70px)); color: #4A1D5C; }
+@media (max-width: 800px) {
+  .hero .wp { font-size: clamp(34px, 10.4vw, 60px); }
+  .hero .wp br { display: none; }
+  .hero .wp .l, .hero .wp .r { left: 0; right: 0; text-align: center; }
+  .hero .wp .l { transform: translateX(calc((1 - var(--w)) * -90px)); }
+  .hero .wp .r { transform: translateX(calc((1 - var(--w)) * 90px)); }
+  .hero .wp .l { top: calc(var(--pt) * 1px - 2.05em - 10px); } .hero .wp .r { top: calc(var(--pt) * 1px - 1.02em - 10px); }
+}
+
+/* a modern phone, drawn in CSS (titanium frame, thin bezel, dynamic island) */
+.phone { position: absolute; z-index: 5; left: 50%; top: calc(var(--pt) * 1px); width: calc(var(--pw) * 1px); height: calc(var(--ph) * 1px); translate: -50% 0; opacity: var(--f); transform: translateY(calc((1 - var(--f)) * 50px)) scale(calc(.86 + var(--f) * .14)); transform-origin: 50% 60%; container-type: inline-size; filter: drop-shadow(0 40px 70px rgba(0,0,0,.6)); }
+.phone .body { position: absolute; inset: 0; border-radius: 15.5% / 7.4%; padding: 1.7%; background: linear-gradient(145deg, #8b8791 0%, #3a3740 18%, #1f1d24 45%, #55515b 62%, #2b2931 82%, #77737d 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), inset 0 0 6px rgba(0,0,0,.6); }
+.phone .bezel { position: relative; width: 100%; height: 100%; border-radius: 14.2% / 6.8%; padding: 2.3cqw; background: #050406; }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 12.2% / 5.9%; overflow: hidden; background: radial-gradient(120% 55% at 50% 100%, rgba(167,55,123,.45), transparent 62%), linear-gradient(180deg, #1B1719 0%, #221530 100%); color: var(--cream); }
+.phone .screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 28%); }
+.phone .island { position: absolute; z-index: 3; top: 2.2%; left: 50%; translate: -50% 0; width: 31%; height: 3.1%; border-radius: 99px; background: #000; }
+.phone .scene { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--f); }
+.phone .slogan { position: absolute; z-index: 1; left: 0; right: 0; top: 41%; text-align: center; padding: 0 10%; font: 700 4.6cqw/1.3 var(--sans); color: rgba(243,238,230,.92); text-shadow: 0 2px 16px rgba(40,10,40,.6); opacity: var(--c); }
+
+.phone .stores { position: absolute; z-index: 2; left: 50%; bottom: 7%; translate: -50% 0; display: grid; gap: 2.6cqw; width: 74%; opacity: var(--c); }
+.phone .store, .phone .store[aria-disabled="true"] { min-height: 0; padding: 3.2cqw 4cqw; gap: 3cqw; border-radius: 4.4cqw; background: var(--cream); color: var(--ink); box-shadow: 0 10px 24px -10px rgba(20,8,30,.7); opacity: 1; }
+.phone .store svg { width: 6cqw; height: 6cqw; flex: none; }
+.phone .store small { font-size: 3cqw; }
+.phone .store b { margin-top: .6cqw; font-size: 5cqw; }
+
+/* phone stage: a landscape behind the phone and pieces of the app floating around it */
+.hero .land { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; width: 100%; height: 32svh; opacity: var(--f); pointer-events: none; }
+.phone .body { animation: khbob 7s ease-in-out infinite alternate; }
+@keyframes khbob { from { translate: 0 -5px; } to { translate: 0 6px; } }
+.hero .fl { position: absolute; z-index: 6; left: calc(50% + var(--pw) * var(--x) * 1px); top: calc(var(--pt) * 1px + var(--ph) * var(--y) * 1px); width: calc(var(--pw) * var(--wu) * 1px); font-size: calc(var(--pw) * .046px); translate: -50% -50%; opacity: 0; transform: translateY(30px) scale(.86) rotate(var(--r)); transition: opacity .7s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--n) * .14s); pointer-events: none; }
+.hero.hello .fl { opacity: 1; transform: rotate(var(--r)); }
+.hero .fl .in { animation: khfloat 6s ease-in-out infinite alternate; animation-delay: calc(var(--n) * -1.4s); }
+@keyframes khfloat { from { translate: 0 -5px; } to { translate: 0 7px; } }
+.hero .fl .tile { position: relative; padding: .8em 0 .7em; border-radius: .75em; background: #fff; border-bottom: .38em solid #F28C38; text-align: center; font: 900 1.7em/1 var(--display); color: #1A1A1A; box-shadow: 0 1.2em 2.2em -1em rgba(60,10,40,.65); }
+.hero .fl .tile i { position: absolute; top: -.45em; right: -.35em; padding: .3em .55em; border-radius: 99px; background: #F28C38; color: #fff; font: 800 .52em/1 var(--sans); font-style: normal; }
+.hero .fl .xp { padding: .6em .9em; border-radius: 99px; background: linear-gradient(90deg, #F2B44A, #F08A3C); color: #1B1719; text-align: center; font: 900 1.5em/1 var(--display); box-shadow: 0 1.2em 2.2em -1em rgba(60,10,40,.65); }
+.hero .fl .kud { display: flex; align-items: center; gap: .7em; padding: .7em .9em; border-radius: 1.2em; background: #fff; color: #1A1A1A; box-shadow: 0 1.4em 2.6em -1.1em rgba(60,10,40,.7); }
+.hero .fl .kud .av { flex: none; width: 2.3em; height: 2.3em; border-radius: 50%; display: grid; place-items: center; font: 900 1em/1 var(--display); color: #fff; background: linear-gradient(135deg, #F2B44A, #E5484D); }
+.hero .fl .kud b { display: block; font: 800 .95em/1.1 var(--display); } .hero .fl .kud small { display: block; margin-top: .2em; font: 500 .7em/1.1 var(--sans); color: #6b6468; }
+.hero .fl .kud svg { margin-left: auto; width: 1.4em; height: 1.4em; fill: #EE5A7A; flex: none; }
+/* On phones the kudos card would compete with the store buttons inside the phone */
+@media (max-width: 800px) { .hero .fl.k { display: none; } }
+
+/* after the hero */
+.proof { margin-top: 18px; min-height: 22px; display: flex; justify-content: center; align-items: center; gap: 10px; font: 500 14px/1.3 var(--sans); opacity: 0; transition: opacity .6s var(--ease); }
+.proof.on { opacity: 1; }
+.proof i { width: 10px; height: 10px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+.proof b { font-weight: 600; }
+.note { margin-top: 14px; font-size: 12px; opacity: .6; }
+
+/* features: full-width stages, the scroll plays the app */
+.feat { position: relative; z-index: 2; margin-top: -32px; }
+.sx { position: relative; }
+.sx .pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(14px, 3svh, 30px); padding: 88px 16px 20px; overflow: hidden; }
+.sx-a, .sx-c, .sx-c .pin { color: #1A1A1A; }
+.sx-a, .sx-a .pin { background: radial-gradient(60% 45% at 88% 8%, rgba(242,180,74,.38), transparent 70%), radial-gradient(55% 50% at 6% 92%, rgba(167,55,123,.22), transparent 70%), #F8EDF0; border-radius: 32px 32px 0 0; }
+.sx-c { background: radial-gradient(55% 45% at 8% 10%, rgba(83,55,148,.2), transparent 70%), radial-gradient(60% 50% at 92% 88%, rgba(240,138,60,.3), transparent 70%), #F8EDF0; }
+.sx-b, .sx-d, .sx-d .pin { color: var(--cream); }
+.sx-b, .sx-b .pin { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V140L90 90 200 150 320 80 450 160 580 100 720 170 860 90 1000 150 1110 100 1200 140V200Z' fill='%231B1719'/%3E%3C/svg%3E") bottom / 100% 20svh no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200' preserveAspectRatio='none'%3E%3Cpath d='M0 200V110L110 50 230 120 350 30 480 130 620 60 760 140 900 40 1040 120 1200 70V200Z' fill='%23533794' fill-opacity='.55'/%3E%3C/svg%3E") bottom / 100% 30svh no-repeat, radial-gradient(60% 40% at 50% 100%, rgba(240,138,60,.5), transparent 70%), linear-gradient(180deg, #1B1719 0%, #2A1A47 50%, #533794 100%); }
+.sx-d { background: radial-gradient(55% 45% at 50% 58%, rgba(224,48,106,.5), transparent 72%), radial-gradient(40% 30% at 90% 6%, rgba(242,180,74,.25), transparent 70%), linear-gradient(180deg, #1B1719 0%, #382562 60%, #533794 100%); }
+.fx { position: absolute; z-index: 4; display: inline-flex; align-items: center; gap: .5em; padding: .65em 1.1em; border-radius: 99px; background: #fff; color: #1A1A1A; font: 800 1.3em/1 var(--display); box-shadow: 0 1em 2em -.8em rgba(0,0,0,.45); animation: khfl 5s ease-in-out infinite alternate; white-space: nowrap; }
+.fx svg { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.fx.f1 { left: 1em; bottom: -1.5em; } .fx.f2 { right: 1em; bottom: -1.5em; animation-delay: -2.5s; }
+.fx b { color: #D9A21B; }
+.fx.late { opacity: 0; scale: .6; transition: opacity .4s var(--ease), scale .5s var(--ease); } .fx.late.on { opacity: 1; scale: 1; }
+@keyframes khfl { from { transform: translateY(-.35em) rotate(-1.5deg); } to { transform: translateY(.35em) rotate(1.5deg); } }
+@media (min-width: 900px) {
+  .sx .pin { display: grid; grid-template-columns: minmax(0, 520px) auto; justify-content: center; align-content: center; gap: 7vw; padding: 100px 6vw 40px; }
+  .sx .hd { text-align: left; } .sx .hd p { margin-left: 0; font-size: 20px; }
+  .sx h2 { font-size: clamp(48px, 5.4vw, 88px); }
+  .sx-b .hd, .sx-d .hd { order: 2; }
+  .demo { --dw: min(44vw, 540px, 72svh); }
+  .fx.f1 { left: -14%; top: 24%; bottom: auto; } .fx.f2 { right: -14%; bottom: 20%; }
+}
+.sx .hd { text-align: center; max-width: 820px; }
+.sx h2 { font: 900 clamp(32px, 5.2vw, 68px)/.95 var(--display); letter-spacing: -0.04em; }
+.sx h2 em { font-style: normal; background: linear-gradient(90deg, #A7377B, #E5484D 60%, #F08A3C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sx-b h2 em, .sx-d h2 em { background: linear-gradient(90deg, #F2B44A, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; }
+.sx .hd p { margin: 10px auto 0; max-width: 46ch; font: 500 clamp(15px, 1.6vw, 19px)/1.4 var(--sans); opacity: .8; }
+@media (max-height: 700px) { .sx .hd p { display: none; } }
+/* 1em = about 10 px of the real app on a phone, so every piece keeps the app's proportions */
+.demo { --dw: min(92vw, 440px, 62svh); width: var(--dw); font-size: calc(var(--dw) / 36); position: relative; }
+.gc { padding: 1.3em; border-radius: 2.3em; background: #fff; box-shadow: 0 1.8em 3em -1.8em rgba(74,28,60,.55); }
+/* a: the grades */
+.tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: .8em .6em; }
+.tiles b { position: relative; display: grid; place-items: center; height: 3.3em; border-radius: 1em; background: #fff; border: 1px solid #eee5e9; border-bottom: .4em solid var(--g); font: 900 1.5em/1 var(--display); color: #1A1A1A; transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+.tiles b i { position: absolute; top: -.8em; right: -.5em; padding: .35em .6em; border-radius: 99px; background: var(--g); color: #fff; font: 800 .6em/1 var(--sans); font-style: normal; transform: scale(0); transition: transform .35s var(--ease); }
+.tiles b.has i { transform: scale(1); }
+.tiles b.hot { transform: scale(1.1); box-shadow: 0 0 0 .2em rgba(242,180,74,.95), 0 1em 1.6em -1em rgba(74,28,60,.6); z-index: 2; }
+.how { display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1fr; gap: .6em; margin-top: 1.2em; }
+.how span { display: grid; justify-items: center; gap: .35em; padding: .75em 0; border-radius: 1.2em; font: 800 1.15em/1 var(--display); background: var(--bg); color: var(--fg); transition: background .35s var(--ease), color .35s var(--ease), box-shadow .35s var(--ease); }
+.how span.sel { background: var(--sb); color: #fff; box-shadow: 0 .8em 1.4em -.8em var(--sb); }
+.how svg { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.how .fl { --bg: #EDE3D3; --fg: #A8780B; --sb: #D9A21B; } .how .tp { --bg: #DDF3E4; --fg: #1E9A4A; --sb: #34C759; } .how .pr { --bg: #DFE0EE; --fg: #2C6FD1; --sb: #2C6FD1; } .how .pb { --bg: #E4DDE0; --fg: #6b6468; --sb: #6b6468; }
+.sess { margin-top: 1.1em; padding-top: .9em; border-top: 1px solid #f0e8ec; }
+.sess header { display: flex; justify-content: space-between; font: 700 1.15em/1 var(--sans); color: #6b6468; }
+.sess .ch { display: flex; gap: .5em; margin-top: .7em; min-height: 2.4em; overflow: hidden; }
+.sess .ch span { flex: none; display: inline-flex; align-items: center; gap: .4em; padding: .5em .8em; border-radius: 99px; border: 1.5px solid; font: 800 1.15em/1 var(--display); animation: khin .45s var(--ease) both; }
+@keyframes khin { from { opacity: 0; transform: translateY(.6em) scale(.9); } to { opacity: 1; transform: none; } }
+.sess .ch svg { width: .9em; height: .9em; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.sess .ch .tp { background: #E6F7EA; color: #1E9A4A; border-color: #A7E0B7; } .sess .ch .fl { background: #F4EBD9; color: #A8780B; border-color: #E6CF9B; } .sess .ch .pr { background: #E4ECFA; color: #2C6FD1; border-color: #A9C4F0; }
+.fin { margin-top: .9em; padding: .95em 0; border-radius: 1.2em; text-align: center; font: 800 1.35em/1 var(--display); color: #fff; background: linear-gradient(90deg, #E0306A, #E85B8A); box-shadow: 0 .9em 1.6em -1em rgba(224,48,106,.8); opacity: .35; transition: opacity .35s var(--ease); }
+.fin.on { opacity: 1; }
+/* b: the range */
+.cd { position: relative; padding: 1.3em; border-radius: 2.3em; background: #fff; color: #1A1A1A; box-shadow: 0 2em 3.6em -1.6em rgba(0,0,0,.7); }
+.cd header { display: flex; justify-content: space-between; font: 600 1.2em/1 var(--sans); color: #6b6468; }
+.rg { display: block; width: 100%; height: auto; margin-top: .5em; overflow: visible; }
+.stats { display: flex; margin-top: .9em; }
+.stats > div { flex: 1; padding-left: 1.1em; border-left: 1px solid #ece5e8; } .stats > div:first-child { padding-left: 0; border-left: 0; }
+.stats small { display: block; font: 700 1.03em/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #6b6468; }
+.stats b { display: block; margin-top: .25em; font: 900 2.45em/1 var(--display); } .stats .a { color: #D9A21B; } .stats .m { color: #E0306A; } .stats .x { color: #D9A21B; }
+.xpop { position: absolute; right: 1.2em; top: -1.5em; padding: .55em .95em; border-radius: 99px; background: linear-gradient(90deg, #F2B44A, #F08A3C); color: #1B1719; font: 900 1.9em/1 var(--display); box-shadow: 0 1em 2em -1em rgba(240,138,60,.9); transform: scale(0) rotate(-6deg); transition: transform .5s var(--ease); }
+.xpop.on { transform: scale(1) rotate(-4deg); }
+/* c: the feed */
+.feed { position: relative; height: calc(var(--dw) * 1.3); overflow: hidden; border-radius: 2em; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
+.feed .col { display: grid; gap: 1.1em; padding: 1em 0; will-change: transform; }
+.post { padding: 1.4em 1.4em 1.2em; border-radius: 2.2em; background: #fff; box-shadow: 0 1.6em 3em -2em rgba(74,28,60,.55); }
+.post .top { display: flex; align-items: center; gap: 1.3em; }
+.av { flex: none; width: 4em; height: 4em; margin: .4em; border-radius: 50%; box-shadow: 0 0 0 .2em #fff, 0 0 0 .4em #4CAF50; overflow: hidden; } .av img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.who b { display: block; font: 800 1.55em/1 var(--display); } .who b em { margin-left: .5em; padding: .3em .6em; border-radius: 99px; background: #E3F5E8; color: #1E9A4A; font: 800 .58em/1 var(--sans); font-style: normal; vertical-align: .2em; } .who small { display: block; margin-top: .45em; font: 500 1.2em/1 var(--sans); color: #8a8388; }
+.feel { display: inline-flex; align-items: center; gap: .4em; margin-left: auto; padding: .5em .8em; border-radius: 99px; font: 800 1.15em/1 var(--sans); background: rgba(214,138,18,.14); color: #D68A12; } .feel.g { background: rgba(30,154,74,.14); color: #1E9A4A; }
+.feel svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.post .note { margin-top: .9em; font: 500 1.4em/1.3 var(--sans); }
+.post .inf { display: flex; gap: 1.2em; margin-top: .9em; font: 500 1.2em/1 var(--sans); color: #8a8388; } .post .inf .p { color: #2C6FD1; }
+.post .foot { display: flex; align-items: center; gap: .9em; margin-top: 1em; }
+.post .xp { padding: .55em .9em; border-radius: 99px; background: rgba(214,138,18,.14); color: #D68A12; font: 800 1.2em/1 var(--display); }
+.post .sp { flex: 1; }
+.post .ic { display: inline-flex; align-items: center; gap: .5em; padding: .65em 1.1em; border-radius: 99px; background: rgba(138,131,136,.14); color: #6b6468; font: 700 1.3em/1 var(--sans); transition: background .3s var(--ease), color .3s var(--ease); }
+.post .ic svg { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.post .ic.kd.on { background: rgba(224,48,106,.12); color: #E0306A; } .post .ic.kd.on svg { fill: currentColor; }
+.post .ic.kd.pop svg { animation: khkd .6s var(--ease); }
+@keyframes khkd { 0% { transform: scale(1); } 40% { transform: scale(1.5) rotate(-8deg); } 100% { transform: scale(1); } }
+/* d: the level */
+.wk { position: relative; padding: 2.1em; border-radius: 2.9em; color: #fff; background: linear-gradient(135deg, #E0306A 0%, #B5301F 58%, #7A1F3A 100%); box-shadow: 0 1.8em 3.6em -1.6em rgba(224,48,106,.55); overflow: hidden; }
+.wk::before, .wk::after { content: ""; position: absolute; border-radius: 50%; background: #fff; pointer-events: none; }
+.wk::before { width: 22.6em; height: 22.6em; opacity: .1; right: -15em; top: -13.5em; } .wk::after { width: 16.4em; height: 16.4em; opacity: .06; left: -11.5em; bottom: -13em; }
+.wk > * { position: relative; } .wk > .lvlup { position: absolute; }
+.wk .wt { display: flex; justify-content: space-between; align-items: flex-start; }
+.wk .k { font: 700 1.13em/1 var(--sans); letter-spacing: .09em; text-transform: uppercase; opacity: .8; }
+.wk .big { display: flex; align-items: baseline; gap: .1em; margin-top: .35em; font: 900 5.76em/1 var(--display); } .wk .big span { margin-left: .1em; font: 600 .29em/1 var(--sans); opacity: .85; }
+.wk .ring { position: relative; flex: none; width: 9em; height: 9em; }
+.wk .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); } .wk .ring circle { fill: none; stroke-width: 8; stroke-linecap: round; }
+.wk .ring .bg { stroke: rgba(255,255,255,.2); } .wk .ring .fg { stroke: #fff; stroke-dasharray: 226; }
+.wk .ring div { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; font: 900 3.1em/1 var(--display); } .wk .ring div i { font: 700 .33em/1 var(--sans); font-style: normal; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .1em; opacity: .85; }
+.wk.up .ring div b { display: inline-block; animation: khlv .8s var(--ease); }
+@keyframes khlv { 0% { transform: scale(.4) rotate(-20deg); } 60% { transform: scale(1.35) rotate(6deg); } 100% { transform: scale(1); } }
+.wk .in { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 1.8em; padding: 1.2em 0; border-radius: 1.6em; background: rgba(255,255,255,.14); text-align: center; } .wk .in b { display: block; font: 900 2.06em/1 var(--display); } .wk .in small { display: block; margin-top: .25em; font: 500 1.13em/1 var(--sans); opacity: .8; }
+.wk .msg { margin-top: 1.5em; font: 600 1.23em/1.2 var(--sans); opacity: .9; }
+.xpc { display: flex; flex-wrap: wrap; justify-content: center; gap: .6em; margin-top: 1em; min-height: 2.8em; }
+.xpc span { padding: .55em 1em; border-radius: 99px; background: rgba(243,238,230,.12); border: 1px solid rgba(243,238,230,.18); font: 800 1.25em/1 var(--display); animation: khin .45s var(--ease) both; } .xpc span b { color: var(--amber); margin-left: .3em; }
+.lvlup { position: absolute; left: 50%; top: 50%; z-index: 3; translate: -50% -50%; padding: 1.1em 2.2em; border-radius: 2em; background: #fff; color: #1A1A1A; text-align: center; box-shadow: 0 2em 4em -1em rgba(0,0,0,.7); opacity: 0; transform: scale(.6); transition: opacity .35s var(--ease), transform .6s var(--ease); pointer-events: none; }
+.lvlup.on { opacity: 1; transform: scale(1); }
+.lvlup b { display: block; font: 900 4em/1 var(--display); white-space: nowrap; letter-spacing: -0.03em; background: linear-gradient(90deg, #E0306A, #F08A3C); -webkit-background-clip: text; background-clip: text; color: transparent; } .lvlup small { display: block; margin-top: .6em; font: 700 1.4em/1 var(--sans); color: #6b6468; }
+.lvlup i { position: absolute; left: 50%; top: 50%; width: .7em; height: .7em; border-radius: 50%; background: var(--c); opacity: 0; }
+.lvlup.on i { animation: khburst 1s var(--ease) both; animation-delay: calc(var(--n) * 12ms); }
+@keyframes khburst { 0% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--a)) translateX(0); } 100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateX(9em); } }
+
+
+/* sheets: each section slides over the previous one, like turning pages */
+.sx + .sx { margin-top: -100svh; border-radius: 32px 32px 0 0; box-shadow: 0 -1.2rem 3rem -1rem rgba(0,0,0,.35); }
+.sx .pin { border-radius: inherit; }
+.sx-b { z-index: 2; } .sx-c { z-index: 3; } .sx-d { z-index: 4; }
+.sx .pin::before { content: ""; position: absolute; z-index: 0; width: 70vmin; height: 70vmin; border-radius: 50%; pointer-events: none; }
+.sx .pin > * { position: relative; z-index: 1; }
+.sx-a .pin::before { right: -22vmin; bottom: -26vmin; background: linear-gradient(135deg, #F2B44A, #F08A3C); opacity: .35; }
+.sx-b .pin::before { left: -26vmin; top: 10vmin; background: linear-gradient(135deg, #A7377B, #533794); opacity: .5; }
+.sx-c .pin::before { left: -24vmin; bottom: -24vmin; background: linear-gradient(135deg, #DF7DB8, #A7377B); opacity: .3; }
+.sx-d .pin::before { right: -26vmin; top: 8vmin; background: linear-gradient(135deg, #F2B44A, #E5484D); opacity: .4; }
+.sx-c, .sx-c .pin { background: radial-gradient(55% 45% at 8% 10%, rgba(229,72,77,.16), transparent 70%), linear-gradient(180deg, #FBEBD6 0%, #F7D9C9 100%); }
+.gc { rotate: -1.4deg; } .cd { rotate: 1.2deg; } .wk { rotate: -1deg; }
+.post:nth-child(odd) { rotate: -.7deg; } .post:nth-child(even) { rotate: .7deg; }
+
+
+/* e: numbers + health */
+.sx-e, .sx-e .pin { background: radial-gradient(55% 45% at 90% 8%, rgba(83,55,148,.2), transparent 70%), radial-gradient(60% 50% at 6% 94%, rgba(240,138,60,.3), transparent 70%), #F3EEE6; color: #1A1A1A; }
+.sx-e { z-index: 5; } .sx-e .pin::before { right: -24vmin; top: 6vmin; background: linear-gradient(135deg, #533794, #A7377B); opacity: .2; }
+.demo.e { --dw: min(92vw, 420px, 50svh); display: grid; gap: 1em; }
+@media (min-width: 900px) { .demo.e { --dw: min(44vw, 520px, 62svh); } }
+.sc2 { padding: 1.3em; border-radius: 2.3em; background: #fff; box-shadow: 0 1.8em 3em -1.8em rgba(74,28,60,.5); }
+.sc2 h3 { display: flex; align-items: center; gap: .5em; font: 800 1.35em/1 var(--display); }
+.sc2 h3 small { margin-left: auto; padding: .35em .8em; border-radius: 99px; background: rgba(224,48,106,.12); color: #E0306A; font: 700 .72em/1 var(--sans); }
+.sc2 h3 svg { width: 1.1em; height: 1.1em; fill: #E5484D; }
+.bars { display: flex; align-items: flex-end; gap: .8em; height: 9.5em; margin-top: .8em; }
+.bars div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; font: 700 1.1em/1 var(--sans); }
+.bars i { display: block; width: 2.4em; border-radius: .6em .6em 0 0; background: #E0306A; font-style: normal; }
+.bars span { margin-top: .5em; font: 500 .95em/1 var(--sans); color: #8a8388; } .bars b { margin-bottom: .35em; font: 700 1em/1 var(--sans); }
+.qs { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 1.2em; margin-top: 1em; padding-top: 1em; border-top: 1px solid #f0e8ec; }
+.qs div:nth-child(2) { background: #ece5e8; }
+.qs small { display: block; font: 600 1.05em/1 var(--sans); color: #6b6468; } .qs b { display: block; margin: .25em 0 .1em; font: 900 3.4em/1 var(--display); } .qs b.f { color: #E0306A; } .qs p { font: 500 1.05em/1.2 var(--sans); color: #8a8388; }
+.qs .bar { height: .4em; margin-top: .5em; border-radius: 3px; background: #ece5e8; } .qs .bar i { display: block; height: 100%; border-radius: 3px; background: #34C759; width: 0; }
+.hr { display: block; width: 100%; height: auto; margin-top: .7em; overflow: visible; }
+.figs { display: flex; gap: 1.6em; margin-top: .8em; } .figs b { display: block; font: 900 2.2em/1 var(--display); } .figs small { display: block; margin-top: .2em; font: 600 1em/1 var(--sans); color: #6b6468; }
+.src { margin-top: .9em; font: 500 1em/1 var(--sans); color: #8a8388; }
+.cov { display: block; width: 100%; aspect-ratio: 4 / 3; margin-top: .8em; border-radius: 1.4em; object-fit: cover; object-position: 50% 74%; }
+.demo.b { --dw: min(92vw, 400px, 56svh); }
+.post .pm { display: block; width: 100%; aspect-ratio: 16 / 9; margin-top: .9em; border-radius: 1.5em; object-fit: cover; }
+.ph { position: absolute; right: -.5em; bottom: -9em; width: 9em; height: 11em; rotate: 6deg; border-radius: 1.3em; overflow: hidden; border: .35em solid #fff; box-shadow: 0 1.4em 2.4em -1em rgba(0,0,0,.5); z-index: 4; animation: khfl 6s ease-in-out infinite alternate; }
+.ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-height: 760px) { .ph { display: none; } }
+.wk.up > *:not(.lvlup) { opacity: .25; transition: opacity .4s var(--ease); }
+
+/* pro + gyms */
+.pro { background: var(--night); color: var(--ink); padding: 0 0 28px; }
+.proc { border-radius: 44px; padding: clamp(28px, 5vw, 72px); background: #F8EDF0; }
+.pro .kicker { color: #A7377B; }
+.pro h2 { margin-top: 14px; font: 900 clamp(38px, 6.4vw, 96px)/.94 var(--display); letter-spacing: -0.04em; max-width: 14ch; }
+.pro h2 em { font-style: normal; background: linear-gradient(90deg, #A7377B, #E5484D 60%, #F08A3C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pro .lead { margin-top: 20px; max-width: 52ch; font: 500 clamp(17px, 1.8vw, 20px)/1.45 var(--sans); color: #4a4348; }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; }
+.plan { padding: 28px; border-radius: 28px; background: var(--white); display: flex; flex-direction: column; gap: 6px; box-shadow: 0 24px 50px -30px rgba(74,28,60,.5); transition: transform .4s var(--ease); }
+.plan:hover { transform: translateY(-6px); }
+.plan small { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #6b6468; }
+.plan b { font: 900 52px/1 var(--display); letter-spacing: -0.05em; }
+.plan span { font: 500 15px/1.35 var(--sans); color: #4a4348; }
+.plan.star { color: #fff; background: radial-gradient(120% 120% at 100% 0%, #F08A3C 0%, transparent 55%), linear-gradient(135deg, #E5484D 0%, #A7377B 60%, #533794 100%); box-shadow: 0 28px 56px -28px rgba(167,55,123,.8); }
+.plan.star small, .plan.star span { color: rgba(255,255,255,.88); }
+.pchips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.pchips span { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; border-radius: 99px; background: var(--white); font: 600 15px/1 var(--sans); box-shadow: 0 10px 24px -16px rgba(74,28,60,.5); }
+.pchips span::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, #F2B44A, #E5484D); }
+.fine { margin-top: 22px; font-size: 13px; color: #6b6468; max-width: 70ch; }
+.gym { margin-top: 28px; padding: clamp(28px, 5vw, 72px); border-radius: 44px; background: radial-gradient(90% 120% at 100% 0%, rgba(167,55,123,.55), transparent 60%), linear-gradient(135deg, #382562 0%, #1d1226 100%); color: var(--cream); display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px clamp(28px, 5vw, 80px); align-items: center; }
+.gym .kicker { color: var(--amber); }
+.gym h3 { font-size: clamp(32px, 4.8vw, 64px); line-height: .95; letter-spacing: -0.04em; }
+.gym p { margin-top: 14px; font: 500 18px/1.45 var(--sans); opacity: .88; max-width: 46ch; }
+.gym ul { margin: 0 0 26px; padding: 0; list-style: none; display: grid; gap: 14px; }
+.gym li { display: flex; gap: 12px; font: 500 17px/1.35 var(--sans); }
+.gym li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: linear-gradient(135deg, #F2B44A, #E5484D); }
+@media (max-width: 900px) { .plans, .gym { grid-template-columns: 1fr; } .proc, .gym { border-radius: 32px; } }
+
+/* founders */
+.founders { background: var(--night); color: var(--cream); padding: 0 0 28px; text-align: center; }
+.fcard2 { position: relative; overflow: hidden; border-radius: 44px; padding: clamp(56px, 9vw, 110px) clamp(22px, 5vw, 72px) clamp(170px, 22vw, 260px); background: radial-gradient(80% 60% at 50% 100%, rgba(167,55,123,.45), transparent 70%), linear-gradient(180deg, #14101c 0%, #241848 60%, #382562 100%); }
+.founders .kicker { color: var(--amber); }
+.founders h2 { font-size: clamp(36px, 6.4vw, 92px); line-height: .94; max-width: 16ch; margin: 18px auto 0; }
+.founders .lead { margin: 20px auto 0; max-width: 46ch; font: 500 19px/1.45 var(--sans); opacity: .8; }
+.count { margin-top: 36px; font: 900 clamp(90px, 22vw, 300px)/.85 var(--display); letter-spacing: -0.07em; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 22%, #E5484D 42%, #A7377B 62%, #533794 82%); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+@keyframes pop { to { opacity: 1; transform: none; } }
+.ridge { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(120px, 20vw, 200px); pointer-events: none; }
+@media (max-width: 700px) { .fcard2 { border-radius: 32px; } }
+.ridge svg { width: 100%; height: 100%; }
+.lights i { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 14px 3px rgba(242,180,74,.8); animation: tw 3.2s ease-in-out infinite; }
+@keyframes tw { 50% { opacity: .35; transform: scale(.7); } }
+
+/* faq */
+.faq { background: var(--night); color: var(--ink); padding: 0 0 28px; }
+.faqc { border-radius: 44px; padding: clamp(28px, 5vw, 72px); background: #F8EDF0; }
+.faq .kicker { display: block; text-align: center; color: #A7377B; }
+.faq h2 { margin-top: 14px; font: 900 clamp(38px, 6.4vw, 92px)/.94 var(--display); letter-spacing: -0.04em; text-align: center; }
+.faq h2 em { font-style: normal; background: linear-gradient(90deg, #A7377B, #E5484D 60%, #F08A3C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.faq .list { max-width: 820px; margin: 48px auto 0; display: grid; gap: 10px; }
+.faq details { border-radius: 24px; background: var(--white); box-shadow: 0 18px 40px -28px rgba(74,28,60,.5); }
+.faq summary { cursor: pointer; list-style: none; padding: 22px 24px; font: 800 clamp(17px, 2vw, 21px)/1.25 var(--display); letter-spacing: -0.02em; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-radius: 24px; }
+.faq summary::-webkit-details-marker { display: none; }
+/* The plus is drawn with two bars instead of a "+" glyph, whose font metrics sat it below the centre */
+.faq summary::after { content: ""; flex: none; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(#fff, #fff) center / 14px 2.5px no-repeat, linear-gradient(#fff, #fff) center / 2.5px 14px no-repeat, linear-gradient(135deg, #E5484D, #A7377B); transition: transform .4s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 24px 24px; max-width: 62ch; font: 400 17px/1.5 var(--sans); color: #4a4348; }
+.faq details a { color: #A7377B; }
+@media (max-width: 700px) { .faqc { border-radius: 32px; } }
+
+/* final */
+.final { overflow: hidden; padding-bottom: 0; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 26%, #E5484D 58%, #A7377B 100%); }
+.final .fcard { position: static; border-radius: 0; padding: clamp(56px, 9vw, 120px) clamp(22px, 5vw, 72px) clamp(190px, 26vw, 320px); text-align: center; background: none; color: var(--night); }
+.final h2 { font-size: clamp(44px, 9vw, 132px); line-height: .92; color: var(--night); max-width: 11ch; margin: 0 auto; letter-spacing: -0.045em; }
+.final h2 em { font-style: normal; color: #4A1D5C; }
+.final .lead { margin: 22px auto 0; font: 500 clamp(17px, 2vw, 20px)/1.4 var(--sans); color: rgba(27,23,25,.88); }
+.final .stores { justify-content: center; margin-top: 30px; position: relative; z-index: 2; }
+.final .proof, .final .note { position: relative; z-index: 2; color: var(--night); }
+.final .proof i { background: var(--night); box-shadow: none; }
+.final .land { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(120px, 22vw, 250px); pointer-events: none; }
+@media (max-width: 700px) { .final .fcard { border-radius: 32px; } }
+footer { position: relative; z-index: 11; margin-top: -32px; padding: 64px 0 28px; border-radius: 32px 32px 0 0; color: var(--cream); background: radial-gradient(60% 50% at 100% 0%, rgba(167,55,123,.35), transparent 65%), linear-gradient(180deg, #241848 0%, #14101c 100%); }
+.ft { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px clamp(24px, 4vw, 64px); align-items: start; }
+.fb img { height: 34px; width: auto; }
+.fb p { margin: 18px 0 20px; max-width: 34ch; font: 500 16px/1.45 var(--sans); color: rgba(243,238,230,.78); }
+.fb .stores { justify-content: flex-start; }
+.soc { display: flex; gap: 12px; margin-top: 22px; }
+.soc a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(243,238,230,.1); color: var(--cream); transition: background .3s var(--ease), transform .3s var(--ease); }
+.soc a[hidden] { display: none; }
+.soc a:hover { background: linear-gradient(135deg, #E5484D, #A7377B); transform: translateY(-3px); }
+.soc svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.fc h3 { margin: 0 0 16px; font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+.fc ul { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; font: 500 15.5px/1.3 var(--sans); }
+footer a { color: rgba(243,238,230,.78); text-decoration: none; }
+footer .fc a:hover, footer .fl2 a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.fl2 { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(243,238,230,.12); font-size: 14px; }
+.fl2 small { color: rgba(243,238,230,.55); font-size: 13.5px; }
+@media (max-width: 900px) { .ft { grid-template-columns: 1fr 1fr; } .fb { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .ft { grid-template-columns: 1fr; } footer { border-radius: 26px 26px 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; }
+  .reveal { transition: opacity .3s linear, background-color .3s linear !important; transform: none !important; }
+  .reveal { opacity: 1; }
+}
+  
+/* sheets after the features: full-bleed pages that slide over each other */
+.pro, .gymS, .founders, .faq, .final { position: relative; margin-top: -32px; border-radius: 32px 32px 0 0; padding-top: 32px; }
+.pro { z-index: 6; padding-bottom: clamp(56px, 8vw, 110px); background: radial-gradient(50% 40% at 92% 6%, rgba(242,180,74,.35), transparent 70%), radial-gradient(45% 40% at 4% 96%, rgba(167,55,123,.2), transparent 70%), #F8EDF0; overflow: hidden; }
+.pro::before { content: ""; position: absolute; width: 60vmin; height: 60vmin; right: -20vmin; bottom: -26vmin; border-radius: 50%; background: linear-gradient(135deg, #F08A3C, #E5484D); opacity: .22; pointer-events: none; }
+.pro .wrap { position: relative; z-index: 1; } .pro::before { z-index: 0; }
+.proc { border-radius: 0; padding: clamp(48px, 7vw, 100px) 0 0; background: none; }
+.plan { box-shadow: 0 30px 60px -34px rgba(74,28,60,.6); }
+.plan:nth-child(1) { rotate: -1.6deg; } .plan:nth-child(2) { rotate: 1deg; margin-top: 14px; } .plan.star { rotate: -.8deg; scale: 1.04; }
+.plan:hover { rotate: 0deg; }
+.gymS { z-index: 7; padding-bottom: clamp(56px, 8vw, 110px); color: var(--cream); background: radial-gradient(60% 50% at 100% 0%, rgba(167,55,123,.5), transparent 65%), radial-gradient(50% 40% at 0% 100%, rgba(240,138,60,.25), transparent 70%), linear-gradient(180deg, #2A1A47 0%, #382562 100%); overflow: hidden; }
+/* Heading and body are separate blocks so phones can show heading → photos → text and button */
+.gymg { display: grid; grid-template-columns: 1.1fr 1fr; grid-template-areas: "h p" "b p"; column-gap: clamp(32px, 6vw, 90px); row-gap: 0; align-items: center; padding-top: clamp(40px, 6vw, 90px); }
+.gymg .gt-h { grid-area: h; align-self: end; } .gymg .gt-b { grid-area: b; align-self: start; } .gymg .gp { grid-area: p; }
+.gymS .gt-b .btn { margin-top: 30px; }
+.gymS .kicker { color: var(--amber); }
+.gymS h2 { margin-top: 14px; font: 900 clamp(38px, 6vw, 88px)/.94 var(--display); letter-spacing: -0.04em; }
+.gymS h2 em { font-style: normal; background: linear-gradient(90deg, #F2B44A, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gymS p { margin-top: 18px; font: 500 clamp(17px, 1.8vw, 20px)/1.45 var(--sans); opacity: .88; max-width: 46ch; }
+.gymS ul { margin: 26px 0 30px; padding: 0; list-style: none; display: grid; gap: 14px; }
+.gymS li { display: flex; gap: 12px; font: 500 17px/1.35 var(--sans); }
+.gymS li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: linear-gradient(135deg, #F2B44A, #E5484D); }
+.gp { position: relative; aspect-ratio: 1 / 1.05; }
+.gp img { position: absolute; object-fit: cover; border: 6px solid #fff; border-radius: 28px; box-shadow: 0 40px 70px -30px rgba(0,0,0,.7); }
+.gp .g1 { left: 0; top: 0; width: 72%; height: 82%; rotate: -4deg; object-position: 50% 60%; } .gp .g2 { right: 0; bottom: 0; width: 52%; height: 56%; rotate: 5deg; object-position: 30% 35%; }
+.gp .fx { font-size: 14px; } .gp .fx.f1 { left: 4%; bottom: 4%; top: auto; } .gp .fx.f2 { right: 4%; top: 4%; bottom: auto; }
+@media (max-width: 900px) { .gymg { grid-template-columns: 1fr; grid-template-areas: "h" "p" "b"; row-gap: 32px; } .gp { max-width: 420px; margin: 0 auto; width: 100%; } }
+.founders { z-index: 8; padding-bottom: 0; background: radial-gradient(80% 60% at 50% 100%, rgba(167,55,123,.45), transparent 70%), linear-gradient(180deg, #14101c 0%, #241848 60%, #382562 100%); overflow: hidden; }
+.founders .wrap { width: 100%; }
+.fcard2 { border-radius: 0; background: none; }
+.faq { z-index: 9; padding-bottom: clamp(56px, 8vw, 110px); background: radial-gradient(50% 40% at 8% 4%, rgba(83,55,148,.18), transparent 70%), radial-gradient(50% 40% at 96% 90%, rgba(240,138,60,.28), transparent 70%), #F3EEE6; }
+.faqc { border-radius: 0; background: none; padding: clamp(40px, 6vw, 90px) 0 0; }
+.faq details { box-shadow: 0 18px 40px -26px rgba(74,28,60,.45); }
+.final { z-index: 10; }
+@media (max-width: 700px) { .pro, .gymS, .founders, .faq, .final { border-radius: 26px 26px 0 0; } }
+
+/* tiers (the Pro card is "plus", not "pro": that name belongs to the section and its rules) */
+.tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; align-items: stretch; }
+.tier .also { margin: 0; font: 700 14px/1.3 var(--sans); opacity: .85; }
+.tier { position: relative; display: flex; flex-direction: column; gap: 14px; padding: clamp(24px, 3.4vw, 40px); border-radius: 32px; background: #fff; box-shadow: 0 30px 60px -34px rgba(74,28,60,.6); }
+.tier.plus { color: #fff; background: radial-gradient(110% 90% at 100% 0%, rgba(240,138,60,.65) 0%, transparent 55%), linear-gradient(145deg, #A7377B 0%, #533794 55%, #382562 100%); box-shadow: 0 40px 70px -34px rgba(83,55,148,.85); }
+.tier small { font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #6b6468; }
+.tier.plus small { color: rgba(255,255,255,.85); }
+.tier .pr { display: flex; align-items: baseline; gap: 10px; } .tier .pr b { font: 900 clamp(54px, 7vw, 84px)/1 var(--display); letter-spacing: -0.05em; } .tier .pr span { font: 600 16px/1 var(--sans); opacity: .75; }
+.tier > p { font: 500 16px/1.4 var(--sans); opacity: .85; margin: 0; }
+.tier ul { margin: 6px 0 8px; padding: 0; list-style: none; display: grid; gap: 12px; flex: 1; align-content: start; }
+.tier li { display: flex; gap: 12px; align-items: flex-start; font: 600 15.5px/1.3 var(--sans); }
+.tier li svg { flex: none; width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: #34C759; stroke: #fff; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.tier.plus li svg { background: linear-gradient(135deg, #F2B44A, #F08A3C); stroke: #1B1719; }
+.tier .btn { align-self: stretch; justify-content: center; text-align: center; }
+.btn.dark { background: #1B1719; color: #F3EEE6; }
+.sw { display: inline-flex; align-self: flex-start; padding: 4px; border-radius: 99px; background: rgba(255,255,255,.16); }
+.sw button { border: 0; cursor: pointer; padding: 9px 16px; border-radius: 99px; background: none; color: rgba(255,255,255,.85); font: 700 14px/1 var(--sans); }
+.sw button.on { background: #fff; color: #382562; }
+.sw button em { margin-left: 4px; padding: 3px 7px; border-radius: 99px; background: linear-gradient(135deg, #F2B44A, #F08A3C); color: #1B1719; font: 800 11px/1 var(--sans); font-style: normal; }
+@media (max-width: 800px) { .tiers { grid-template-columns: 1fr; }  }
+/* founders marquee */
+.founders { display: none; } .founders.has { display: block; }
+.founders h2 em { font-style: normal; background: linear-gradient(90deg, #F2B44A, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fm { position: relative; z-index: 2; margin: 38px -22px 0; display: grid; gap: 12px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.fm .row { display: flex; gap: 10px; width: max-content; animation: khmq 60s linear infinite; }
+.fm .row.r { animation-direction: reverse; }
+.fm:hover .row { animation-play-state: paused; }
+.fm span { flex: none; padding: 11px 20px; border-radius: 99px; background: rgba(243,238,230,.1); border: 1px solid rgba(243,238,230,.12); font: 700 16px/1 var(--sans); }
+.fm span::before { content: "@"; color: var(--amber); }
+@keyframes khmq { to { transform: translateX(-50%); } }
+.fcard2 { padding-bottom: clamp(70px, 9vw, 120px); } .founders .ridge { display: none; }
+.founders .count { font-size: clamp(80px, 18vw, 220px); }
+@media (prefers-reduced-motion: reduce) { .fm .row { animation: none; flex-wrap: wrap; width: auto; justify-content: center; } }
+</style>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <nav aria-label="Principal">
+    <a class="logo" href="/kumbra/app/" aria-label="Kumbra, inicio"><img class="lw" src="/kumbra/app/img/kumbra-logo-horizontal-blanco.svg" alt="Kumbra" width="100" height="29"><img class="lm" src="/kumbra/app/img/kumbra-logo.svg" alt="" width="35" height="28"></a>
+    <ul id="cats">
+      <li><a href="#apunta">Apunta</a></li>
+      <li><a href="#sesion">Sesión</a></li>
+      <li><a href="#gente">Gente</a></li>
+      <li><a href="#progreso">Progreso</a></li>
+      <li><a href="#pro">Pro</a></li>
+      <li class="x" id="nav-fund" hidden><a href="#fundadores">Fundadores</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
+    </ul>
+    <a class="btn sun sm" href="#descarga">Descargar</a>
+  </nav>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <header class="hero" id="hero">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="kf" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A"/><stop offset=".22" stop-color="#F08A3C"/><stop offset=".42" stop-color="#E5484D"/><stop offset=".62" stop-color="#A7377B"/><stop offset=".82" stop-color="#533794"/><stop offset="1" stop-color="#382562"/></linearGradient>
+          <linearGradient id="kc" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7CE89"/><stop offset=".4" stop-color="#EE888B"/><stop offset=".75" stop-color="#DF7DB8"/><stop offset="1" stop-color="#B495F9"/></linearGradient>
+          <symbol id="mk-gr" viewBox="0 0 768 616"><g transform="translate(-128,-208)"><path d="M139.59,820 Q355.59,628 512,220 Q668.41,628 884.41,820 Z" fill="url(#kf)"/><path d="M427.11,416.59 L512,220 L596.89,416.59 L549.35,380.38 L515.40,431.07 L478.04,385.81 Z" fill="#FFFFFF"/><path d="M152.50,808.29 Q360.28,615.76 512,220 Q663.72,615.76 871.50,808.29" fill="none" stroke="url(#kc)" stroke-width="18.62" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+          <symbol id="mk-dk" viewBox="0 0 768 616"><g transform="translate(-128,-208)"><path d="M139.59,820 Q355.59,628 512,220 Q668.41,628 884.41,820 Z" fill="#1B1719"/><path d="M427.11,416.59 L512,220 L596.89,416.59 L549.35,380.38 L515.40,431.07 L478.04,385.81 Z" fill="#F3EEE6"/><path d="M152.50,808.29 Q360.28,615.76 512,220 Q663.72,615.76 871.50,808.29" fill="none" stroke="#F3EEE6" stroke-width="18.62" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+        </defs>
+      </svg>
+      <div class="pin">
+        <div class="sunwrap" aria-hidden="true"><div class="sun"></div></div>
+        <canvas id="mt" aria-hidden="true"></canvas>
+        <div class="flood" aria-hidden="true"></div>
+
+        <h1 class="wm" id="wm" aria-label="Kumbra">
+          <span class="row cr" aria-hidden="true"><i style="--i:0">K</i><i style="--i:1">u</i><i style="--i:2">m</i><i style="--i:3">b</i><i style="--i:4">r</i><i style="--i:5">a</i></span>
+          <span class="row gr" aria-hidden="true"><i style="--i:0">K</i><i style="--i:1">u</i><i style="--i:2">m</i><i style="--i:3">b</i><i style="--i:4">r</i><i style="--i:5">a</i></span>
+        </h1>
+        <p class="kick">La red social de escalada</p>
+
+        <div class="wp" aria-hidden="true"><span class="l">Cada <br>bloque</span><span class="r">cuenta.</span></div>
+
+        <svg class="land" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,300 L0,170 L90,120 L170,160 L280,70 L380,150 L470,100 L560,170 L680,60 L780,140 L880,100 L1000,170 L1000,300Z" fill="#4A1D5C" opacity=".5"/>
+          <path d="M0,300 L0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160 L1000,300Z" fill="#2A1640"/>
+          <path d="M0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160" fill="none" stroke="#F7CE89" stroke-opacity=".55" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+        </svg>
+        <div class="phone" id="phone">
+          <div class="body"><div class="bezel"><div class="screen">
+            <svg class="scene" viewBox="0 0 300 650" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="psky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12101a"/><stop offset=".35" stop-color="#241848"/><stop offset=".62" stop-color="#533794"/><stop offset=".8" stop-color="#A7377B"/><stop offset="1" stop-color="#E5484D"/></linearGradient>
+                <radialGradient id="pglow" cx="150" cy="520" r="200" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A" stop-opacity=".55"/><stop offset=".45" stop-color="#E5484D" stop-opacity=".22"/><stop offset="1" stop-color="#E5484D" stop-opacity="0"/></radialGradient>
+                <linearGradient id="pmt" x1="0" y1="330" x2="0" y2="650" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A"/><stop offset=".22" stop-color="#F08A3C"/><stop offset=".42" stop-color="#E5484D"/><stop offset=".62" stop-color="#A7377B"/><stop offset=".84" stop-color="#533794"/><stop offset="1" stop-color="#382562"/></linearGradient>
+                <linearGradient id="pcr" x1="0" y1="330" x2="0" y2="650" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7CE89"/><stop offset=".4" stop-color="#EE888B"/><stop offset=".75" stop-color="#DF7DB8"/><stop offset="1" stop-color="#B495F9"/></linearGradient>
+              </defs>
+              <rect width="300" height="650" fill="url(#psky)"/>
+              <rect width="300" height="650" fill="url(#pglow)"/>
+              <circle cx="40" cy="70" r="1.2" fill="#fff" opacity=".8"/><circle cx="96" cy="120" r="1" fill="#fff" opacity=".6"/><circle cx="238" cy="88" r="1.3" fill="#fff" opacity=".8"/><circle cx="262" cy="170" r="1" fill="#fff" opacity=".6"/><circle cx="190" cy="52" r="1" fill="#fff" opacity=".7"/><circle cx="60" cy="210" r="1" fill="#fff" opacity=".5"/>
+              <path d="M-10,650 L-10,520 L45,470 L85,505 L125,455 L175,505 L215,470 L260,500 L310,462 L310,650Z" fill="#3a2a6e" opacity=".7"/>
+              <path d="M-10,650 L-10,565 L40,525 L80,555 L120,505 L180,560 L225,520 L270,552 L310,525 L310,650Z" fill="#2a1d4f"/>
+              <path d="M-10,565 L40,525 L80,555 L120,505 L180,560 L225,520 L270,552 L310,525" fill="none" stroke="#F7CE89" stroke-opacity=".55" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <div class="island"></div>
+            <p class="slogan">La red social de escalada</p>
+            <div class="stores" data-stores data-light></div>
+          </div></div></div>
+        </div>
+
+        <div class="fl" style="--x:-.52;--y:.13;--n:0;--r:-6deg;--wu:.5"><div class="in tile">6B<i>×3</i></div></div>
+        <div class="fl" style="--x:.5;--y:.2;--n:1;--r:5deg;--wu:.44"><div class="in xp">+88 XP</div></div>
+        <div class="fl k" style="--x:.54;--y:.68;--n:3;--r:-3deg;--wu:.68"><div class="in kud"><span class="av">M</span><div><b>Marta</b><small>te ha dado kudos</small></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.500-4.600-9.600-9.300C.9 8.300 3 5 6.300 5c2 0 3.800 1.100 5.700 3.200C13.900 6.100 15.700 5 17.700 5 21 5 23.100 8.300 21.600 11.700 19.500 16.400 12 21 12 21z"/></svg></div></div>
+        <div class="cue" aria-hidden="true"><span>Desliza</span><i></i></div>
+      </div>
+    </header>
+
+    <!-- FEATURES -->
+    <section class="feat" id="funciones" aria-label="Qué hace Kumbra">
+      <section class="sx sx-a" id="apunta" style="height: 430svh" aria-label="Apunta cada bloque">
+        <div class="pin">
+          <div class="hd"><h2>Apunta <em>cada bloque.</em></h2><p>Un toque por bloque, con su grado y cómo te ha salido.</p></div>
+          <div class="demo a" id="demo-a"></div>
+        </div>
+      </section>
+      <section class="sx sx-b" id="sesion" style="height: 400svh" aria-label="Tu sesión">
+        <div class="pin">
+          <div class="hd"><h2>Cada sesión, <em>una cordillera.</em></h2><p>Cada bloque es una montaña: más alta y más cálida cuanto más difícil.</p></div>
+          <div class="demo b" id="demo-b"></div>
+        </div>
+      </section>
+      <section class="sx sx-c" id="gente" style="height: 440svh" aria-label="Tu gente">
+        <div class="pin">
+          <div class="hd"><h2>Tu gente, <em>a un vistazo.</em></h2><p>Mira lo que han escalado tus amigos y dales kudos.</p></div>
+          <div class="demo c" id="demo-c"></div>
+        </div>
+      </section>
+      <section class="sx sx-d" id="progreso" style="height: 400svh" aria-label="Tu progreso">
+        <div class="pin">
+          <div class="hd"><h2>Sube <em>de nivel.</em></h2><p>Cada sesión suma XP. Llena el círculo y pasa al siguiente nivel.</p></div>
+          <div class="demo d" id="demo-d"></div>
+        </div>
+      </section>
+      <section class="sx sx-e" id="numeros" style="height: 330svh" aria-label="Tus números y tu salud">
+        <div class="pin">
+          <div class="hd"><h2>Tus números, <em>tu pulso.</em></h2><p>Tus bloques por mes, tu ratio flash y cómo late el corazón en cada sesión.</p></div>
+          <div class="demo e" id="demo-e"></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- PRO + GYMS -->
+    <section class="pro" id="pro" aria-labelledby="t-pro">
+      <div class="wrap">
+        <div class="proc">
+          <span class="kicker reveal">Planes</span>
+          <h2 id="t-pro" class="reveal">Gratis para escalar. <em>Pro para ir más allá.</em></h2>
+          <p class="lead reveal">Apuntar, seguir y compartir es gratis. Pro suma estadísticas y más.</p>
+          <div class="tiers">
+            <div class="tier free">
+              <small>Gratis</small>
+              <div class="pr"><b>0 €</b><span>para siempre</span></div>
+                            <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Sesiones de bloque y vía, sin límite</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Tus proyectos, sin límite</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Feed, kudos y comentarios</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Ranking y retos con tus amigos</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Comparte tus sesiones</li></ul>
+              <a class="btn dark" href="#descarga">Descargar gratis</a>
+            </div>
+            <div class="tier plus">
+              <small>Kumbra Pro</small>
+              <div class="sw" role="tablist" aria-label="Facturación"><button type="button" class="on" data-p="m">Mensual</button><button type="button" data-p="a">Anual <em>-37 %</em></button></div>
+              <div class="pr"><b id="pp">3,99 €</b><span id="pu">al mes</span></div>
+              <p id="pn">Sin compromiso. Cancela cuando quieras.</p>
+              <p class="also">Todo lo de Gratis, y además:</p><ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Estadísticas avanzadas de todos tus meses</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Varios objetivos y retos sin límite</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Pulso con Apple Watch</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Fotos y vídeos en HD</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Avatares Roca y Rocódromo</li></ul>
+              <a class="btn sun" href="#descarga">Probar 7 días gratis</a>
+            </div>
+          </div>
+          <p class="fine">Pro se contrata desde la app. Si lo dejas, no pierdes nada.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="gymS" id="rocodromos" aria-labelledby="t-gym">
+      <div class="wrap gymg">
+        <div class="gt gt-h">
+          <span class="kicker reveal">Para rocódromos</span>
+          <h2 id="t-gym" class="reveal">¿Llevas un rocódromo? <em>Ya estás en Kumbra.</em></h2>
+        </div>
+        <div class="gt gt-b">
+          <p class="reveal">Si tu gente escala allí, tu rocódromo ya sale en la app. Escríbenos y vemos qué podemos hacer juntos.</p>
+          <a class="btn sun reveal" id="gym-cta" href="#descarga">Hablemos</a>
+        </div>
+        <div class="gp reveal" aria-hidden="true">
+          <img class="g1" src="/kumbra/app/img/photos/p4.webp" alt="" loading="lazy">
+          <img class="g2" src="/kumbra/app/img/photos/p5.webp" alt="" loading="lazy">
+          <span class="fx f1">Ranking semanal</span><span class="fx f2">En directo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDERS -->
+    <section class="founders" id="fundadores" aria-labelledby="t-fund">
+      <div class="wrap">
+        <div class="fcard2">
+          <span class="kicker reveal">Fundadores</span>
+          <h2 id="t-fund" class="reveal">Gracias por <em>subir primero.</em></h2>
+          <p class="lead reveal">Estas personas reservaron su nombre antes de que Kumbra abriera. Sin ellas, esta montaña seguiría vacía.</p>
+          <div class="count" id="count" aria-live="polite">&nbsp;</div>
+          <div class="fm" id="fm" aria-label="Nombres de los fundadores"><div class="row" id="fm1"></div><div class="row r" id="fm2"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="preguntas" aria-labelledby="t-faq">
+      <div class="wrap"><div class="faqc">
+        <span class="kicker reveal">Preguntas</span>
+        <h2 id="t-faq" class="reveal">Resuelve tus dudas <em>antes de subir.</em></h2>
+        <div class="list reveal">
+          <details><summary>¿Qué es Kumbra?</summary><p>Una red social para escaladores. Apuntas tus sesiones de bloque o vía, las compartes y sigues lo que hace la gente que escala contigo.</p></details>
+          <details><summary>¿Es gratis?</summary><p>Sí. Registrar sesiones, seguir a otras personas, dar kudos y compartir es gratis. Kumbra Pro añade estadísticas avanzadas, todo tu historial, varios objetivos, retos sin límite, pulso con Apple Watch, fotos y vídeos en HD y packs de avatares.</p></details>
+          <details><summary>¿Cuánto cuesta Pro?</summary><p>3,99 € al mes o 29,99 € al año, con 7 días gratis al empezar.</p></details>
+          <details><summary>¿Puedo cancelar Pro cuando quiera?</summary><p>Sí. Pro se contrata desde la app con tu cuenta de App Store o Google Play y se cancela desde ahí, sin compromiso.</p></details>
+          <details><summary>¿Tengo que llevar el móvil en la pared?</summary><p>No. Puedes apuntar en directo, un toque por bloque, o al terminar. También puedes registrar una sesión de otro día.</p></details>
+          <details><summary>¿Funciona en mi rocódromo?</summary><p>Si no aparece, puedes añadirlo al elegir dónde escalas. Cada rocódromo puede tener su propia escala de grados, por colores o por niveles.</p></details>
+          <details><summary>¿Quién ve mis sesiones?</summary><p>Quien te sigue. Si prefieres un perfil privado, apruebas tú a cada persona que quiera seguirte. Puedes reportar y bloquear a cualquiera.</p></details>
+          <details><summary>¿Cómo borro mi cuenta?</summary><p>Desde la app, en Ajustes → Eliminar cuenta. Si no puedes entrar, <a class="mail del" href="#">escríbenos</a> desde el correo de tu cuenta y la eliminamos por ti.</p></details>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final" id="descarga" aria-labelledby="t-final">
+      <div class="wrap">
+        <div class="fcard">
+          <h2 id="t-final" class="reveal">Sube <em>con los tuyos.</em></h2>
+          <p class="lead reveal">Apunta tu primera sesión hoy. Gratis en iPhone y Android.</p>
+          <div class="stores reveal" data-stores></div>
+          <p class="proof" id="proof" aria-live="polite"><i></i><span></span></p>
+          <svg class="land" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,300 L0,170 L90,120 L170,160 L280,70 L380,150 L470,100 L560,170 L680,60 L780,140 L880,100 L1000,170 L1000,300Z" fill="#4A1D5C" opacity=".55"/>
+            <path d="M0,300 L0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160 L1000,300Z" fill="#2A1640"/>
+            <path d="M0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160" fill="none" stroke="#F7CE89" stroke-opacity=".6" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap ft">
+      <div class="fb">
+        <a href="/kumbra/app/" aria-label="Kumbra, inicio"><img src="/kumbra/app/img/kumbra-logo-horizontal-blanco.svg" alt="Kumbra" width="120" height="34"></a>
+        <p>La red social de escalada. Apunta tus bloques, comparte tus sesiones y sube con los tuyos.</p>
+        <div class="stores" data-stores data-light></div>
+        <div class="soc">
+          <a id="soc-ig" href="#" aria-label="Instagram de Kumbra" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.500"/><circle cx="12" cy="12" r="4.200"/><circle cx="17.300" cy="6.700" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a id="soc-tt" href="#" aria-label="TikTok de Kumbra" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3c.4 2.600 2 4.200 4.500 4.500v3c-1.600 0-3-.5-4.500-1.400V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.200a3 3 0 1 0 2 2.800V3z" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="fc" role="navigation" aria-label="Secciones">
+        <h3>Explora</h3>
+        <ul>
+          <li><a href="#apunta">Apunta cada bloque</a></li>
+          <li><a href="#sesion">Tu sesión</a></li>
+          <li><a href="#gente">Tu gente</a></li>
+          <li><a href="#progreso">Sube de nivel</a></li>
+          <li><a href="#numeros">Tus números y tu pulso</a></li>
+          <li><a href="#pro">Gratis y Pro</a></li>
+          <li><a href="#rocodromos">Para rocódromos</a></li>
+          <li><a href="#preguntas">Preguntas</a></li>
+        </ul>
+      </div>
+      <div class="fc" role="navigation" aria-label="Legal">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="/kumbra-privacy/">Privacidad</a></li>
+          <li><a href="/kumbra-terms/">Términos de uso</a></li>
+          <li><a href="/kumbra/seguridad-infantil/">Seguridad infantil</a></li>
+          <li><a class="mail del" href="#">Eliminar mi cuenta</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h3>Contacto</h3>
+        <ul>
+          <li><a class="mail" href="#">Escríbenos</a></li>
+          <li><a class="mail gymm" href="#">Para rocódromos y escuelas</a></li>
+          <li><a class="mail prm" href="#">Prensa y colaboraciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap fl2"><small>© 2026 Kumbra. Todos los derechos reservados.</small><a href="#contenido" class="up">Volver arriba</a></div>
+  </footer>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"¿Qué es Kumbra?","acceptedAnswer":{"@type":"Answer","text":"Una red social para escaladores. Apuntas tus sesiones de bloque o vía, las compartes y sigues lo que hace la gente que escala contigo."}},
+    {"@type":"Question","name":"¿Es gratis?","acceptedAnswer":{"@type":"Answer","text":"Sí. Registrar sesiones, seguir a otras personas, dar kudos y compartir es gratis. Kumbra Pro añade estadísticas avanzadas, historial completo, retos sin límite y más."}},
+    {"@type":"Question","name":"¿Cuánto cuesta Pro?","acceptedAnswer":{"@type":"Answer","text":"3,99 € al mes o 29,99 € al año, con 7 días gratis al empezar."}}
+  ]}
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+(function () {
+  // Rellenar el día del lanzamiento. Vacío = el botón sale como "Muy pronto" y no enlaza a nada.
+  var CONFIG = {
+    ios: "https://apps.apple.com/app/id6818507035",          // URL de la ficha en la App Store
+    android: "https://play.google.com/store/apps/details?id=com.axclimb.kumbra",      // URL de la ficha en Google Play
+    contact: "axclimb@gmail.com",   // Correo de contacto (también el de rocódromos)
+    instagram: "",    // Usuario de Instagram, sin @ (vacío = el icono se oculta)
+    tiktok: ""        // Usuario de TikTok, sin @ (vacío = el icono se oculta)
+  };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasIO = "IntersectionObserver" in window;
+
+  // Store buttons (neutral icons until the official badges are added)
+  var APPLE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8C7 7.4 5.6 8.3 4.8 9.7c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 2.9 2.4 1.2-.1 1.6-.8 3-.8s1.8.8 3 .7c1.3 0 2.1-1.200 2.800-2.300.9-1.300 1.300-2.600 1.300-2.700-.1 0-2.600-1-2.600-3.900zM14.100 5.600c.6-.8 1.100-1.800 1-2.900-.9 0-2.100.6-2.700 1.400-.6.700-1.100 1.800-1 2.800 1 .1 2.100-.5 2.700-1.300z"/></svg>';
+  var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.600 2.300 13.300 12l-9.700 9.700c-.4-.2-.6-.6-.6-1.100V3.400c0-.5.2-.9.6-1.100z" fill="#00D7FE"/><path d="m16.600 15.300-3.300-3.300 3.300-3.300 3.800 2.200c1 .6 1 1.600 0 2.200z" fill="#FFCE00"/><path d="M16.600 15.300 13.300 12l-9.700 9.700c.4.2.9.2 1.400-.1z" fill="#FF3A44"/><path d="M16.600 8.700 5 2.400c-.5-.3-1-.3-1.400-.1l9.700 9.700z" fill="#00F076"/></svg>';
+  function store(kind, light) {
+    var url = CONFIG[kind], ios = kind === "ios";
+    var a = document.createElement("a");
+    a.className = "store" + (light ? " light" : "");
+    a.innerHTML = (ios ? APPLE : PLAY) + "<span><small>" + (ios ? "Disponible en la" : "Disponible en") + "</small><b>" + (ios ? "App Store" : "Google Play") + "</b></span>";
+    if (url) { a.href = url; a.rel = "noopener"; a.target = "_blank"; } else { a.setAttribute("aria-disabled", "true"); a.setAttribute("role", "link"); }
+    return a;
+  }
+  document.querySelectorAll("[data-stores]").forEach(function (box) { var lt = box.hasAttribute("data-light"); box.appendChild(store("ios", lt)); box.appendChild(store("android", lt)); });
+  if (CONFIG.contact) document.getElementById("gym-cta").href = "mailto:" + CONFIG.contact + "?subject=" + encodeURIComponent("Mi rocódromo en Kumbra");
+
+  // Hero: the waiting-list mountain with a sun behind -> the sun floods the screen, the Kumbra letters fly into the phone
+  var HERO_LIGHTS = function () {};
+  var HERO = (function () {
+    var hero = document.getElementById("hero"), pin = hero.querySelector(".pin"), canvas = document.getElementById("mt"), wm = document.getElementById("wm");
+    function clamp(v) { return Math.max(0, Math.min(1, v)); }
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    var G = { K: 4 }, P = 0, ticking = false, SX = 0, SY = 0;
+    function setVar(k, v) { pin.style.setProperty(k, typeof v === "number" ? +v.toFixed(3) : v); }
+    function layout() {
+      var W = hero.clientWidth, H = window.innerHeight, narrow = W < 800;
+      var fs = Math.min(W * 0.24, H * 0.3, 300); setVar("--fs", fs + "px");
+      var wt = narrow ? H * 0.12 : H * 0.1; setVar("--wt", wt);
+      var wmW = wm.offsetWidth || fs * 3.6, wmH = wm.offsetHeight || fs * 0.9; setVar("--kt", wt + wmH + 16);
+      var D = Math.min(W * 0.62, H * 0.36, 520); setVar("--D", D);
+      if (!SX) { SX = W / 2; SY = H * 0.5; setVar("--sx", SX); setVar("--sy", SY); }
+      G.K = 2 * Math.hypot(W / 2, Math.max(SY, H - SY)) / D + 0.08;
+      var ph = narrow ? Math.min(H * 0.66, W * 1.7) : Math.min(H * 0.8, 760), pw = ph * 0.4851, pt = narrow ? H * 0.27 : (H - ph) / 2 + H * 0.02;
+      var sc1 = (pw * 0.6) / wmW, ty1 = (pt + ph * 0.3) - (wt + wmH * sc1 / 2) - 0;
+      G.sc = sc1; G.dy = (pt + ph * 0.3 - wmH * sc1 / 2) - wt;
+      setVar("--ph", ph); setVar("--pw", pw); setVar("--pt", pt);
+      ui();
+    }
+    function ui() {
+      ticking = false;
+      var span = hero.offsetHeight - window.innerHeight; P = span > 0 ? clamp(-hero.getBoundingClientRect().top / span) : 0;
+      var p = P, e = ease(clamp((p - 0.06) / 0.32)), ef = ease(clamp((p - 0.1) / 0.3));
+      setVar("--p", p); setVar("--ds", 1 + (G.K - 1) * e);
+      setVar("--fl", clamp((p - 0.26) / 0.1)); setVar("--ca", 1 - clamp((p - 0.3) / 0.08));
+      setVar("--ty", G.dy * ef); setVar("--sc", 1 + (G.sc - 1) * ef); setVar("--c", clamp((ef - 0.45) / 0.45)); setVar("--tf", clamp((p - 0.02) / 0.1));
+      setVar("--f", clamp((p - 0.3) / 0.14)); setVar("--w", clamp((p - 0.5) / 0.1));
+      var wv = clamp((p - 0.5) / 0.1); if (wv >= 0.99) { wm.classList.add("hello"); hero.classList.add("hello"); } else if (wv < 0.5) { wm.classList.remove("hello"); hero.classList.remove("hello"); }
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(ui); } }, { passive: true });
+    window.addEventListener("resize", layout);
+    layout();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+
+    var renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (e) { renderer = null; }
+    if (!renderer) { hero.classList.add("nogl"); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    var scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(36, 1, 0.1, 200);
+    scene.fog = new THREE.FogExp2("#24122C", 0.07);
+    function hsh(x, y) { var a = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return a - Math.floor(a); }
+    function vnoise(x, y, sd) { var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf); var a = hsh(xi + sd, yi), b = hsh(xi + 1 + sd, yi), c = hsh(xi + sd, yi + 1), d = hsh(xi + 1 + sd, yi + 1); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+    function fbm(x, y, sd, o) { var v = 0, a = 0.5, f = 1; for (var i = 0; i < o; i++) { v += a * vnoise(x * f, y * f, sd); f *= 2.03; a *= 0.5; } return v; }
+    var SIZE = 16, HMAX = 7.2;
+    function heightAt(x, z) {
+      var u = x / SIZE * 110 + 55, w = z / SIZE * 110 + 55, d = Math.hypot(x, z * 1.1) / (SIZE / 2);
+      var ridge = 1 - Math.abs(fbm(u / 18, w / 18, 42.7, 5) * 2 - 1);
+      var h = Math.max(0, 1 - d * 1.05) * (0.62 + ridge * 0.45) + fbm(u / 9, w / 9, 45.7, 3) * 0.06;
+      return Math.pow(Math.max(0, h), 1.55) * HMAX;
+    }
+    var STOPS = [[0, "#22163A"], [0.12, "#3A2558"], [0.27, "#6A2E6E"], [0.42, "#C2366E"], [0.55, "#E5484D"], [0.67, "#F08A3C"], [0.76, "#F2B44A"], [0.8, "#FFF4E2"], [1, "#FFFFFF"]];
+    function colorAt(h) { for (var i = 1; i < STOPS.length; i++) if (h <= STOPS[i][0]) return new THREE.Color(STOPS[i - 1][1]).lerp(new THREE.Color(STOPS[i][1]), (h - STOPS[i - 1][0]) / (STOPS[i][0] - STOPS[i - 1][0])); return new THREE.Color("#fff"); }
+    var geo = new THREE.PlaneGeometry(SIZE * 2.2, SIZE * 2.2, 130, 130); geo.rotateX(-Math.PI / 2);
+    var pos = geo.attributes.position, cols = new Float32Array(pos.count * 3), peak = new THREE.Vector3();
+    for (var k = 0; k < pos.count; k++) { var x = pos.getX(k), z = pos.getZ(k), h = heightAt(x, z); pos.setY(k, h); if (h > peak.y) peak.set(x, h, z); var c = colorAt(h / HMAX); cols[k * 3] = c.r; cols[k * 3 + 1] = c.g; cols[k * 3 + 2] = c.b; }
+    geo.setAttribute("color", new THREE.BufferAttribute(cols, 3)); geo.computeVertexNormals();
+    var terrain = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.92, metalness: 0 }));
+    scene.add(terrain);
+    var rim = new THREE.DirectionalLight("#FF9A6C", 1.9); rim.position.set(-6, 5, -12); scene.add(rim);
+    var moon = new THREE.DirectionalLight("#C9B8FF", 0.95); moon.position.set(10, 14, 8); scene.add(moon);
+    scene.add(new THREE.HemisphereLight("#A98BE0", "#2A1424", 0.9));
+    function tex(stops, size) { var cv = document.createElement("canvas"); cv.width = cv.height = size; var g = cv.getContext("2d"), hh = size / 2, gr = g.createRadialGradient(hh, hh, 0, hh, hh, hh); stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); }); g.fillStyle = gr; g.fillRect(0, 0, size, size); return new THREE.CanvasTexture(cv); }
+    var glowTex = tex([[0, "rgba(255,240,210,1)"], [0.25, "rgba(242,180,74,.9)"], [1, "rgba(242,180,74,0)"]], 64);
+    function dots(n, spread, y0, y1, size, color, opacity) {
+      var g = new THREE.BufferGeometry(), a = new Float32Array(n * 3);
+      for (var i = 0; i < n; i++) { a[i * 3] = (Math.random() - 0.5) * spread; a[i * 3 + 1] = y0 + Math.random() * (y1 - y0); a[i * 3 + 2] = (Math.random() - 0.5) * spread; }
+      g.setAttribute("position", new THREE.BufferAttribute(a, 3));
+      var m = new THREE.Points(g, new THREE.PointsMaterial({ color: color, size: size, transparent: true, opacity: opacity, depthWrite: false, sizeAttenuation: true, fog: false }));
+      scene.add(m); return m;
+    }
+    var stars = dots(600, 160, 18, 70, 0.22, "#F5EFE6", 0.7);
+    var chalk = dots(160, 26, 2.2, 12, 0.07, "#FFFFFF", 0.55); chalk.material.fog = true;
+    var others = [];
+    function seeded(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return function () { h = Math.imul(h ^ (h >>> 15), 2246822507); h = Math.imul(h ^ (h >>> 13), 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
+    HERO_LIGHTS = function (names) {
+      names.slice(0, 120).forEach(function (name, i) {
+        var rnd = seeded(name), ang = rnd() * Math.PI * 2, f = 0.12 + rnd() * 0.66, target = peak.y * f, pt = null;
+        for (var r = 0.1; r < 14; r += 0.03) { var x = peak.x + Math.sin(ang) * r, z = peak.z + Math.cos(ang) * r; if (heightAt(x, z) <= target) { pt = new THREE.Vector3(x, heightAt(x, z) + 0.08, z); break; } }
+        if (!pt) return;
+        var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, fog: false, opacity: 0 })); sp.position.copy(pt); sp.scale.setScalar(0.32); scene.add(sp);
+        others.push({ sp: sp, ph: rnd() * 6, d: i * 0.012 });
+      });
+    };
+    var W = 0, H = 0;
+    function resize() { W = hero.clientWidth; H = window.innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
+    window.addEventListener("resize", resize); resize();
+    var t0 = performance.now(), visible = true, tmp = new THREE.Vector3();
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(hero);
+    function frame(now) {
+      requestAnimationFrame(frame);
+      var ca = parseFloat(pin.style.getPropertyValue("--ca")); if (!visible || ca <= 0) return;
+      var t = (now - t0) / 1000;
+      // the range rises out of the fog, with the app's little overshoot
+      var g = reduce ? 1 : Math.min(1, t / 3.2), c1 = 1.25, c3 = c1 + 1, e = g >= 1 ? 1 : 1 + c3 * Math.pow(g - 1, 3) + c1 * Math.pow(g - 1, 2);
+      terrain.scale.y = Math.max(0.001, e);
+      scene.fog.density = 0.07 - 0.046 * Math.min(1, t / 3.5);
+      var narrow = W < 800, yaw = 0.6 + t * 0.03 + P * 0.4, rad = (narrow ? 27 : 21) - P * 5;
+      camera.position.set(peak.x + Math.sin(yaw) * rad, narrow ? 7 : 6.2, peak.z + Math.cos(yaw) * rad);
+      camera.lookAt(peak.x, peak.y * 0.55, peak.z);
+      camera.setViewOffset(W, H, 0, H * (narrow ? -0.08 : -0.03), W, H);
+      camera.updateMatrixWorld();
+      // the sun sits behind the summit, wherever the camera has taken it
+      tmp.set(peak.x, peak.y * terrain.scale.y, peak.z).project(camera);
+      var nx = (tmp.x + 1) / 2 * W, ny = (1 - tmp.y) / 2 * H - parseFloat(pin.style.getPropertyValue("--D") || 0) * 0.16;
+      if (Math.abs(nx - SX) > 0.5 || Math.abs(ny - SY) > 0.5) { SX = nx; SY = ny; setVar("--sx", SX); setVar("--sy", SY); }
+      var cp = chalk.geometry.attributes.position;
+      for (var i = 0; i < cp.count; i++) { var y = cp.getY(i) + 0.004 + Math.sin(t + i) * 0.001; cp.setY(i, y > 12 ? 2.2 : y); cp.setX(i, cp.getX(i) + Math.sin(t * 0.3 + i) * 0.002); }
+      cp.needsUpdate = true;
+      stars.material.opacity = 0.55 + Math.sin(t * 0.7) * 0.1;
+      for (var j = 0; j < others.length; j++) { var o = others[j]; o.sp.material.opacity = clamp((t - 3) * 0.5 - o.d * 20) * (0.65 + Math.sin(t * 2 + o.ph) * 0.25); }
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // Features: each stage is pinned and the scroll plays the app (taps, peaks growing, kudos, level up)
+  (function () {
+    function clamp(v) { return Math.max(0, Math.min(1, v)); }
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    var CHK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    var BOLT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2.5L5 13.5h6l-1 8 8-11h-6z"/></svg>';
+    var CIR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2"/></svg>';
+    var HG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3v3l4 6-4 6v3M16 3v3l-4 6 4 6v3"/></svg>';
+    var CMT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>';
+    var FIRE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.6 3.600 5.500 5.200 5.500 10.500a5.500 5.500 0 0 1-11 0c0-2.300 1-3.700 2.200-4.800.2 1.800 1 2.800 2 3C10.200 8.500 10.800 5.200 12 2.500z"/></svg>';
+    var GAUGE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17a8.500 8.500 0 1 1 16 0"/><path d="M12 15l3-4"/></svg>';
+
+    /* ---- the session ridge, ported from the app's AXSessionRidge (curved flanks, grade colours, crest, snow, haze projects) ---- */
+    var GL = ["4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C"];
+    var BAND = ["#3FAE6A", "#E8C23A", "#F08A3C", "#E5484D", "#D1459A", "#8B5CF6", "#5B6CFF"];
+    function nh(g) { return 0.16 + 0.84 * GL.indexOf(g) / 20; }
+    function band(g) { var n = parseInt(g, 10); if (n < 6) return 0; var l = g.charAt(1).toUpperCase(); return Math.min(1 + (n - 6) * 3 + (l === "A" ? 0 : l === "B" ? 1 : 2), 6); }
+    function gc(g) { return BAND[band(g)]; }
+    function mix(h, to, t) { var c = parseInt(h.slice(1), 16), r = c >> 16, g = c >> 8 & 255, b = c & 255; return "rgb(" + Math.round(r + (to - r) * t) + "," + Math.round(g + (to - g) * t) + "," + Math.round(b + (to - b) * t) + ")"; }
+    function eob(t) { t = clamp(t); var c1 = 1.4, c3 = 2.4; return Math.max(0, 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2)); }
+    var uidN = 0;
+    function ridge(list) {
+      var uid = "rg" + (uidN++), n = list.length, W = 500, H = 150, top = 26, aw = W - 26, ah = H - top - 2, base = top + ah;
+      var span = n + 1, step = Math.min(1 / span, 0.16), first = (1 - step * span) / 2 + step;
+      var pk = [];
+      list.forEach(function (a, i) {
+        if (a.r <= 0) return;
+        var e = eob(a.r), h = nh(a.g) * e, hw = step * (0.55 + 0.45 * Math.min(e, 1)), x = (first + step * i) * aw;
+        pk.push({ x: x, h: h * ah, hw: hw * aw, s: a.s, g: a.g, r: a.r, i: i });
+      });
+      function mt(p, wf) { var hw = p.hw * (wf || 1), l = { x: p.x - hw, y: base }, t = { x: p.x, y: base - p.h }, r = { x: p.x + hw, y: base }, lc = { x: p.x - hw * 0.42, y: base - p.h * 0.32 }, rc = { x: p.x + hw * 0.42, y: base - p.h * 0.32 }; return { l: l, t: t, r: r, lc: lc, rc: rc }; }
+      function pathOf(m) { return "M" + m.l.x + "," + m.l.y + "Q" + m.lc.x + "," + m.lc.y + " " + m.t.x + "," + m.t.y + "Q" + m.rc.x + "," + m.rc.y + " " + m.r.x + "," + m.r.y + "Z"; }
+      function flank(m, t, left) { var s = left ? m.l : m.r, c = left ? m.lc : m.rc, u = 1 - t; return { x: u * u * s.x + 2 * u * t * c.x + t * t * m.t.x, y: u * u * s.y + 2 * u * t * c.y + t * t * m.t.y }; }
+      var out = '<line x1="0" x2="' + W + '" y1="' + (H - 1) + '" y2="' + (H - 1) + '" stroke="#e9e2e5"/>', lastY = null;
+      ["6A", "6B", "6C", "7A", "7B"].forEach(function (g) {
+        var y = base - nh(g) * ah; if (lastY !== null && lastY - y < 19) return; lastY = y;
+        out += '<line x1="0" x2="' + aw + '" y1="' + y + '" y2="' + y + '" stroke="#8a8388" stroke-opacity=".22" stroke-width=".8" stroke-dasharray="3 6"/><text x="' + (W - 1) + '" y="' + (y + 4.500) + '" text-anchor="end" font-family="Nunito,sans-serif" font-weight="700" font-size="12.500" fill="#8a8388">' + g + '</text>';
+      });
+      pk.forEach(function (p) { if (p.s === "project") out += '<path d="' + pathOf(mt(p, 1.1)) + '" fill="' + gc(p.g) + '" fill-opacity=".16"/>'; });
+      var sends = pk.filter(function (p) { return p.s === "top" || p.s === "flash"; }), defs = "";
+      sends.slice().sort(function (a, b) { return b.h - a.h; }).forEach(function (p) {
+        var m = mt(p), c = gc(p.g), id = uid + "g" + p.i;
+        defs += '<linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + c + '"/><stop offset=".75" stop-color="' + mix(c, 0, 0.35) + '"/><stop offset="1" stop-color="' + mix(c, 0, 0.55) + '"/></linearGradient>';
+        out += '<path d="' + pathOf(m) + '" fill="url(#' + id + ')"/>';
+        if (p.s === "flash" && p.r > 0.6 && p.h > 4) {
+          var dp = Math.min(22, p.h * 0.3), t = 1 - dp / p.h, a = flank(m, t, true), b = flank(m, t, false), w = b.x - a.x, j = Math.min(5, dp * 0.25);
+          out += '<path d="M' + a.x + "," + a.y + "L" + m.t.x + "," + m.t.y + "L" + b.x + "," + b.y + "L" + (a.x + w * 0.72) + "," + (a.y - j) + "L" + (a.x + w * 0.52) + "," + (a.y + j * 0.4) + "L" + (a.x + w * 0.3) + "," + (a.y - j * 0.85) + 'Z" fill="#fff" fill-opacity="' + Math.min((p.r - 0.6) / 0.3, 1).toFixed(2) + '"/>';
+        }
+      });
+      if (sends.length) {
+        var ms = sends.map(function (p) { return mt(p); }), x0 = Math.floor(Math.min.apply(null, ms.map(function (m) { return m.l.x; }))), x1 = Math.ceil(Math.max.apply(null, ms.map(function (m) { return m.r.x; }))), cols = x1 - x0, env = [], k;
+        for (k = 0; k <= cols; k++) env.push(base);
+        ms.forEach(function (m) {
+          [true, false].forEach(function (left) {
+            var pts = []; for (k = 0; k <= 24; k++) pts.push(flank(m, k / 24, left)); pts.sort(function (a, b) { return a.x - b.x; });
+            for (k = 0; k < pts.length - 1; k++) {
+              var A = pts[k], B = pts[k + 1], f = Math.max(0, Math.floor(A.x - x0)), l = Math.min(cols, Math.ceil(B.x - x0));
+              for (var c = f; c <= l; c++) { var x = x0 + c, tt = B.x - A.x > 0.001 ? clamp((x - A.x) / (B.x - A.x)) : 0, y = A.y + (B.y - A.y) * tt; if (y < env[c]) env[c] = y; }
+            }
+          });
+        });
+        var d = "", on = false;
+        for (k = 0; k <= cols; k++) { if (env[k] < base - 0.5) { d += (on ? "L" : "M") + (x0 + k) + "," + env[k]; on = true; } else on = false; }
+        var stops = sends.map(function (p) { return '<stop offset="' + clamp(p.x / aw).toFixed(3) + '" stop-color="' + mix(gc(p.g), 255, 0.35) + '"/>'; }).join("");
+        if (sends.length === 1) stops += '<stop offset="1" stop-color="' + mix(gc(sends[0].g), 255, 0.35) + '"/>';
+        defs += '<linearGradient id="' + uid + 'c" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="' + aw + '" y2="0">' + stops + '</linearGradient>';
+        out += '<path d="' + d + '" fill="none" stroke="url(#' + uid + 'c)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+      }
+      pk.forEach(function (p) {
+        if (p.s !== "attempt") return;
+        var h = p.h * 0.42, hw = p.hw * 0.85;
+        out += '<path d="M' + (p.x - hw) + "," + base + "C" + (p.x - hw * 0.4) + "," + base + " " + (p.x - hw * 0.45) + "," + (base - h) + " " + p.x + "," + (base - h) + "C" + (p.x + hw * 0.45) + "," + (base - h) + " " + (p.x + hw * 0.4) + "," + base + " " + (p.x + hw) + "," + base + 'Z" fill="#8a8388" fill-opacity=".55"/>';
+      });
+      var hard = null; sends.forEach(function (p) { if (p.r > 0.6 && (!hard || p.h > hard.h)) hard = p; });
+      if (hard) { var fw = 12 + 9.500 * hard.g.length, fx = Math.min(Math.max(hard.x, fw / 2), aw - fw / 2); out += '<g opacity="' + clamp((hard.r - 0.6) / 0.4).toFixed(2) + '"><rect x="' + (fx - fw / 2) + '" y="' + (base - hard.h - 25) + '" width="' + fw + '" height="21" rx="10.500" fill="' + gc(hard.g) + '"/><text x="' + fx + '" y="' + (base - hard.h - 10) + '" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="15" fill="#fff">' + hard.g + "</text></g>"; }
+      return '<svg class="rg" viewBox="0 0 ' + W + " " + H + '" aria-hidden="true"><defs>' + defs + "</defs>" + out + "</svg>";
+    }
+    function A_(g, s, xp) { return { g: g, s: s, xp: xp || 0, r: 1 }; }
+    function stat(list) {
+      var sends = list.filter(function (a) { return (a.s === "top" || a.s === "flash") && a.r > 0.6; }), mx = null;
+      sends.forEach(function (a) { if (!mx || GL.indexOf(a.g) > GL.indexOf(mx)) mx = a.g; });
+      var xp = 0; list.forEach(function (a) { xp += a.xp * clamp(a.r); });
+      return { tops: sends.length, fl: sends.filter(function (a) { return a.s === "flash"; }).length, mx: mx, xp: Math.round(xp) };
+    }
+
+    /* ---------- a: grades ---------- */
+    var GRADES = ["4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+"];
+    var STEPS = [{ p: 0.18, how: "tp", g: "6A" }, { p: 0.5, how: "fl", g: "6C" }, { p: 0.82, how: "pr", g: "7A" }];
+    var ICON = { tp: CHK, fl: BOLT, pr: CIR };
+    var A = {};
+    function initA(el) {
+      el.innerHTML = '<div class="gc"><div class="tiles">' + GRADES.map(function (g) { return '<b style="--g:' + gc(g) + '" data-g="' + g + '">' + g + '<i></i></b>'; }).join("") + '</div>' +
+        '<div class="how"><span class="fl">' + BOLT + 'Flash</span><span class="tp sel">' + CHK + 'Top</span><span class="pr">' + CIR + 'Proyecto</span><span class="pb">' + HG + 'Probando</span></div>' +
+        '<div class="sess"><header><span>Esta sesión</span><span class="n">0</span></header><div class="ch"></div></div><div class="fin">Terminar sesión</div></div>';
+      A.tiles = {}; el.querySelectorAll(".tiles b").forEach(function (b) { A.tiles[b.getAttribute("data-g")] = b; });
+      A.how = { fl: el.querySelector(".how .fl"), tp: el.querySelector(".how .tp"), pr: el.querySelector(".how .pr") };
+      A.ch = el.querySelector(".ch"); A.n = el.querySelector(".sess .n"); A.fin = el.querySelector(".fin"); A.k = -1;
+    }
+    function renderA(p) {
+      var k = 0; STEPS.forEach(function (st) { if (p >= st.p) k++; });
+      if (k === A.k) return; A.k = k;
+      var counts = {}, how = "tp", hot = null, chips = "";
+      STEPS.slice(0, k).forEach(function (st) { counts[st.g] = (counts[st.g] || 0) + 1; how = st.how; hot = st.g; });
+      Object.keys(A.tiles).forEach(function (g) { var t = A.tiles[g], c = counts[g] || 0; t.classList.toggle("has", c > 0); t.classList.toggle("hot", g === hot); t.querySelector("i").textContent = "×" + c; });
+      Object.keys(A.how).forEach(function (h) { A.how[h].classList.toggle("sel", h === how); });
+      STEPS.slice(0, k).forEach(function (st) { chips += '<span class="' + st.how + '">' + ICON[st.how] + st.g + '</span>'; });
+      A.ch.innerHTML = chips; A.n.textContent = k; A.fin.textContent = k ? "Terminar sesión (" + k + ")" : "Terminar sesión"; A.fin.classList.toggle("on", k > 0);
+    }
+
+    /* ---------- b: the range ---------- */
+    var SESSION = [A_("5", "flash", 6), A_("5+", "top", 5), A_("6A", "flash", 8), A_("6A+", "top", 7), A_("6B", "top", 8), A_("6B", "flash", 10), A_("7A", "project"), A_("6B+", "top", 9), A_("6C", "flash", 17), A_("6A", "attempt"), A_("6B+", "top", 8)];
+    var Bd = {};
+    function initB(el) {
+      el.innerHTML = '<div class="cd"><header><span>Tu rocódromo</span><span>1 h 20 min</span></header><img class="cov" src="/kumbra/app/img/photos/p7.webp" alt=""><div class="rw"></div>' +
+        '<div class="stats"><div><small>Tops</small><b class="t">0</b></div><div><small>Flash</small><b class="a">0</b></div><div><small>Máx</small><b class="m">—</b></div><div><small>XP</small><b class="x">0</b></div></div><div class="xpop"></div></div>';
+      Bd.rw = el.querySelector(".rw"); Bd.t = el.querySelector(".t"); Bd.a = el.querySelector(".a"); Bd.m = el.querySelector(".m"); Bd.x = el.querySelector(".x"); Bd.pop = el.querySelector(".xpop");
+      Bd.pop.textContent = "+" + stat(SESSION).xp + " XP";
+    }
+    function renderB(p) {
+      var q = clamp(p / 0.82) * SESSION.length, list = SESSION.map(function (a, i) { return { g: a.g, s: a.s, xp: a.xp, r: clamp(q - i) }; }), st = stat(list);
+      Bd.rw.innerHTML = ridge(list); Bd.t.textContent = st.tops; Bd.a.textContent = st.fl; Bd.m.textContent = st.mx || "—"; Bd.x.textContent = st.xp;
+      Bd.pop.classList.toggle("on", p > 0.86);
+    }
+
+    /* ---------- c: the feed ---------- */
+    function L(a) { return a.map(function (x) { return A_(x[0], x[1]); }); }
+    var POSTS = [
+      { n: "Rubén V.", av: "regleta", nv: 2, t: "Hace 2 h", f: "Bien", fc: "", dur: "1 h 20 min", pr: 1, list: L([["5", "flash"], ["5+", "top"], ["6A", "flash"], ["6A+", "top"], ["6B", "top"], ["6B+", "flash"], ["6C", "flash"], ["7A", "project"]]), ph: "p6", pos: "50% 42%", note: "Por fin el 6C del desplome", xp: 64, cm: 2, kd: 4, at: 0.4 },
+      { n: "Carla F.", av: "geko", nv: 2, t: "Hace 4 h", f: "Fácil", fc: "g", dur: "2 h", pr: 0, list: L([["6A", "top"], ["6B", "flash"], ["6B+", "top"], ["6C", "top"], ["6C+", "top"], ["7A", "top"], ["7A+", "attempt"]]), ph: "p3", pos: "50% 30%", note: "", xp: 92, cm: 1, kd: 5, at: 0.62 },
+      { n: "Lucía R.", av: "gato", nv: 3, t: "Hace 6 h", f: "Bien", fc: "", dur: "1 h 5 min", pr: 0, list: L([["5", "top"], ["5+", "top"], ["6A", "flash"], ["6A+", "top"], ["6B", "top"], ["6B+", "top"]]), ph: "p2", pos: "50% 18%", note: "Sesión suave de domingo", xp: 51, cm: 0, kd: 2, at: 0.84 }
+    ];
+    var PH = { p1: "/kumbra/app/img/photos/p1.webp", p2: "/kumbra/app/img/photos/p2.webp", p3: "/kumbra/app/img/photos/p3.webp", p6: "/kumbra/app/img/photos/p6.webp" };
+    var AV = { canto: "/kumbra/app/img/avatars/canto.webp", geko: "/kumbra/app/img/avatars/geko.webp", regleta: "/kumbra/app/img/avatars/regleta.webp", gato: "/kumbra/app/img/avatars/gato.webp" };
+    var C = {};
+    function initC(el) {
+      el.innerHTML = '<div class="feed"><div class="col">' + POSTS.map(function (d) {
+        var st = stat(d.list);
+        return '<div class="post"><div class="top"><span class="av"><img src="' + AV[d.av] + '" alt="" width="80" height="80"></span><div class="who"><b>' + d.n + '<em>Nv ' + d.nv + '</em></b><small>' + d.t + '</small></div><span class="feel ' + d.fc + '">' + GAUGE + d.f + '</span></div>' +
+          '<img class="pm" src="' + PH[d.ph] + '" style="object-position:' + d.pos + '" alt="">' + ridge(d.list) + '<div class="stats"><div><small>Tops</small><b>' + st.tops + '</b></div><div><small>Flash</small><b class="a">' + st.fl + '</b></div><div><small>Máx</small><b class="m">' + st.mx + '</b></div></div>' +
+          '<div class="inf"><span>' + d.dur + '</span>' + (d.pr ? '<span class="p">' + d.pr + ' proyecto</span>' : '') + '</div>' + (d.note ? '<p class="note">' + d.note + '</p>' : '') +
+          '<div class="foot"><span class="xp">+' + d.xp + ' XP</span><span class="sp"></span><span class="ic">' + CMT + d.cm + '</span><span class="ic kd">' + FIRE + '<span class="kn">' + d.kd + '</span></span></div></div>';
+      }).join("") + '</div></div>';
+      C.feed = el.querySelector(".feed"); C.col = el.querySelector(".col"); C.kd = el.querySelectorAll(".kd"); C.st = [];
+    }
+    function renderC(p) {
+      var max = Math.max(0, C.col.scrollHeight - C.feed.clientHeight);
+      C.col.style.transform = "translateY(" + (-ease(clamp(p / 0.95)) * max).toFixed(1) + "px)";
+      C.kd.forEach(function (b, i) {
+        var on = p >= POSTS[i].at;
+        if (on !== (C.st[i] === true)) { C.st[i] = on; b.classList.toggle("on", on); b.querySelector(".kn").textContent = POSTS[i].kd + (on ? 1 : 0); if (i === 0) { var fxl = C.feed.parentNode.querySelector(".fx.late"); if (fxl) fxl.classList.toggle("on", on); } if (on) { b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); } }
+      });
+    }
+
+    /* ---------- d: the level ---------- */
+    var XPS = [["Sesión", 80], ["Flash", 60], ["Nuevo grado máximo", 85]], TOTAL = 225, UP = 0.62;
+    var D = {};
+    function initD(el) {
+      var burst = ""; for (var i = 0; i < 14; i++) burst += '<i style="--a:' + (i * 360 / 14) + 'deg;--n:' + i + ';--c:' + ["#F2B44A", "#E5484D", "#A7377B", "#F7CE89"][i % 4] + '"></i>';
+      el.innerHTML = '<div class="wk"><div class="wt"><div><div class="k">Tu semana</div><div class="big">6<span>tops</span></div></div>' +
+        '<div class="ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="36"/><circle class="fg" cx="40" cy="40" r="36"/></svg><div><i>Nivel</i><b class="lv">4</b></div></div></div>' +
+        '<div class="in"><div><b>1</b><small>Sesiones</small></div><div><b>3</b><small>Flash</small></div><div><b>7A</b><small>Máx</small></div></div><p class="msg"></p>' +
+        '<div class="lvlup">' + burst + '<b>¡Nivel 5!</b><small>Has subido de nivel</small></div></div><div class="xpc"></div>';
+      D.wk = el.querySelector(".wk"); D.fg = el.querySelector(".fg"); D.lv = el.querySelector(".lv"); D.msg = el.querySelector(".msg"); D.up = el.querySelector(".lvlup"); D.xpc = el.querySelector(".xpc"); D.k = -1;
+    }
+    function renderD(p) {
+      var up = p >= UP, f = up ? 1 : ease(clamp((p - 0.05) / (UP - 0.1))), got = Math.round(TOTAL * f), k = 0, acc = 0;
+      XPS.forEach(function (x) { acc += x[1]; if (got >= acc) k++; });
+      D.fg.style.strokeDashoffset = (226 * (1 - (up ? 0.06 : 0.5 + 0.5 * f))).toFixed(1);
+      D.lv.textContent = up ? "5" : "4";
+      D.msg.textContent = up ? "Novato · Nivel 5" : "Novato · " + (TOTAL - got) + " XP para el nivel 5";
+      D.up.classList.toggle("on", up); D.wk.classList.toggle("up", up);
+      if (k !== D.k) { D.k = k; D.xpc.innerHTML = XPS.slice(0, k).map(function (x) { return '<span>' + x[0] + '<b>+' + x[1] + '</b></span>'; }).join(""); }
+    }
+
+
+    /* ---------- e: stats + health ---------- */
+    var MONTHS = [["jun", 12], ["jul", 18], ["ago", 9], ["sep", 24], ["oct", 31], ["nov", 27]], FLASH = 38, TOT = 121;
+    var BLOCKS = [["5", 0.07], ["5+", 0.15], ["6A", 0.24], ["6A+", 0.33], ["6B", 0.44], ["6B", 0.54], ["6B+", 0.65], ["6C", 0.78], ["6C", 0.9]];
+    function bpm(t) { return Math.max(88, Math.min(176, 112 + 24 * Math.sin(t * 11) + 14 * Math.sin(t * 27 + 1) + 40 * Math.sin(t * Math.PI))); }
+    var Ed = {};
+    function initE(el) {
+      var W = 400, H = 120, pts = [], i, d = "";
+      for (i = 0; i <= 80; i++) { var t = i / 80, y = H - 8 - (bpm(t) - 80) / 100 * (H - 22); pts.push([t * W, y]); d += (i ? "L" : "M") + (t * W).toFixed(1) + "," + y.toFixed(1); }
+      var dots = BLOCKS.map(function (b) { var y = H - 8 - (bpm(b[1]) - 80) / 100 * (H - 22); return '<circle class="dt" data-t="' + b[1] + '" cx="' + (b[1] * W) + '" cy="' + y.toFixed(1) + '" r="6.500" fill="' + gc(b[0]) + '" stroke="#fff" stroke-width="2.500" opacity="0"/>'; }).join("");
+      el.innerHTML = '<div class="sc2 st"><h3>Bloques completados<small>Por mes</small></h3><div class="bars">' + MONTHS.map(function (m) { return '<div><b>0</b><i></i><span>' + m[0] + '</span></div>'; }).join("") + '</div>' +
+        '<div class="qs"><div><small>RATIO FLASH</small><b class="f">0</b><p>de ' + TOT + ' bloques</p><div class="bar"><i></i></div></div><div></div><div><small>Rocódromos</small><b>3</b><p>donde has escalado</p></div></div></div>' +
+        '<div class="sc2 hl"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.200-8-11a4.500 4.500 0 0 1 8-2.800A4.500 4.500 0 0 1 20 10c0 5.800-8 11-8 11z"/></svg>Tu pulso y tus bloques</h3>' +
+        '<svg class="hr" viewBox="0 0 ' + W + " " + H + '" aria-hidden="true"><defs><linearGradient id="hrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5484D" stop-opacity=".35"/><stop offset="1" stop-color="#E5484D" stop-opacity="0"/></linearGradient><clipPath id="hrc"><rect class="hrr" x="0" y="0" width="0" height="' + H + '"/></clipPath></defs>' +
+        '<g clip-path="url(#hrc)"><path d="' + d + 'L' + W + ',' + H + 'L0,' + H + 'Z" fill="url(#hrg)"/><path d="' + d + '" fill="none" stroke="#E5484D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>' + dots + '</svg>' +
+        '<div class="figs"><div><b class="m">0</b><small>Media (ppm)</small></div><div><b class="x">0</b><small>Máximo (ppm)</small></div><div><b class="k">0</b><small>kcal</small></div><div><b>1 h 20</b><small>duración</small></div></div><p class="src">Datos de Apple Salud</p></div>';
+      Ed.bars = el.querySelectorAll(".bars div"); Ed.f = el.querySelector(".qs .f"); Ed.fb = el.querySelector(".qs .bar i"); Ed.hl = el.querySelector(".hl");
+      Ed.r = el.querySelector(".hrr"); Ed.dots = el.querySelectorAll(".dt"); Ed.m = el.querySelector(".figs .m"); Ed.x = el.querySelector(".figs .x"); Ed.k = el.querySelector(".figs .k");
+    }
+    function renderE(p) {
+      var q = clamp(p / 0.42) * MONTHS.length, mx = 31;
+      Ed.bars.forEach(function (b, i) {
+        var v = ease(clamp(q - i)), bar = b.querySelector("i"), n = b.querySelector("b");
+        bar.style.height = (v * MONTHS[i][1] / mx * 6.800).toFixed(2) + "em"; n.textContent = Math.round(v * MONTHS[i][1]); n.style.opacity = v > 0.05 ? 1 : 0;
+      });
+      var fq = ease(clamp((p - 0.1) / 0.4));
+      Ed.f.textContent = Math.round(FLASH * fq); Ed.f.style.opacity = fq > 0.02 ? 1 : 0; Ed.fb.style.width = (FLASH / TOT * 100 * fq).toFixed(1) + "%";
+      var h = clamp((p - 0.4) / 0.22), t = clamp((p - 0.46) / 0.42);
+      Ed.hl.style.opacity = (0.25 + 0.75 * h).toFixed(2); Ed.hl.style.translate = "0 " + ((1 - h) * 1.2).toFixed(2) + "em";
+      Ed.r.setAttribute("width", (400 * t).toFixed(1));
+      Ed.dots.forEach(function (d) { d.setAttribute("opacity", t >= parseFloat(d.getAttribute("data-t")) ? 1 : 0); });
+      Ed.m.textContent = Math.round(124 * t); Ed.x.textContent = Math.round(171 * t); Ed.k.textContent = Math.round(412 * t);
+      // Hide the figures until they start counting, so the card never shows zeros
+      [Ed.m, Ed.x, Ed.k].forEach(function (b) { b.style.opacity = t > 0.02 ? 1 : 0; });
+    }
+
+    var stages = [
+      { el: document.getElementById("apunta"), demo: document.getElementById("demo-a"), init: initA, render: renderA, over: true },
+      { el: document.getElementById("sesion"), demo: document.getElementById("demo-b"), init: initB, render: renderB, over: true },
+      { el: document.getElementById("gente"), demo: document.getElementById("demo-c"), init: initC, render: renderC, over: true },
+      { el: document.getElementById("progreso"), demo: document.getElementById("demo-d"), init: initD, render: renderD, over: true },
+      { el: document.getElementById("numeros"), demo: document.getElementById("demo-e"), init: initE, render: renderE, enter: true }
+    ];
+    var FXH = { a: '<span class="fx f1">'+BOLT+'Flash a la primera</span>', b: '<span class="fx f1">Nuevo máx <b>6C</b></span><span class="fx f2">+17 XP</span>', c: '<span class="fx f1 late">'+FIRE+'Kudos de Rubén</span>', d: '', e: '' };
+    stages.forEach(function (st, i) { st.init(st.demo); st.demo.insertAdjacentHTML("beforeend", FXH["abcde".charAt(i)]); st.last = -1; st.render(0); });
+    var tick = false;
+    function update() {
+      tick = false; var vh = window.innerHeight;
+      stages.forEach(function (st) {
+        var r = st.el.getBoundingClientRect(); if (r.bottom < -vh || r.top > vh * 2) return;
+        // "enter" sheets start animating while they slide in, not once they are pinned
+        var p = st.enter ? clamp((vh - r.top) / r.height) : clamp(-r.top / (r.height - vh * (st.over ? 2 : 1))); if (Math.abs(p - st.last) < 0.0004) return; st.last = p; st.render(p);
+      });
+    }
+    window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update); update();
+  })();
+
+  // Nav: on small screens the categories show once the intro is over; the current section is highlighted
+  (function () {
+    var nav = document.querySelector("nav"), hero = document.getElementById("hero"), links = nav.querySelectorAll("#cats a"), map = {};
+    function past() { nav.classList.toggle("past", window.scrollY > hero.offsetHeight - window.innerHeight * 0.6); }
+    window.addEventListener("scroll", past, { passive: true }); past();
+    var secs = [];
+    links.forEach(function (a) { var t = document.querySelector(a.getAttribute("href")); if (t) secs.push({ a: a, t: t }); });
+    var extra = document.getElementById("numeros"), prog = document.getElementById("progreso");
+    function mark() {
+      var line = window.innerHeight * 0.5, cur = null;
+      // Hidden sections (e.g. founders without data) have no height and must not count as reached
+      secs.forEach(function (x) { var r = x.t.getBoundingClientRect(); if (r.height && r.top <= line) cur = x; });
+      if (cur && extra && cur.t === prog && extra.getBoundingClientRect().top <= line) cur = secs.filter(function (x) { return x.t === prog; })[0];
+      links.forEach(function (a) { a.classList.toggle("on", !!cur && cur.a === a); });
+    }
+    window.addEventListener("scroll", mark, { passive: true }); mark();
+  })();
+
+
+  // Reveals, once each
+  var items = document.querySelectorAll(".reveal");
+  if (reduce || !hasIO) items.forEach(function (el) { el.classList.add("in"); });
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    items.forEach(function (el, i) { el.style.transitionDelay = ((i % 3) * 70) + "ms"; io.observe(el); });
+  }
+
+  // Founders: the same endpoint as the teaser
+  fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : null; }).then(function (b) {
+    if (!b) return;
+    var total = b.total || (b.names ? b.names.length : 0);
+    if (b.names && b.names.length) HERO_LIGHTS(b.names);
+    if (total > 0) {
+      var proof = document.getElementById("proof");
+      proof.querySelector("span").innerHTML = "<b>" + total.toLocaleString("es-ES") + "</b> " + (total === 1 ? "fundador subió" : "fundadores subieron") + " primero";
+      proof.classList.add("on");
+      document.getElementById("count").textContent = total.toLocaleString("es-ES");
+      var fsec = document.getElementById("fundadores");
+      fsec.classList.add("has");
+      document.getElementById("nav-fund").hidden = false;
+      var list = (b.names || []).map(function (n) { return String(n).replace(/^@/, ""); });
+      if (list.length) {
+        var rows = [document.getElementById("fm1"), document.getElementById("fm2")];
+        rows.forEach(function (row, ri) {
+          var mine = list.filter(function (_, i) { return i % 2 === ri; });
+          if (!mine.length) mine = list;
+          var reps = Math.max(2, Math.ceil(24 / mine.length)), html = "";
+          for (var r = 0; r < reps; r++) mine.forEach(function (n) { html += "<span>" + n.replace(/[<>&]/g, "") + "</span>"; });
+          row.innerHTML = html + html;
+          row.style.animationDuration = Math.max(30, reps * mine.length * 1.8) + "s";
+        });
+      }
+    }
+  }).catch(function () {});
+  // Footer: contact + social links come from CONFIG
+  (function () {
+    var m = CONFIG.contact, ig = document.getElementById("soc-ig"), tt = document.getElementById("soc-tt");
+    document.querySelectorAll(".mail").forEach(function (a) {
+      var subj = a.classList.contains("gymm") ? "Kumbra en mi rocódromo" : a.classList.contains("prm") ? "Prensa y colaboraciones" : a.classList.contains("del") ? "Eliminar mi cuenta" : "Hola Kumbra";
+      if (m) a.href = "mailto:" + m + "?subject=" + encodeURIComponent(subj); else if (a.closest("li")) a.closest("li").hidden = true;
+    });
+    if (CONFIG.instagram) { ig.href = "https://instagram.com/" + CONFIG.instagram; ig.hidden = false; }
+    if (CONFIG.tiktok) { tt.href = "https://www.tiktok.com/@" + CONFIG.tiktok; tt.hidden = false; }
+  })();
+})();
+
+  // Plans: the two cards build up with the scroll (they rise and straighten, the ticks appear one by one,
+  // the Pro price counts up), and the Mensual/Anual switch counts between the two prices
+  (function () {
+    var pp = document.getElementById("pp"), pu = document.getElementById("pu"), pn = document.getElementById("pn"), bs = document.querySelectorAll(".sw button");
+    var D = { m: [3.99, "al mes", "Sin compromiso. Cancela cuando quieras."], a: [29.99, "al año", "Ahorras 17,89 € (37 %) frente a pagar mes a mes. Unos 2,50 € al mes."] };
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var mode = "m", shown = D.m[0], tween = 0;
+    function eur(n) { return n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
+    function price(v) { shown = v; pp.textContent = eur(v); }
+    bs.forEach(function (b) { b.addEventListener("click", function () {
+      var d = D[b.getAttribute("data-p")], from = shown, t0 = performance.now(); mode = b.getAttribute("data-p");
+      pu.textContent = d[1]; pn.textContent = d[2]; bs.forEach(function (x) { x.classList.toggle("on", x === b); });
+      pp.style.opacity = 1;
+      if (reduce) return price(d[0]);
+      cancelAnimationFrame(tween);
+      (function step(now) { var k = Math.min(1, (now - t0) / 450), e = 1 - Math.pow(1 - k, 3); price(from + (d[0] - from) * e); if (k < 1) tween = requestAnimationFrame(step); })(t0);
+    }); });
+
+    var tiers = document.querySelector(".tiers"); if (!tiers || reduce) return;
+    var cards = [].map.call(tiers.querySelectorAll(".tier"), function (el, i) {
+      return { el: el, side: i ? 1 : -1, lag: i ? 0.12 : 0, items: el.querySelectorAll("li"), btn: el.querySelector(".btn"), top: el.querySelector(".pr") };
+    });
+    function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+    function ease(t) { return 1 - Math.pow(1 - t, 3); }
+    var ticking = false;
+    function draw() {
+      ticking = false;
+      var vh = window.innerHeight, base = tiers.getBoundingClientRect().top, narrow = window.innerWidth <= 800;
+      cards.forEach(function (c) {
+        // offsetTop is not affected by the transforms below, so the progress never feeds back on itself
+        // Fully built once the card's top is at 65 % of the screen, so it is readable well before the centre;
+        // the Pro card only lags behind when the two sit side by side
+        var t = clamp(((vh - (base + c.el.offsetTop)) / (vh * 0.35)) - (narrow ? 0 : c.lag)), e = ease(t), r = 1 - e;
+        c.el.style.transform = "translate(" + (c.side * r * (narrow ? 24 : 70)).toFixed(1) + "px," + (r * 110).toFixed(1) + "px) rotate(" + (c.side * r * 5).toFixed(2) + "deg)";
+        c.el.style.opacity = (0.15 + 0.85 * e).toFixed(3);
+        c.items.forEach(function (li, i) {
+          var l = clamp((t - 0.25 - i * 0.06) / 0.25), svg = li.querySelector("svg");
+          li.style.opacity = l.toFixed(3); li.style.transform = "translateY(" + ((1 - l) * 10).toFixed(1) + "px)";
+          if (svg) svg.style.transform = "scale(" + (0.4 + 0.6 * ease(l)).toFixed(3) + ")";
+        });
+        if (c.btn) { var b = clamp((t - 0.6) / 0.25); c.btn.style.opacity = b.toFixed(3); c.btn.style.transform = "translateY(" + ((1 - b) * 14).toFixed(1) + "px)"; }
+        if (c.side > 0 && !tween) { var k = ease(clamp((t - 0.1) / 0.4)); price(D[mode][0] * k); pp.style.opacity = k > 0 ? 1 : 0; }
+      });
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(draw); } }, { passive: true });
+    window.addEventListener("resize", draw);
+    draw();
+  })();
+  </script>
+</body>
+</html>
