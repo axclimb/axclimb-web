@@ -90,9 +90,10 @@ em.k { font-style: normal; background: var(--logo); -webkit-background-clip: tex
 /* the wordmark: flies from the top of the screen into the phone and changes colour on the way */
 .hero .wm { position: absolute; z-index: 6; left: 50%; top: calc(var(--wt) * 1px); translate: -50% 0; transform: translate(0, calc(var(--ty) * 1px)) scale(var(--sc)); transform-origin: 50% 0; font: 900 var(--fs)/.9 var(--display); letter-spacing: -0.05em; white-space: nowrap; will-change: transform; opacity: var(--wo, 1); }
 .hero .wm .row { display: flex; }
+.hero .wm .row.cr { text-shadow: 0 10px 60px rgba(15,12,20,.5); }
 .hero .wm .row.gr { position: absolute; inset: 0; opacity: var(--c); }
-.hero .wm i { font-style: normal; display: inline-block; will-change: transform; padding: .08em .1em; margin: -.08em -.1em; }
-.hero .wm .cr i { color: var(--cream); text-shadow: 0 10px 60px rgba(15,12,20,.5); opacity: 0; translate: 0 50%; filter: blur(10px); animation: khrise 1.2s var(--ease) forwards; animation-delay: calc(.9s + var(--i) * .09s); }
+.hero .wm i { font-style: normal; display: inline-block; padding: .08em .1em; margin: -.08em -.1em; }
+.hero .wm .cr i { color: var(--cream); opacity: 0; translate: 0 50%; filter: blur(10px); animation: khrise 1.2s var(--ease) forwards; animation-delay: calc(.9s + var(--i) * .09s); }
 .hero .wm .gr i { background: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
 @keyframes khrise { to { opacity: 1; translate: 0 0; filter: none; } }
 .hero .wm.hello .gr i { animation: khhello 1s var(--ease) both; animation-delay: calc(var(--i) * .13s); }
