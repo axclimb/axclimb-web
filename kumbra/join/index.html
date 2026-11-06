@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Descarga Kumbra</title>
+  <meta name="description" content="Descarga Kumbra, la app de escalada, en App Store o Google Play.">
+  <meta property="og:title" content="Descarga Kumbra">
+  <meta property="og:description" content="La app de escalada. Disponible en iOS y Android.">
+  <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0E0B16">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjEyMCAyMDAgNzg0IDY0MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJrZiIgeDE9IjAiIHkxPSIyMjAiIHgyPSIwIiB5Mj0iODIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRjJCNDRBIi8+PHN0b3Agb2Zmc2V0PSIwLjQyIiBzdG9wLWNvbG9yPSIjRTU0ODREIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMzgyNTYyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZD0iTTEzOS42LDgyMCBRMzU1LjYsNjI4IDUxMiwyMjAgUTY2OC40LDYyOCA4ODQuNCw4MjAgWiIgZmlsbD0idXJsKCNrZikiLz48cGF0aCBkPSJNNDI3LjEsNDE2LjYgTDUxMiwyMjAgTDU5Ni45LDQxNi42IEw1NDkuNCwzODAuNCBMNTE1LjQsNDMxLjEgTDQ3OCwzODUuOCBaIiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+  <link rel="apple-touch-icon" href="/kumbra/apple-touch-icon.png">
+  <script>
+  /* QR landing: sends iPhone/iPad to the App Store and Android to Google Play; desktop sees both buttons. */
+  (function () {
+    var IOS = "https://apps.apple.com/app/id6818507035";
+    var AND = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra";
+    var ua = navigator.userAgent || "";
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var isAnd = /Android/i.test(ua);
+    if (isIOS) location.replace(IOS);
+    else if (isAnd) location.replace(AND);
+  })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    :root { --night:#0E0B16; --ink:#F5EFE6; --dim:rgba(245,239,230,.62); --faint:rgba(245,239,230,.14); --amber:#F2B44A;
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif; color-scheme:dark; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100dvh; display:grid; place-items:center; color:var(--ink); font:400 16px/1.45 var(--sans);
+      background:radial-gradient(120% 70% at 50% 100%, #6B2340 0%, #2B1531 38%, #120D1D 70%, var(--night) 100%) var(--night); padding:28px 16px; }
+    main { width:100%; max-width:420px; display:grid; gap:20px; text-align:center; }
+    h1 { margin:0; font:900 clamp(32px,9vw,44px)/1.04 var(--sans); letter-spacing:-0.04em; }
+    h1 b { color:var(--amber); }
+    p { margin:0; color:var(--dim); }
+    .stores { display:grid; gap:12px; }
+    a.btn { display:block; padding:16px; border-radius:14px; border:1px solid var(--faint); background:rgba(255,255,255,.06);
+      color:var(--ink); text-decoration:none; font-weight:700; }
+    a.btn:hover { background:rgba(255,255,255,.12); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Descarga <b>Kumbra</b></h1>
+  <p>Elige tu tienda para instalar la app.</p>
+  <div class="stores">
+    <a class="btn" href="https://apps.apple.com/app/id6818507035">App Store (iPhone)</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.axclimb.kumbra">Google Play (Android)</a>
+  </div>
+</main>
+</body>
+</html>
