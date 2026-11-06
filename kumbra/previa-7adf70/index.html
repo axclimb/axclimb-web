@@ -20,31 +20,29 @@
   <link rel="icon" type="image/svg+xml" href="/kumbra/previa-7adf70/img/kumbra-logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:opsz,wght@14..32,400..900&family=Nunito:wght@800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Schibsted+Grotesk:wght@400..900&family=Nunito:wght@800;900&display=swap">
   <style>
 :root { --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0 36V24Q30 20 52 9Q66 20 96 23Q128 16 150 4Q172 18 214 22Q246 18 268 11Q290 21 330 25Q370 14 392 2Q414 17 456 21Q490 20 512 12Q534 22 574 24Q610 15 632 6Q654 18 698 22Q730 19 752 10Q774 21 812 24Q850 13 872 3Q894 17 936 22Q970 20 992 12Q1014 22 1052 24Q1088 16 1110 7Q1132 19 1172 23L1200 24V36Z'/%3E%3C/svg%3E");
   --night: #141118; --night-2: #1D1922; --deep: #0E0C11; --cream: #F3EEE6; --paper: #FBF8F3; --ink: #18141B;
   --mute-d: #A79DAD; --mute-l: #5E5664; --line-d: #2E2833; --line-l: #D9D1C5;
-  --logo: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8);
   --title: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
-  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --sans: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --spring: linear(0, 0.157, 0.438, 0.66, 0.808, 0.897, 0.948, 0.976, 0.99, 0.997, 1);
   --gut: clamp(20px, 6.6vw, 96px);
   --display: "Nunito", "Arial Rounded MT Bold", system-ui, sans-serif; --ease: cubic-bezier(.22, 1, .36, 1);
 }
 * { box-sizing: border-box; margin: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
-body { background: var(--night); color: var(--cream); font: 400 17px/1.5 var(--sans); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+body { background: var(--night); color: var(--cream); font: 400 17px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 :focus-visible { outline: 2px solid #F08A3C; outline-offset: 3px; border-radius: 4px; }
 .skip { position: absolute; left: -999px; top: 8px; z-index: 50; padding: 10px 14px; background: var(--cream); color: var(--ink); }
 .skip:focus { left: 8px; }
-/* titles: tall and narrow, like the signs on a climbing wall; the text stays in Inter */
+/* titles: tall and narrow, like the signs on a climbing wall; the text stays in Schibsted Grotesk */
 h1, h2 { font-family: var(--title); font-weight: 900; letter-spacing: 0; line-height: .88; text-wrap: balance; }
 h2 { font-size: clamp(54px, 8.6vw, 128px); }
-em.k { font-style: normal; background: var(--logo); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .wrap { padding-inline: var(--gut); }
 .lede { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.5; max-width: 34ch; }
 .on-d .lede { color: #D9D1DC; } .on-l .lede { color: #4A4350; }
@@ -77,7 +75,7 @@ em.k { font-style: normal; background: var(--logo); -webkit-background-clip: tex
 .hero { position: relative; height: 240svh; background: #0F0C14; --p: 0; --ds: 1; --c: 0; --f: 0; --na: 0; --ca: 1; --fl: 0; --w: 0; --tf: 0; }
 .hero .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(180deg, #0F0C14 0%, #1d1226 55%, #3a1a3a 100%); color: var(--cream); }
 .hero .sunwrap { position: absolute; z-index: 1; left: calc(var(--sx) * 1px); top: calc(var(--sy) * 1px); width: 0; height: 0; }
-.hero .sun { position: absolute; left: calc(var(--D) * -.5px); top: calc(var(--D) * -.5px); width: calc(var(--D) * 1px); height: calc(var(--D) * 1px); border-radius: 50%; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); box-shadow: 0 0 calc(var(--D) * .35px) rgba(240,138,60,.4); transform: scale(var(--ds)); will-change: transform; animation: khsun 2.6s var(--ease) .3s both; }
+.hero .sun { position: absolute; left: calc(var(--D) * -.5px); top: calc(var(--D) * -.5px); width: calc(var(--D) * 1px); height: calc(var(--D) * 1px); border-radius: 50%; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); transform: scale(var(--ds)); will-change: transform; animation: khsun 2.6s var(--ease) .3s both; }
 @keyframes khsun { from { opacity: 0; translate: 0 36%; } to { opacity: 1; translate: 0 0; } }
 .hero canvas { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; opacity: var(--ca); }
 .hero.nogl canvas { display: none; }
@@ -94,7 +92,7 @@ em.k { font-style: normal; background: var(--logo); -webkit-background-clip: tex
 .hero .wm .row.gr { position: absolute; inset: 0; opacity: var(--c); }
 .hero .wm i { font-style: normal; display: inline-block; padding: .08em .1em; margin: -.08em -.1em; }
 .hero .wm .cr i { color: var(--cream); opacity: 0; translate: 0 50%; filter: blur(10px); animation: khrise 1.2s var(--ease) forwards; animation-delay: calc(.9s + var(--i) * .09s); }
-.hero .wm .gr i { background: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .wm .gr i { color: #F2B44A; }
 @keyframes khrise { to { opacity: 1; translate: 0 0; filter: none; } }
 .hero .wm.hello .gr i { animation: khhello 1s var(--ease) both; animation-delay: calc(var(--i) * .13s); }
 @keyframes khhello { 0% { transform: translateY(0) scale(1); filter: none; } 35% { transform: translateY(-.14em) scale(1.14); filter: brightness(1.35) drop-shadow(0 0 .12em rgba(247,206,137,.9)); } 100% { transform: translateY(0) scale(1); filter: none; } }
@@ -115,7 +113,7 @@ em.k { font-style: normal; background: var(--logo); -webkit-background-clip: tex
 .phone { position: absolute; z-index: 5; left: calc(50% - var(--pw) * .5px); top: calc(var(--pt) * 1px); width: calc(var(--pw) * 1px); height: calc(var(--ph) * 1px); opacity: var(--f); transform: translate(calc(var(--zx, 0) * 1px), calc(var(--zy, 0) * 1px)) scale(var(--zs, 1)) perspective(1500px) translateY(calc((1 - var(--f)) * 50px)) scale(calc(.86 + var(--f) * .14)) rotateY(calc(var(--ry, 0) * 1deg)) rotateX(calc(var(--rx, 0) * 1deg)) rotateZ(calc(var(--rz, 0) * 1deg)); transform-origin: 50% 50%; container-type: inline-size; filter: drop-shadow(0 40px 70px rgba(0,0,0,.6)); }
 .phone .body { position: absolute; inset: 0; border-radius: 15.5% / 7.4%; padding: 1.7%; background: linear-gradient(145deg, #8b8791 0%, #3a3740 18%, #1f1d24 45%, #55515b 62%, #2b2931 82%, #77737d 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), inset 0 0 6px rgba(0,0,0,.6); }
 .phone .bezel { position: relative; width: 100%; height: 100%; border-radius: 14.2% / 6.8%; padding: 2.3cqw; background: #050406; }
-.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 12.2% / 5.9%; overflow: hidden; background: radial-gradient(120% 55% at 50% 100%, rgba(167,55,123,.45), transparent 62%), linear-gradient(180deg, #1B1719 0%, #221530 100%); color: var(--cream); }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 12.2% / 5.9%; overflow: hidden; background: linear-gradient(180deg, #1B1719 0%, #221530 100%); color: var(--cream); }
 .phone .screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 28%); }
 .phone .island { position: absolute; z-index: 3; top: 2.2%; left: 50%; translate: -50% 0; width: 31%; height: 3.1%; border-radius: 99px; background: #000; }
 .phone .screen { background: #15121B; }
@@ -368,7 +366,7 @@ section.pro { padding-block: clamp(80px, 11vw, 150px); }
 .fm { position: relative; margin-top: 30px; height: clamp(230px, 26vw, 300px); }
 /* each name lights up where a star was, stays a while and goes out; then the next one */
 .fm .nm { position: absolute; display: inline-flex; align-items: center; gap: 9px; color: #E9E2EE; font-size: 16px; white-space: nowrap; opacity: 0; animation: nm 6s ease-out forwards; }
-.fm .nm::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.5), 0 0 12px 3px rgba(255,244,226,.55); animation: tw 6s ease-out forwards; }
+.fm .nm::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: tw 6s ease-out forwards; }
 .fm .nm b { font-weight: 500; opacity: 0; animation: nl 6s ease-out forwards; }
 @keyframes nm { 0% { opacity: 0; } 6% { opacity: 1; } 82% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes tw { 0% { transform: scale(.2); } 10% { transform: scale(1.8); } 22% { transform: scale(1); } 100% { transform: scale(1); } }
@@ -878,7 +876,7 @@ footer > * { position: relative; }
     function mtn(p, f) { var hw = p.hw * (f || 1); return "M" + (p.x - hw) + "," + y0 + "Q" + (p.x - hw * 0.42) + "," + (y0 - p.ht * 0.32) + " " + p.x + "," + p.top + "Q" + (p.x + hw * 0.42) + "," + (y0 - p.ht * 0.32) + " " + (p.x + hw) + "," + y0 + "Z"; }
     var defs = "", gl = "", ghosts = "", body = "", crest = "", pl = "", gridC = dark ? "#4A4252" : "#D3CABE", labC = dark ? "#8F8496" : "#8A8190";
     if (opt.grid !== false) ["6A", "6C", "7B"].forEach(function (g) { var yy = y0 - norm(g) * ah; if (yy < top0 - 4) return;
-      gl += '<line x1="0" x2="' + gw + '" y1="' + yy + '" y2="' + yy + '" stroke="' + gridC + '" stroke-width="' + Math.max(1, ts * 0.8) + '" stroke-dasharray="' + 2 * ts + " " + 4 * ts + '"/>' + (labels ? '<text x="' + (w - 1) + '" y="' + (yy + 3.6 * ts) + '" text-anchor="end" font-family="Inter,sans-serif" font-weight="500" font-size="' + 10 * ts + '" fill="' + labC + '">' + g + "</text>" : ""); });
+      gl += '<line x1="0" x2="' + gw + '" y1="' + yy + '" y2="' + yy + '" stroke="' + gridC + '" stroke-width="' + Math.max(1, ts * 0.8) + '" stroke-dasharray="' + 2 * ts + " " + 4 * ts + '"/>' + (labels ? '<text x="' + (w - 1) + '" y="' + (yy + 3.6 * ts) + '" text-anchor="end" font-family="Schibsted Grotesk,sans-serif" font-weight="500" font-size="' + 10 * ts + '" fill="' + labC + '">' + g + "</text>" : ""); });
     P.forEach(function (p) { if (p.s === "project" && p.r > 0) ghosts += '<path d="' + mtn(p, 1.1) + '" fill="' + p.c + '" fill-opacity="' + (0.2 * clamp(p.r * 2)).toFixed(2) + '"/>'; });
     var S = P.filter(function (p) { return p.s !== "project" && p.r > 0; });
     S.slice().sort(function (a, b) { return b.ht - a.ht; }).forEach(function (p) {
@@ -904,7 +902,7 @@ footer > * { position: relative; }
     }
     var hard = S.filter(function (p) { return p.r > 0.6; }).reduce(function (a, p) { return !a || p.ht > a.ht ? p : a; }, null);
     if (pill && hard) { var fs = 11 * ts, pw = hard.g.length * fs * 0.72 + 14 * ts, ph = fs + 6 * ts, cx = Math.min(Math.max(hard.x, pw / 2), gw - pw / 2), cy = hard.top - 15 * ts;
-      pl = '<g opacity="' + clamp((hard.r - 0.6) / 0.4).toFixed(2) + '" transform="translate(' + (cx - pw / 2) + "," + (cy - ph / 2) + ')"><rect width="' + pw + '" height="' + ph + '" rx="' + ph / 2 + '" fill="' + hard.c + '"/><text x="' + pw / 2 + '" y="' + (ph / 2 + fs * 0.36) + '" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="' + fs + '" fill="#fff">' + hard.g + "</text></g>"; }
+      pl = '<g opacity="' + clamp((hard.r - 0.6) / 0.4).toFixed(2) + '" transform="translate(' + (cx - pw / 2) + "," + (cy - ph / 2) + ')"><rect width="' + pw + '" height="' + ph + '" rx="' + ph / 2 + '" fill="' + hard.c + '"/><text x="' + pw / 2 + '" y="' + (ph / 2 + fs * 0.36) + '" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-weight="800" font-size="' + fs + '" fill="#fff">' + hard.g + "</text></g>"; }
     var svg = '<svg class="rg" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + " " + h + '" aria-hidden="true"><defs>' + defs + '<clipPath id="' + uid + 'k"><rect x="0" y="-80" width="' + gw + '" height="' + (h + 80) + '"/></clipPath></defs>' + gl + '<g clip-path="url(#' + uid + 'k)">' + ghosts + body + crest + "</g>" + '<line x1="0" x2="' + gw + '" y1="' + y0 + '" y2="' + y0 + '" stroke="' + gridC + '" stroke-width="' + Math.max(1, s * 0.5) + '"/>' + pl + "</svg>";
     return { svg: svg, peaks: P, hard: hard };
   }
