@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kumbra: la red social de escalada</title>
+  <meta name="description" content="Apunta cada bloque con dos toques, mira tu sesión convertida en cordillera y sigue lo que escala tu gente. Kumbra, la red social de escalada, para iPhone y Android.">
+  <!-- Staging: quitar el noindex cuando esta página sustituya al teaser. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Kumbra: la red social de escalada">
+  <meta property="og:description" content="Apunta cada bloque con dos toques, mira tu sesión convertida en cordillera y sigue lo que escala tu gente.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.axclimb.com/kumbra/og.jpg?v=3">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kumbra: una montaña de noche">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#141118">
+  <link rel="apple-touch-icon" href="/kumbra/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/kumbra/previa-7adf70/img/kumbra-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:opsz,wght@14..32,400..900&family=Nunito:wght@800;900&display=swap">
+  <style>
+:root { --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0 36V24Q30 20 52 9Q66 20 96 23Q128 16 150 4Q172 18 214 22Q246 18 268 11Q290 21 330 25Q370 14 392 2Q414 17 456 21Q490 20 512 12Q534 22 574 24Q610 15 632 6Q654 18 698 22Q730 19 752 10Q774 21 812 24Q850 13 872 3Q894 17 936 22Q970 20 992 12Q1014 22 1052 24Q1088 16 1110 7Q1132 19 1172 23L1200 24V36Z'/%3E%3C/svg%3E");
+  --night: #141118; --night-2: #1D1922; --deep: #0E0C11; --cream: #F3EEE6; --paper: #FBF8F3; --ink: #18141B;
+  --mute-d: #A79DAD; --mute-l: #5E5664; --line-d: #2E2833; --line-l: #D9D1C5;
+  --logo: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8);
+  --title: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --spring: linear(0, 0.157, 0.438, 0.66, 0.808, 0.897, 0.948, 0.976, 0.99, 0.997, 1);
+  --gut: clamp(20px, 6.6vw, 96px);
+  --display: "Nunito", "Arial Rounded MT Bold", system-ui, sans-serif; --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { background: var(--night); color: var(--cream); font: 400 17px/1.5 var(--sans); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid #F08A3C; outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; z-index: 50; padding: 10px 14px; background: var(--cream); color: var(--ink); }
+.skip:focus { left: 8px; }
+/* titles: tall and narrow, like the signs on a climbing wall; the text stays in Inter */
+h1, h2 { font-family: var(--title); font-weight: 900; letter-spacing: 0; line-height: .88; text-wrap: balance; }
+h2 { font-size: clamp(54px, 8.6vw, 128px); }
+em.k { font-style: normal; background: var(--logo); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wrap { padding-inline: var(--gut); }
+.lede { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.5; max-width: 34ch; }
+.on-d .lede { color: #D9D1DC; } .on-l .lede { color: #4A4350; }
+.on-l { background: var(--cream); color: var(--ink); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* nav */
+.nav { position: fixed; z-index: 20; inset: 0 0 auto; height: 68px; padding-top: env(safe-area-inset-top, 0px); display: flex; align-items: center; gap: 30px; padding-inline: var(--gut); transition: background .3s, box-shadow .3s; }
+.nav.solid { background: rgba(20, 17, 24, .92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-d); }
+.nav .logo img { height: 28px; width: auto; }
+.nav .sp { flex: 1; }
+.nav a.l { text-decoration: none; font-size: 15px; color: #CFC6D3; }
+.nav a.l:hover { color: var(--cream); }
+.nav .dl { text-decoration: none; padding: 10px 16px; border-radius: 10px; background: var(--cream); color: var(--ink); font: 600 15px var(--sans); }
+@media (max-width: 860px) { .nav a.l { display: none; } }
+
+/* store buttons */
+.stores { display: flex; flex-wrap: wrap; gap: 10px; }
+.store { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 18px 0 14px; border-radius: 12px; background: var(--cream); color: var(--ink); text-decoration: none; transition: transform .2s var(--spring); }
+.store:hover { filter: brightness(1.06); }
+.store:active { transform: scale(.97); }
+.store svg { width: 24px; height: 24px; flex: none; }
+.store span { display: grid; line-height: 1.05; }
+.store small { font-size: 11px; opacity: .7; }
+.store b { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.store.dark { background: var(--ink); color: var(--cream); }
+.store[aria-disabled] { opacity: .55; }
+
+/* hero: the mountain with the sun (from the first version), shorter */
+.hero { position: relative; height: 240svh; background: #0F0C14; --p: 0; --ds: 1; --c: 0; --f: 0; --na: 0; --ca: 1; --fl: 0; --w: 0; --tf: 0; }
+.hero .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(180deg, #0F0C14 0%, #1d1226 55%, #3a1a3a 100%); color: var(--cream); }
+.hero .sunwrap { position: absolute; z-index: 1; left: calc(var(--sx) * 1px); top: calc(var(--sy) * 1px); width: 0; height: 0; }
+.hero .sun { position: absolute; left: calc(var(--D) * -.5px); top: calc(var(--D) * -.5px); width: calc(var(--D) * 1px); height: calc(var(--D) * 1px); border-radius: 50%; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); box-shadow: 0 0 calc(var(--D) * .35px) rgba(240,138,60,.4); transform: scale(var(--ds)); will-change: transform; animation: khsun 2.6s var(--ease) .3s both; }
+@keyframes khsun { from { opacity: 0; translate: 0 36%; } to { opacity: 1; translate: 0 0; } }
+.hero canvas { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; display: block; opacity: var(--ca); }
+.hero.nogl canvas { display: none; }
+.hero .flood { position: absolute; inset: 0; z-index: 3; opacity: var(--fl); background: #F08A3C; }
+.hero .kick { position: absolute; z-index: 4; left: 0; right: 0; top: calc(var(--kt) * 1px); text-align: center; font: 700 clamp(12px, 1.4vw, 16px)/1 var(--sans); letter-spacing: 0; color: rgba(243,238,230,.9); opacity: calc(1 - var(--tf) * 1.6); animation: khfade 1s var(--ease) 2.2s backwards; text-shadow: 0 2px 20px rgba(15,12,20,.6); }
+@keyframes khfade { from { opacity: 0; } }
+.hero .cue { position: absolute; z-index: 4; left: 50%; bottom: 22px; translate: -50% 0; display: grid; justify-items: center; gap: 8px; font: 600 14px/1 var(--sans); color: rgba(243,238,230,.85); opacity: calc(1 - var(--p) * 14); }
+.hero .cue i { width: 1px; height: 34px; background: linear-gradient(var(--cream), transparent); animation: khcue 2s var(--ease) infinite; transform-origin: top; }
+@keyframes khcue { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+/* the wordmark: flies from the top of the screen into the phone and changes colour on the way */
+.hero .wm { position: absolute; z-index: 6; left: 50%; top: calc(var(--wt) * 1px); translate: -50% 0; transform: translate(0, calc(var(--ty) * 1px)) scale(var(--sc)); transform-origin: 50% 0; font: 900 var(--fs)/.9 var(--display); letter-spacing: -0.05em; white-space: nowrap; will-change: transform; opacity: var(--wo, 1); }
+.hero .wm .row { display: flex; }
+.hero .wm .row.gr { position: absolute; inset: 0; opacity: var(--c); }
+.hero .wm i { font-style: normal; display: inline-block; will-change: transform; padding: .08em .1em; margin: -.08em -.1em; }
+.hero .wm .cr i { color: var(--cream); text-shadow: 0 10px 60px rgba(15,12,20,.5); opacity: 0; translate: 0 50%; filter: blur(10px); animation: khrise 1.2s var(--ease) forwards; animation-delay: calc(.9s + var(--i) * .09s); }
+.hero .wm .gr i { background: linear-gradient(180deg, #F7CE89, #EE888B 55%, #DF7DB8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@keyframes khrise { to { opacity: 1; translate: 0 0; filter: none; } }
+.hero .wm.hello .gr i { animation: khhello 1s var(--ease) both; animation-delay: calc(var(--i) * .13s); }
+@keyframes khhello { 0% { transform: translateY(0) scale(1); filter: none; } 35% { transform: translateY(-.14em) scale(1.14); filter: brightness(1.35) drop-shadow(0 0 .12em rgba(247,206,137,.9)); } 100% { transform: translateY(0) scale(1); filter: none; } }
+.hero .wp { position: absolute; z-index: 4; inset: 0; pointer-events: none; font: 900 clamp(50px, 8.6vw, 150px)/.88 var(--title); letter-spacing: 0; color: #1B1719; }
+.hero .wp span { position: absolute; top: 40%; opacity: var(--w); }
+.hero .wp .l { right: calc(50% + var(--pw) * .5px + 28px); text-align: right; transform: translateX(calc((1 - var(--w)) * -70px)); }
+.hero .wp .r { left: calc(50% + var(--pw) * .5px + 28px); text-align: left; transform: translateX(calc((1 - var(--w)) * 70px)); color: #FFF4E6; }
+@media (max-width: 800px) {
+  .hero .wp { font-size: clamp(44px, 13vw, 76px); }
+  .hero .wp br { display: none; }
+  .hero .wp .l, .hero .wp .r { left: 0; right: 0; text-align: center; }
+  .hero .wp .l { transform: translateX(calc((1 - var(--w)) * -90px)); }
+  .hero .wp .r { transform: translateX(calc((1 - var(--w)) * 90px)); }
+  .hero .wp .l { top: calc(var(--pt) * 1px - 2.05em - 10px); } .hero .wp .r { top: calc(var(--pt) * 1px - 1.02em - 10px); }
+}
+
+/* a modern phone, drawn in CSS (titanium frame, thin bezel, dynamic island) */
+.phone { position: absolute; z-index: 5; left: calc(50% - var(--pw) * .5px); top: calc(var(--pt) * 1px); width: calc(var(--pw) * 1px); height: calc(var(--ph) * 1px); opacity: var(--f); transform: translate(calc(var(--zx, 0) * 1px), calc(var(--zy, 0) * 1px)) scale(var(--zs, 1)) perspective(1500px) translateY(calc((1 - var(--f)) * 50px)) scale(calc(.86 + var(--f) * .14)) rotateY(calc(var(--ry, 0) * 1deg)) rotateX(calc(var(--rx, 0) * 1deg)) rotateZ(calc(var(--rz, 0) * 1deg)); transform-origin: 50% 50%; container-type: inline-size; filter: drop-shadow(0 40px 70px rgba(0,0,0,.6)); }
+.phone .body { position: absolute; inset: 0; border-radius: 15.5% / 7.4%; padding: 1.7%; background: linear-gradient(145deg, #8b8791 0%, #3a3740 18%, #1f1d24 45%, #55515b 62%, #2b2931 82%, #77737d 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), inset 0 0 6px rgba(0,0,0,.6); }
+.phone .bezel { position: relative; width: 100%; height: 100%; border-radius: 14.2% / 6.8%; padding: 2.3cqw; background: #050406; }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 12.2% / 5.9%; overflow: hidden; background: radial-gradient(120% 55% at 50% 100%, rgba(167,55,123,.45), transparent 62%), linear-gradient(180deg, #1B1719 0%, #221530 100%); color: var(--cream); }
+.phone .screen::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 28%); }
+.phone .island { position: absolute; z-index: 3; top: 2.2%; left: 50%; translate: -50% 0; width: 31%; height: 3.1%; border-radius: 99px; background: #000; }
+.phone .screen { background: #15121B; }
+.phone .scene { position: absolute; inset: 0; }
+.phone .scene svg { position: absolute; }
+.phone .scene svg { bottom: auto; max-width: none; }
+.phone .scene .rgw { position: absolute; left: 6%; right: 6%; bottom: 20%; } .phone .scene .rgw svg { position: static; display: block; }
+.phone .scene .wall { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 34%; }
+.phone .scene .bar { position: absolute; left: 50%; bottom: 1.6%; width: 34%; height: 1.2cqw; translate: -50% 0; border-radius: 9px; background: rgba(243,238,230,.8); }
+/* lock screen */
+.phone .lk .date { position: absolute; left: 0; right: 0; top: 11%; text-align: center; font: 600 4.3cqw/1 var(--sans); color: rgba(243,238,230,.82); }
+.phone .lk .time { position: absolute; left: 0; right: 0; top: 13.6%; text-align: center; font: 700 23cqw/1 var(--sans); letter-spacing: -0.045em; color: #F3EEE6; font-variant-numeric: tabular-nums; }
+.phone .lk .nts { position: absolute; left: 4.5%; right: 4.5%; top: 38%; }
+.phone .nt { position: absolute; left: 0; right: 0; display: grid; grid-template-columns: 9.5cqw minmax(0, 1fr) auto; gap: 0 3cqw; align-items: start; padding: 3.2cqw 3.6cqw; border-radius: 5.4cqw; background: rgba(60,48,72,.62); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: #F3EEE6; opacity: 0; transform: translateY(-30%) scale(.94); transition: transform .6s var(--spring), opacity .35s ease; }
+.phone .nt.on { opacity: 1; }
+.phone .nt img { width: 9.5cqw; height: 9.5cqw; border-radius: 2.2cqw; grid-row: span 2; }
+.phone .nt b { font: 700 3.6cqw/1.25 var(--sans); }
+.phone .nt small { font: 500 3cqw/1.25 var(--sans); color: rgba(243,238,230,.6); }
+.phone .nt p { grid-column: 2 / -1; margin: .6cqw 0 0; font: 400 3.5cqw/1.3 var(--sans); color: rgba(243,238,230,.88); }
+/* home screen, the app just installed */
+.phone .hm .sb { position: absolute; left: 9%; top: 2.6%; font: 700 3.8cqw/1 var(--sans); color: #F3EEE6; }
+.phone .hm .ic { position: absolute; left: 50%; top: 36%; width: 27cqw; translate: -50% 0; text-align: center; transform: scale(0); transition: transform .5s var(--spring); }
+.phone .hm .ic.in { transform: scale(1); }
+.phone .hm .ic .sq { position: relative; width: 27cqw; height: 27cqw; border-radius: 6.2cqw; overflow: hidden; box-shadow: 0 3cqw 6cqw -2cqw rgba(0,0,0,.6); }
+.phone .hm .ic img { display: block; width: 100%; height: 100%; transition: filter .4s ease; }
+.phone .hm .ic:not(.ready) img { filter: grayscale(1) brightness(.55); }
+.phone .hm .ic svg.pg { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; transition: opacity .3s; }
+.phone .hm .ic.ready svg.pg { opacity: 0; }
+.phone .hm .ic.ready .sq { animation: icpop .7s var(--spring); }
+@keyframes icpop { 40% { transform: scale(1.16); } }
+.phone .hm .ic span { display: block; margin-top: 2.8cqw; font: 600 4.2cqw/1 var(--sans); color: #F3EEE6; white-space: nowrap; }
+.phone .hm .ic span i { font-style: normal; color: rgba(243,238,230,.6); }
+.phone .hm .home { position: absolute; inset: 0; transform-origin: 50% 42%; }
+/* opening the app: the icon leaves the phone and grows to fill the page; it becomes the amber of the first section */
+.hero .zoom { position: absolute; z-index: 8; visibility: hidden; overflow: hidden; background: #1B1719; pointer-events: none; }
+.hero .zoom img { position: absolute; left: 50%; top: 50%; translate: -50% -50%; }
+.phone { filter: none; isolation: isolate; }
+/* the phone's side: one layer under the front, shifted the way the phone turns, so it shows a metal edge */
+.phone .edge { position: absolute; inset: 0; z-index: 0; border-radius: 15.5% / 7.4%; transform: translate(calc(var(--ex, 0) * 1px), calc(var(--ey, 0) * 1px)); background: linear-gradient(145deg, #6a6670, #2b2931 35%, #4a4650 62%, #1f1d24); box-shadow: 0 40px 80px -10px rgba(0,0,0,.55); }
+.phone .body { z-index: 1; }
+.hero.ready .phone { cursor: pointer; }
+.phone .hm .tap { position: absolute; left: 0; right: 0; top: 57%; text-align: center; font: 600 3.6cqw/1.4 var(--sans); color: rgba(243,238,230,.75); opacity: 0; transition: opacity .5s ease; }
+.hero.ready:not(.going) .phone .hm .tap { opacity: 1; }
+.hero.ready:not(.going) .phone .hm .ic.ready .sq { animation: icpop .7s var(--spring), tapring 1.8s 1s ease-out infinite; }
+@keyframes tapring { 0% { box-shadow: 0 0 0 0 rgba(242,180,74,.75), 0 3cqw 6cqw -2cqw rgba(0,0,0,.6); } 70%, 100% { box-shadow: 0 0 0 4.5cqw rgba(242,180,74,0), 0 3cqw 6cqw -2cqw rgba(0,0,0,.6); } }
+@media (prefers-reduced-motion: reduce) { .hero.ready .phone .hm .ic.ready .sq { animation: none; } }
+.phone .screen.inapp-on::after { display: none; }
+.phone .hm .inapp .apunta-in { position: absolute; inset: 0; }
+.apunta-in .lede { margin-top: 24px; color: #4A3412; }
+.phone .hm .inapp .mi { position: absolute; left: 50%; top: 50%; translate: -50% -50%; pointer-events: none; }
+.phone .hm .inapp { position: absolute; inset: 0; z-index: 2; visibility: hidden; overflow: hidden; background: #F2B44A; color: var(--ink); }
+.phone .slogan { color: #CFC6D3; text-shadow: none; font-weight: 600; opacity: var(--f); }
+.phone .slogan { position: absolute; z-index: 1; left: 0; right: 0; top: 22.5%; text-align: center; padding: 0 10%; font: 700 3.8cqw/1.3 var(--sans); color: rgba(243,238,230,.92); text-shadow: 0 2px 16px rgba(40,10,40,.6); opacity: var(--c); }
+
+.phone .stores { position: absolute; z-index: 2; left: 50%; bottom: 7%; translate: -50% 0; display: grid; gap: 2.6cqw; width: 74%; opacity: var(--c); }
+.phone .store, .phone .store[aria-disabled="true"] { min-height: 0; padding: 3.2cqw 4cqw; gap: 3cqw; border-radius: 4.4cqw; background: var(--cream); color: var(--ink); box-shadow: 0 10px 24px -10px rgba(20,8,30,.7); opacity: 1; }
+.phone .store svg { width: 6cqw; height: 6cqw; flex: none; }
+.phone .store small { font-size: 3cqw; }
+.phone .store b { margin-top: .6cqw; font-size: 5cqw; }
+
+/* phone stage: a landscape behind the phone and pieces of the app floating around it */
+.hero .land { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; width: 100%; height: 32svh; opacity: var(--f); pointer-events: none; }
+
+@keyframes khbob { from { translate: 0 -5px; } to { translate: 0 6px; } }
+
+@keyframes khfloat { from { translate: 0 -5px; } to { translate: 0 7px; } }
+/* On phones the kudos card would compete with the store buttons inside the phone */
+.hero .hst { position: absolute; z-index: 5; left: 0; right: 0; top: calc(var(--kt) * 1px + clamp(30px, 4.5svh, 52px)); justify-content: center; opacity: calc(1 - var(--tf) * 1.6); animation: khfade 1s var(--ease) 2.4s backwards; }
+.phone .store { height: auto; }
+.hero .phone .stores { display: grid; }
+
+/* apunta: the grade picker, in the app's dark mode */
+.apunta { position: relative; z-index: 3; margin-top: -100svh; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 6vw; align-items: center; padding-block: calc(var(--navh, 64px) + clamp(28px, 4vw, 56px)) clamp(80px, 12vw, 150px); }
+.apunta.pre { visibility: hidden; }
+.apunta { min-height: 100svh; }
+.apunta .lede { margin-top: 24px; }
+.picker { justify-self: end; width: min(100%, 560px); padding: 22px; border-radius: 28px; background: var(--night-2); border: 1px solid var(--line-d); font-size: 15px; }
+.picker .ph { display: flex; justify-content: space-between; align-items: baseline; color: var(--mute-d); font-size: 14px; }
+.picker .ph b { color: var(--cream); font-size: 17px; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 18px; }
+.gd { position: relative; height: 46px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; font-size: 16px; color: var(--cream); background: #26212C; box-shadow: inset 0 -3px 0 var(--c); transition: transform .25s var(--spring), background .2s; }
+.gd.hit { background: var(--c); color: #fff; transform: scale(.94); }
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.how span { height: 46px; border-radius: 12px; display: grid; place-items: center; background: #26212C; color: #CFC6D3; font-weight: 600; transition: background .2s, color .2s, transform .25s var(--spring); }
+.how span.hit { background: var(--cream); color: var(--ink); transform: scale(.95); }
+.log { display: flex; flex-wrap: wrap; gap: 6px; min-height: 34px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-d); color: var(--mute-d); font-size: 14px; align-items: center; }
+.log i { font-style: normal; display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; border-radius: 99px; background: #26212C; color: var(--cream); font-weight: 700; font-size: 13px; animation: pop .45s var(--spring) both; }
+.log i.p { color: #CFC6D3; background: transparent; box-shadow: inset 0 0 0 1px #4A4252; }
+.log i s { text-decoration: none; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } }
+@media (max-width: 860px) { .apunta { grid-template-columns: 1fr; } .picker { justify-self: stretch; } .grid { gap: 6px; } .gd { height: 42px; font-size: 15px; } }
+
+/* sesión: the ridge rises with the scroll */
+.sesion { position: relative; }
+.sesion .pin { position: relative; height: 100svh; max-height: 960px; display: grid; grid-template-rows: auto 1fr auto; padding-top: clamp(96px, 14svh, 150px); padding-bottom: clamp(28px, 6svh, 70px); overflow: hidden; }
+.sesion .hd { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 34ch); gap: 4vw; align-items: end; }
+.sesion .hd .lede { max-width: 38ch; }
+.stage { position: relative; min-height: 0; margin-top: 2svh; }
+.stage svg.rg { position: absolute; left: 0; bottom: 0; overflow: visible; }
+.an { position: absolute; font-size: 15px; line-height: 1.3; color: var(--mute-l); white-space: nowrap; opacity: 0; transition: opacity .35s; pointer-events: none; }
+.an.on { opacity: 1; }
+.an b { color: var(--ink); font-weight: 700; }
+.an::after { content: ""; position: absolute; left: 0; top: 100%; width: 1px; height: var(--l, 40px); background: var(--ink); opacity: .45; }
+.an.rt { transform: translateX(-100%); text-align: right; } .an.rt::after { left: auto; right: 0; }
+.tally { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 34px; padding-top: 16px; border-top: 1px solid var(--line-l); color: #6B6370; font-size: 16px; }
+.tally > span { white-space: nowrap; }
+.tally b { display: inline-block; font-size: clamp(26px, 2.6vw, 36px); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); margin-right: 6px; }
+.tally #t-tops, .tally #t-fl { min-width: 1.3em; } .tally #t-mx { min-width: 2.1em; }
+.tally .r { margin-left: auto; }
+@media (max-width: 860px) {
+  .sesion .hd { grid-template-columns: 1fr; gap: 16px; }
+  .an { font-size: 13px; }
+  .tally { display: grid; grid-template-columns: repeat(3, auto) 1fr; gap: 12px 26px; font-size: 14px; }
+  .tally > span:not(.r) { display: grid; }
+  .tally b { margin-right: 0; }
+  .tally #t-tops, .tally #t-fl, .tally #t-mx { min-width: 0; }
+  .tally .r { grid-column: 1 / -1; margin-left: 0; }
+}
+
+/* gente: a deck of their sessions; the top one goes away to show the next */
+.gente { padding-block: clamp(80px, 10vw, 130px); overflow-x: clip; }
+.gg { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8vw; align-items: center; }
+.gente .lede { margin-top: 22px; }
+.dk-ctl { display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+.dk-ctl { font-size: 15px; color: #4A1F2A; }
+.deck { touch-action: pan-y; } .deck .post.drag { transition: none; }
+.deck { position: relative; width: 300px; height: 640px; margin-right: 40px; }
+.deck .post { position: absolute; left: 0; top: 0; cursor: pointer; transition: transform .7s var(--spring), opacity .45s ease; transform-origin: 50% 90%; }
+.deck .post[data-k="0"] { z-index: 4; transform: none; }
+.deck .post[data-k="1"] { z-index: 3; transform: translate(18px, 12px) rotate(3deg) scale(.96); }
+.deck .post[data-k="2"] { z-index: 2; transform: translate(34px, 24px) rotate(6deg) scale(.92); }
+.deck .post[data-k="3"] { z-index: 1; transform: translate(34px, 24px) rotate(6deg) scale(.92); opacity: 0; }
+.deck .post.out { z-index: 5; transform: translate(-120%, 40px) rotate(-12deg); opacity: 0; }
+.deck .post:not([data-k="0"]) * { pointer-events: none; }
+@media (max-width: 860px) { .gg { grid-template-columns: 1fr; gap: 40px; } .deck { margin: 0 auto; width: min(80vw, 300px); } .deck .post[data-k="1"] { transform: translate(10px, 10px) rotate(3deg) scale(.96); } .deck .post[data-k="2"], .deck .post[data-k="3"] { transform: translate(18px, 20px) rotate(6deg) scale(.92); } }
+
+.post { flex: none; width: 300px; scroll-snap-align: start; padding: 14px 14px 12px; background: #fff; border-radius: 22px; box-shadow: 0 14px 30px -24px rgba(60, 20, 30, .55); font-size: 14px; color: var(--ink); }
+.post .top { display: flex; align-items: center; gap: 10px; }
+.post .av { position: relative; flex: none; width: 44px; height: 44px; }
+.post .av img { position: absolute; inset: 5px; width: 34px; height: 34px; border-radius: 50%; }
+.post .av svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.post .nm { min-width: 0; flex: 1; }
+.post .nm b { font-size: 15px; font-weight: 700; }
+.post .nv { display: inline-block; margin-left: 4px; padding: 1px 6px; border-radius: 99px; background: #E4EFFB; color: #2F7FD8; font-size: 11px; font-weight: 700; vertical-align: 1px; }
+.post .nm small { display: block; color: #8A8190; font-size: 13px; }
+.post .fe { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+.post .pl { display: flex; align-items: center; gap: 7px; margin-top: 10px; color: #6B6370; }
+.post .pl svg, .post .dur svg { width: 16px; height: 16px; fill: none; stroke: #8A8190; stroke-width: 1.7; }
+.post [data-ridge] { height: 74px; margin-top: 18px; }
+.post .st { display: flex; margin-top: 10px; }
+.post .st div { flex: 1; } .post .st div + div { padding-left: 12px; border-left: 1px solid #ECE5DB; }
+.post .st small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .1em; color: #8A8190; }
+.post .st b { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+.post .pic { display: block; width: 100%; height: 200px; margin-top: 12px; border-radius: 14px; object-fit: cover; object-position: 50% 35%; }
+.post .say { margin-top: 10px; font-size: 15px; }
+.post .dur { display: flex; align-items: center; gap: 7px; margin-top: 8px; color: #6B6370; }
+.post .ft { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.post .xp { padding: 5px 10px; border-radius: 99px; background: #FCEFD2; color: #D9A21B; font-weight: 800; font-size: 13px; }
+.post .cm, .kudo { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 99px; background: #F2EEE9; color: #6B6370; font-weight: 600; }
+.post .cm { margin-left: auto; }
+.post .cm svg, .kudo svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.kudo { transition: background .2s, color .2s; }
+.kudo svg { transition: transform .35s var(--spring); }
+.kudo.on { background: #FBE3DC; color: #E8622D; } .kudo.on svg { fill: currentColor; transform: scale(1.15); }
+.deck .post { width: 100%; }
+/* números */
+.numeros { padding-block: clamp(80px, 11vw, 150px); }
+.numeros .cols { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 6vw; margin-top: clamp(40px, 6vw, 72px); align-items: end; }
+.big { font-size: clamp(26px, 3vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: #CDBFE6; max-width: 18ch; }
+.big b { color: inherit; font-weight: 800; }
+.bars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; align-items: end; height: 220px; margin-top: 34px; margin-bottom: 40px; }
+.bar { position: relative; height: calc(var(--v) * 1%); border-radius: 6px 6px 2px 2px; background: #3A3240; transform-origin: bottom; transform: scaleY(var(--s, 0)); transition: transform .9s var(--spring); transition-delay: calc(var(--i) * 70ms); }
+.bar.now { background: #F08A3C; }
+.still .bar, .still .ring .f, .still .pulse path { transition: none !important; }
+.bar span { position: absolute; left: 0; right: 0; top: calc(100% + 8px); text-align: center; font-size: 13px; color: var(--mute-d); transform: scaleY(calc(1 / max(var(--s, 0), .01))); transform-origin: top; }
+.bar.part { background: #2A2430; box-shadow: inset 0 0 0 1.5px #3A3240; }
+.side { display: grid; }
+.side > div { padding: 22px 0; border-top: 1px solid var(--line-d); display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: center; }
+.side > div:last-child { border-bottom: 1px solid var(--line-d); }
+.side b { font-size: 40px; font-weight: 800; letter-spacing: -0.04em; }
+.side p { color: var(--mute-d); font-size: 15px; }
+.side .pro { font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; background: #14A085; color: #fff; vertical-align: 3px; margin-left: 6px; }
+.ring { width: 54px; height: 54px; }
+.ring circle { fill: none; stroke-width: 6; }
+.ring .t { stroke: #2E2833; } .ring .f { stroke: #3FAE6A; stroke-linecap: round; stroke-dasharray: 145; stroke-dashoffset: calc(145 - 145 * var(--r, 0)); transition: stroke-dashoffset 1.2s var(--spring) .3s; transform: rotate(-90deg); transform-origin: center; }
+.pulse { width: 120px; height: 46px; }
+.pulse path { fill: none; stroke: #E5484D; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 400; stroke-dashoffset: calc(400 - 400 * var(--r, 0)); transition: stroke-dashoffset 1.6s ease-out .5s; }
+@media (max-width: 860px) { .numeros .cols { grid-template-columns: 1fr; } .bars { height: 170px; gap: 8px; } }
+
+/* pro */
+section.pro { padding-block: clamp(80px, 11vw, 150px); }
+.pro .hd { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 36ch); gap: 4vw; align-items: end; }
+.plans { display: grid; grid-template-columns: 1fr 1fr; margin-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--line-l); }
+.plan { padding: 30px 0 0; }
+.plan + .plan { padding-left: 5vw; border-left: 1px solid var(--line-l); }
+.plan:first-child { padding-right: 5vw; }
+.plan h3 { font-size: 15px; font-weight: 600; color: var(--mute-l); }
+.price { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; }
+.price b { font-size: clamp(48px, 5vw, 68px); font-weight: 900; letter-spacing: -0.05em; }
+.price span { color: var(--mute-l); }
+.sw { display: inline-flex; margin-top: 16px; padding: 3px; border-radius: 10px; background: #E7DFD3; }
+.sw button { padding: 7px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--mute-l); }
+.sw button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.plan .note { margin-top: 10px; font-size: 14px; color: var(--mute-l); min-height: 2.6em; }
+.plan ul { list-style: none; padding: 0; margin-top: 22px; display: grid; gap: 10px; }
+.plan li { display: flex; gap: 10px; font-size: 16px; }
+.plan li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: .62em; border-radius: 50%; background: var(--ink); }
+.plan.plus li::before { background: #14A085; }
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 22px; margin-top: 28px; border-radius: 12px; background: var(--ink); color: var(--cream); font-weight: 600; text-decoration: none; transition: transform .2s var(--spring); }
+.btn:active { transform: scale(.97); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+/* Pro: its column stands on a green range, the PRO teal of the app, sitting low behind the text */
+.plans { align-items: stretch; }
+.plan.plus { position: relative; isolation: isolate; padding-bottom: 40px; }
+.plan.plus::before { content: ""; position: absolute; z-index: -1; left: 2vw; right: -2vw; bottom: 0; height: 72%; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300' preserveAspectRatio='none'%3E%3Cpath d='M0 300V215Q40 205 70 170Q95 195 130 190Q175 150 205 95Q230 140 270 150Q300 130 330 110Q360 150 400 160Q440 120 470 60Q495 100 535 115Q565 105 600 85V300Z' fill='%23CFEBDF'/%3E%3Cpath d='M0 300V255Q50 245 90 225Q130 240 170 230Q215 200 250 175Q280 205 320 210Q360 190 395 170Q425 200 470 205Q510 185 545 165Q570 180 600 175V300Z' fill='%23A6DCC6'/%3E%3Cpath d='M205 95L222 122L212 118L201 128L192 114Z M470 60L488 87L477 84L467 93L458 80Z' fill='%23F3EEE6'/%3E%3C/svg%3E") 0 100% / 100% 100% no-repeat; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 82%, transparent), linear-gradient(180deg, #000 45%, transparent 98%); -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 82%, transparent), linear-gradient(180deg, #000 45%, transparent 98%); mask-composite: intersect; }
+.plan.plus h3 { color: #0C6B5A; }
+.plan.plus li::before { background: #14A085; }
+.plan.plus .btn { background: #0C6B5A; color: #F3EEE6; }
+.fine { margin-top: 26px; font-size: 14px; color: var(--mute-l); }
+@media (max-width: 860px) {
+  .pro .hd { grid-template-columns: 1fr; gap: 16px; }
+  .plans { grid-template-columns: 1fr; }
+  .plan + .plan { border-left: 0; margin-top: 34px; }
+  .plan + .plan { border-top: 1px solid var(--line-l); padding-top: 30px; padding-left: 0; }
+  .plan.plus::before { left: -16px; right: -16px; height: 60%; }
+  .plan:first-child { padding-right: 0; }
+}
+
+/* rocódromos */
+.gym { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 82svh; }
+.gym img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.gym .t { align-self: center; padding: clamp(56px, 8vw, 120px) var(--gut); }
+.gym h2 { font-size: clamp(50px, 6.6vw, 100px); }
+.gym .lede { margin-top: 22px; }
+.gym .btn { background: var(--cream); color: var(--ink); }
+@media (max-width: 860px) { .gym { grid-template-columns: 1fr; padding-top: 30px; } .gym img { height: 46svh; } }
+
+/* fundadores (only with data) */
+.fund { display: none; padding-block: clamp(70px, 9vw, 120px); overflow-x: clip; }
+.fund.has { display: block; }
+/* the founders' sky: one night colour and its stars */
+.fund { isolation: isolate; padding-block: clamp(90px, 12vw, 170px); }
+.fund .sky { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.fund h2, .fund .fm { position: relative; }
+.fund.has::before { background: #120C1B; }
+.fund h2 { font-size: clamp(46px, 6.2vw, 90px); }
+.fund h2 b { font-weight: 900; color: #F2B44A; }
+.fm { position: relative; margin-top: 30px; height: clamp(230px, 26vw, 300px); }
+/* each name lights up where a star was, stays a while and goes out; then the next one */
+.fm .nm { position: absolute; display: inline-flex; align-items: center; gap: 9px; color: #E9E2EE; font-size: 16px; white-space: nowrap; opacity: 0; animation: nm 6s ease-out forwards; }
+.fm .nm::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.5), 0 0 12px 3px rgba(255,244,226,.55); animation: tw 6s ease-out forwards; }
+.fm .nm b { font-weight: 500; opacity: 0; animation: nl 6s ease-out forwards; }
+@keyframes nm { 0% { opacity: 0; } 6% { opacity: 1; } 82% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes tw { 0% { transform: scale(.2); } 10% { transform: scale(1.8); } 22% { transform: scale(1); } 100% { transform: scale(1); } }
+@keyframes nl { 0%, 12% { opacity: 0; transform: translateX(-6px); } 24% { opacity: 1; transform: none; } 100% { opacity: 1; transform: none; } }
+.fm.still { height: auto; display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.fm.still .nm { position: static; opacity: 1; animation: none; } .fm.still .nm::before, .fm.still .nm b { animation: none; opacity: 1; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* preguntas */
+.faq { padding-block: clamp(80px, 11vw, 140px); }
+.qs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 5vw; margin-top: clamp(32px, 5vw, 60px); }
+.qs .c { display: grid; align-content: start; }
+.qa { border-top: 1px solid var(--line-l); }
+.qa summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; cursor: pointer; list-style: none; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+.qa summary i { position: relative; flex: none; width: 14px; height: 14px; }
+.qa summary i::before, .qa summary i::after { content: ""; position: absolute; left: 0; top: 6px; width: 14px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .3s var(--spring); }
+.qa summary i::after { transform: rotate(90deg); }
+.qa[open] summary i::after { transform: rotate(0); }
+.qa p { padding-bottom: 20px; color: #4A4350; max-width: 56ch; font-size: 16px; }
+@supports (interpolate-size: allow-keywords) {
+  .qs { interpolate-size: allow-keywords; }
+  .qa::details-content { height: 0; overflow: clip; transition: height .35s ease, content-visibility .35s allow-discrete; }
+  .qa[open]::details-content { height: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .qa::details-content { transition: none; } }
+@media (max-width: 860px) { .qs { grid-template-columns: 1fr; } }
+
+/* final */
+.final { position: relative; padding-top: clamp(90px, 12vw, 160px); text-align: left; overflow-x: clip; }
+.final h2 { max-width: 12ch; }
+.final .lede { margin-top: 22px; }
+.final .stores { margin-top: 32px; }
+.proof { margin-top: 18px; font-size: 14px; color: #8F8496; min-height: 1.5em; }
+.proof b { color: var(--cream); }
+.final .rg { margin-top: clamp(48px, 7vw, 90px); width: 100%; height: clamp(110px, 16vw, 220px); }
+
+/* footer */
+footer { background: var(--deep); color: #CFC6D3; padding-block: 60px 34px; font-size: 15px; }
+/* a quiet range along the bottom of the footer */
+footer { position: relative; overflow: hidden; padding-bottom: clamp(90px, 11vw, 150px); }
+footer::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(90px, 12vw, 170px); pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 160V92L70 64L118 82L196 30L262 76L318 58L400 104L470 50L540 86L612 40L690 92L760 70L842 22L912 78L980 60L1060 98L1130 56L1200 74V160Z' fill='%23FFFFFF' fill-opacity='.035'/%3E%3Cpath d='M0 160V122L90 100L160 118L250 84L330 116L420 96L500 128L590 92L680 120L770 98L860 126L950 94L1040 118L1120 102L1200 116V160Z' fill='%23FFFFFF' fill-opacity='.045'/%3E%3Cpath d='M0 122L90 100L160 118L250 84L330 116L420 96L500 128L590 92L680 120L770 98L860 126L950 94L1040 118L1120 102L1200 116' fill='none' stroke='%23DF7DB8' stroke-opacity='.22' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 100% / 100% 100% no-repeat; }
+footer > * { position: relative; }
+.ft { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px 60px; align-items: start; }
+.ft > div:first-child { grid-row: span 3; }
+.ft p { margin-top: 14px; max-width: 32ch; color: var(--mute-d); }
+.ft h3 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.ft ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.ft a { text-decoration: none; } .ft a:hover { color: var(--cream); }
+.ft > div:nth-child(3) a, .ft > div:nth-child(4) a { color: var(--mute-d); }
+.soc { display: flex; gap: 12px; margin-top: 18px; }
+.soc svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+@media (max-width: 860px) { .ft { grid-template-columns: 1fr; } .ft > div:first-child { grid-row: auto; } }
+.fl2 { display: flex; justify-content: space-between; margin-top: 46px; padding-top: 20px; border-top: 1px solid var(--line-d); font-size: 13px; color: #8F8496; }
+.fl2 a { text-decoration: none; }
+@media (max-width: 860px) { .ft { grid-template-columns: 1fr 1fr; } .ft > div:first-child { grid-column: 1 / -1; } }
+
+/* colour: the logo's sunset as flat fields, one per section, ending in the night */
+.apunta { background: #F2B44A; color: var(--ink); } .apunta .lede { color: #4A3412; }
+.gente { background: #EE888B; color: var(--ink); } .gente .lede { color: #4A1F2A; }
+.numeros { background: #382562; } .side p, .bar span { color: #CDBFE6; }
+.bar { background: #53418A; } .bar.part { background: #463578; box-shadow: none; } .side > div, .side > div:last-child { border-color: #4E3F80; } .ring .t { stroke: #4E3F80; }
+.gym { background: #A7377B; } .gym .lede { color: #F8DCEB; }
+
+/* each section starts with a ridge edge in its own colour over the one before (instead of a straight cut) */
+.sesion, .gente, .numeros, section.pro, .gym, .fund, .faq, .final { position: relative; z-index: 4; }
+.sesion::before, .gente::before, .numeros::before, section.pro::before, .gym::before, .fund.has::before, .faq::before, .final::before {
+  content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: -34px; height: 36px; background: inherit; pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0 36V24Q30 20 52 9Q66 20 96 23Q128 16 150 4Q172 18 214 22Q246 18 268 11Q290 21 330 25Q370 14 392 2Q414 17 456 21Q490 20 512 12Q534 22 574 24Q610 15 632 6Q654 18 698 22Q730 19 752 10Q774 21 812 24Q850 13 872 3Q894 17 936 22Q970 20 992 12Q1014 22 1052 24Q1088 16 1110 7Q1132 19 1172 23L1200 24V36Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 36' preserveAspectRatio='none'%3E%3Cpath d='M0 36V24Q30 20 52 9Q66 20 96 23Q128 16 150 4Q172 18 214 22Q246 18 268 11Q290 21 330 25Q370 14 392 2Q414 17 456 21Q490 20 512 12Q534 22 574 24Q610 15 632 6Q654 18 698 22Q730 19 752 10Q774 21 812 24Q850 13 872 3Q894 17 936 22Q970 20 992 12Q1014 22 1052 24Q1088 16 1110 7Q1132 19 1172 23L1200 24V36Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+.final { background: var(--night); } .fund { background: #120C1B; }
+.gente::before { display: none; }
+.sesion::after { content: ""; position: absolute; z-index: 5; left: 0; right: 0; bottom: -1px; height: 36px; background: #EE888B; pointer-events: none; -webkit-mask: var(--edge) 0 0 / 100% 100% no-repeat; mask: var(--edge) 0 0 / 100% 100% no-repeat; }
+
+/* things that arrive: one short rise, no stagger */
+.rise { opacity: 0; transform: translateY(14px); transition: opacity .6s ease-out, transform .7s var(--spring); }
+.rise.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise { opacity: 1; transform: none; transition: none; }
+  .bar, .ring .f, .pulse path { transition: none; }
+}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <nav class="nav" id="nav" aria-label="Principal">
+    <a class="logo" href="/kumbra/previa-7adf70/" aria-label="Kumbra, inicio"><img src="/kumbra/previa-7adf70/img/kumbra-logo-horizontal-blanco.svg" alt="Kumbra" width="117" height="34"></a>
+    <span class="sp"></span>
+    <a class="l" href="#apunta">Cómo funciona</a>
+    <a class="l" href="#pro">Pro</a>
+    <a class="l" href="#rocodromos">Rocódromos</a>
+    <a class="l" href="#preguntas">Preguntas</a>
+    <a class="dl" href="#descarga">Descargar</a>
+  </nav>
+
+  <main id="contenido">
+    <header class="hero" id="hero">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="kf" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A"/><stop offset=".22" stop-color="#F08A3C"/><stop offset=".42" stop-color="#E5484D"/><stop offset=".62" stop-color="#A7377B"/><stop offset=".82" stop-color="#533794"/><stop offset="1" stop-color="#382562"/></linearGradient>
+          <linearGradient id="kc" x1="0" y1="220" x2="0" y2="820" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F7CE89"/><stop offset=".4" stop-color="#EE888B"/><stop offset=".75" stop-color="#DF7DB8"/><stop offset="1" stop-color="#B495F9"/></linearGradient>
+          <symbol id="mk-gr" viewBox="0 0 768 616"><g transform="translate(-128,-208)"><path d="M139.59,820 Q355.59,628 512,220 Q668.41,628 884.41,820 Z" fill="url(#kf)"/><path d="M427.11,416.59 L512,220 L596.89,416.59 L549.35,380.38 L515.40,431.07 L478.04,385.81 Z" fill="#FFFFFF"/><path d="M152.50,808.29 Q360.28,615.76 512,220 Q663.72,615.76 871.50,808.29" fill="none" stroke="url(#kc)" stroke-width="18.62" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+          <symbol id="mk-dk" viewBox="0 0 768 616"><g transform="translate(-128,-208)"><path d="M139.59,820 Q355.59,628 512,220 Q668.41,628 884.41,820 Z" fill="#1B1719"/><path d="M427.11,416.59 L512,220 L596.89,416.59 L549.35,380.38 L515.40,431.07 L478.04,385.81 Z" fill="#F3EEE6"/><path d="M152.50,808.29 Q360.28,615.76 512,220 Q663.72,615.76 871.50,808.29" fill="none" stroke="#F3EEE6" stroke-width="18.62" stroke-linecap="round" stroke-linejoin="round"/></g></symbol>
+        </defs>
+      </svg>
+      <div class="pin">
+        <div class="sunwrap" aria-hidden="true"><div class="sun"></div></div>
+        <canvas id="mt" aria-hidden="true"></canvas>
+        <div class="flood" aria-hidden="true"></div>
+
+        <h1 class="wm" id="wm" aria-label="Kumbra">
+          <span class="row cr" aria-hidden="true"><i style="--i:0">K</i><i style="--i:1">u</i><i style="--i:2">m</i><i style="--i:3">b</i><i style="--i:4">r</i><i style="--i:5">a</i></span>
+          <span class="row gr" aria-hidden="true"><i style="--i:0">K</i><i style="--i:1">u</i><i style="--i:2">m</i><i style="--i:3">b</i><i style="--i:4">r</i><i style="--i:5">a</i></span>
+        </h1>
+        <p class="kick">La red social de escalada</p>
+        <div class="stores hst" data-stores></div>
+
+        <div class="wp" aria-hidden="true"><span class="l">Cada <br>bloque</span><span class="r">cuenta.</span></div>
+
+        <svg class="land" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,300 L0,170 L90,120 L170,160 L280,70 L380,150 L470,100 L560,170 L680,60 L780,140 L880,100 L1000,170 L1000,300Z" fill="#E0742A"/>
+          <path d="M0,300 L0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160 L1000,300Z" fill="#C85F1F"/>
+          <path d="M0,220 L120,170 L210,205 L330,130 L430,200 L540,150 L650,210 L760,140 L870,195 L1000,160" fill="none" stroke="#FFD9A8" stroke-opacity=".7" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+        </svg>
+        <div class="phone" id="phone">
+          <div class="edge" aria-hidden="true"></div>
+          <div class="body"><div class="bezel"><div class="screen">
+            <div class="island"></div>
+            <div class="scene" id="pscene" data-mode="home" data-open="camara" aria-hidden="true"></div>
+          </div></div></div>
+        </div>
+
+        <div class="zoom" id="zoom" aria-hidden="true"><img src="/kumbra/previa-7adf70/img/icono-app.svg" alt=""></div>
+        <div class="cue" aria-hidden="true"><span>Desliza</span></div>
+      </div>
+    </header>
+
+    <section class="apunta wrap on-d pre" id="apunta" aria-labelledby="t-apunta">
+      <div>
+        <h2 id="t-apunta">Dos toques por bloque.</h2>
+        <p class="lede">Eliges el grado y cómo te ha salido: a la primera, top o proyecto. Se apunta en lo que tardas en coger magnesio.</p>
+      </div>
+      <div class="picker" id="picker" aria-label="Así se apunta un bloque en la app">
+        <div class="ph"><b>Sputnik Alcobendas</b><span class="num" id="clock">En curso, 32 min</span></div>
+        <div class="grid" id="grid"></div>
+        <div class="how"><span data-h="flash">A la primera</span><span data-h="top">Top</span><span data-h="project">Proyecto</span></div>
+        <div class="log" id="log"><span>Esta sesión:</span></div>
+      </div>
+    </section>
+
+    <section class="sesion on-l" id="sesion" aria-labelledby="t-sesion">
+      <div class="pin wrap">
+        <div class="hd">
+          <h2 id="t-sesion">Cada pico es un bloque.</h2>
+          <p class="lede">Cuanto más difícil, más alto y más cálido. Con nieve si lo sacaste a la primera. En sombra, el que todavía se te resiste.</p>
+        </div>
+        <div class="stage" id="stage" role="img" aria-label="Cordillera de una sesión de 15 bloques, de 4 a 6C+, con un proyecto de 7A"></div>
+        <div class="tally num"><span><b id="t-tops">0</b>tops</span><span><b id="t-fl">0</b>a la primera</span><span><b id="t-mx" style="color:#D1459A">–</b>máximo</span><span class="r">Jueves en Arkose Carabanchel, 1 h 20 min</span></div>
+      </div>
+    </section>
+
+    <section class="gente on-l" id="gente" aria-labelledby="t-gente">
+      <div class="wrap gg">
+        <div>
+          <h2 id="t-gente">Lo que ha escalado tu gente.</h2>
+          <p class="lede">Sus sesiones con foto y cordillera. Les das kudos y les comentas el bloque que por fin sacaron.</p>
+          <p class="dk-ctl num" id="dk-n" aria-live="polite"></p>
+        </div>
+        <div class="deck" id="feed" aria-label="Sesiones de tu gente"></div>
+      </div>
+    </section>
+
+    <section class="numeros wrap on-d" id="progreso" aria-labelledby="t-num">
+      <h2 id="t-num">Tus meses, en números.</h2>
+      <div class="cols" id="nums">
+        <div>
+          <p class="big">En octubre, <b class="num">31 bloques</b>. Tu mejor mes.</p>
+          <div class="bars" aria-hidden="true">
+            <div class="bar" style="--v:52;--i:0"><span>jun</span></div>
+            <div class="bar" style="--v:29;--i:1"><span>jul</span></div>
+            <div class="bar" style="--v:77;--i:2"><span>ago</span></div>
+            <div class="bar" style="--v:90;--i:3"><span>sep</span></div>
+            <div class="bar now" style="--v:100;--i:4"><span>oct</span></div>
+            <div class="bar part" style="--v:39;--i:5"><span>nov</span></div>
+          </div>
+        </div>
+        <div class="side">
+          <div><svg class="ring" viewBox="0 0 54 54" aria-hidden="true"><circle class="t" cx="27" cy="27" r="23"/><circle class="f" cx="27" cy="27" r="23"/></svg><div><b class="num">Nivel 4</b><p>215 XP para el 5. Cada sesión suma.</p></div></div>
+          <div><b class="num">38 %</b><p>de tus tops, a la primera</p></div>
+          <div><svg class="pulse" viewBox="0 0 120 46" aria-hidden="true"><path d="M2 34 L14 30 L22 33 L30 18 L37 27 L46 24 L54 9 L61 22 L70 20 L79 29 L88 14 L95 23 L104 21 L118 26"/></svg><p>Tu pulso en cada bloque, con Apple Watch<span class="pro">PRO</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pro on-l" id="pro" aria-labelledby="t-pro">
+      <div class="wrap">
+        <div class="hd">
+          <h2 id="t-pro">Apuntar es gratis. Siempre.</h2>
+          <p class="lede">Pro es para quien quiere todos los números: estadísticas de todos tus meses, tu pulso y más retos.</p>
+        </div>
+        <div class="plans">
+          <div class="plan">
+            <h3>Gratis</h3>
+            <div class="price"><b>0 €</b><span>para siempre</span></div>
+            <ul><li>Sesiones de bloque y vía, sin límite</li><li>Tus proyectos, sin límite</li><li>Feed, kudos y comentarios</li><li>Ranking y retos con tus amigos</li><li>Comparte tus sesiones</li></ul>
+            <a class="btn line" href="#descarga">Descargar gratis</a>
+          </div>
+          <div class="plan plus">
+            <h3>Kumbra Pro</h3>
+            <div class="price"><b class="num" id="pp">3,99 €</b><span id="pu">al mes</span></div>
+            <div class="sw" role="group" aria-label="Facturación"><button type="button" class="on" data-p="m" aria-pressed="true">Mensual</button><button type="button" data-p="a" aria-pressed="false">Anual</button></div>
+            <p class="note" id="pn">Sin compromiso. Cancela cuando quieras.</p>
+            <ul><li>Todo lo de Gratis</li><li>Estadísticas avanzadas de todos tus meses</li><li>Varios objetivos y retos sin límite</li><li>Pulso con Apple Watch</li><li>Fotos y vídeos en HD</li><li>Avatares Roca y Rocódromo</li></ul>
+            <a class="btn" href="#descarga">Probar 7 días gratis</a>
+          </div>
+        </div>
+        <p class="fine">Pro se contrata desde la app. Si lo dejas, no pierdes nada de lo que has apuntado.</p>
+      </div>
+    </section>
+
+    <section class="gym on-d" id="rocodromos" aria-labelledby="t-gym">
+      <img src="/kumbra/previa-7adf70/img/photos/p4.webp" alt="Una escaladora en lo alto de un bloque con volúmenes rojos mientras otra mira desde abajo" loading="lazy" width="720" height="960">
+      <div class="t">
+        <h2 id="t-gym">¿Llevas un rocódromo?</h2>
+        <p class="lede">Si tu gente escala allí, tu rocódromo ya sale en Kumbra, con sus bloques y su escala de grados. Escríbenos y vemos qué podemos hacer juntos.</p>
+        <a class="btn" id="gym-cta" href="#descarga">Escríbenos</a>
+      </div>
+    </section>
+
+    <section class="fund wrap on-d" id="fundadores" aria-labelledby="t-fund">
+      <svg class="sky" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="fg" cx="500" cy="660" r="620" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F2B44A" stop-opacity=".24"/><stop offset=".5" stop-color="#E5484D" stop-opacity=".08"/><stop offset="1" stop-color="#E5484D" stop-opacity="0"/></radialGradient>
+          <radialGradient id="fh"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="452" cy="282" r="1.0" fill="#fff" opacity="0.37"/><circle cx="587" cy="67" r="1.1" fill="#fff" opacity="0.58"/><circle cx="94" cy="127" r="1.7" fill="#fff" opacity="0.79"/><circle cx="94" cy="127" r="6" fill="url(#fh)"/><circle cx="810" cy="373" r="1.7" fill="#fff" opacity="0.59"/><circle cx="810" cy="373" r="6" fill="url(#fh)"/><circle cx="982" cy="573" r="1.1" fill="#fff" opacity="0.17"/><circle cx="15" cy="262" r="1.7" fill="#fff" opacity="0.68"/><circle cx="15" cy="262" r="6" fill="url(#fh)"/><circle cx="190" cy="95" r="1.7" fill="#fff" opacity="0.82"/><circle cx="190" cy="95" r="6" fill="url(#fh)"/><circle cx="464" cy="207" r="1.0" fill="#fff" opacity="0.45"/><circle cx="500" cy="351" r="0.9" fill="#fff" opacity="0.47"/><circle cx="996" cy="478" r="0.9" fill="#fff" opacity="0.22"/><circle cx="289" cy="19" r="0.9" fill="#fff" opacity="0.63"/><circle cx="387" cy="567" r="0.7" fill="#fff" opacity="0.18"/><circle cx="910" cy="225" r="0.9" fill="#fff" opacity="0.26"/><circle cx="629" cy="433" r="0.8" fill="#fff" opacity="0.26"/><circle cx="964" cy="419" r="0.8" fill="#fff" opacity="0.21"/><circle cx="60" cy="447" r="1.0" fill="#fff" opacity="0.28"/><circle cx="191" cy="400" r="1.1" fill="#fff" opacity="0.22"/><circle cx="421" cy="80" r="1.3" fill="#fff" opacity="0.58"/><circle cx="304" cy="512" r="0.9" fill="#fff" opacity="0.34"/><circle cx="642" cy="30" r="0.8" fill="#fff" opacity="0.39"/><circle cx="773" cy="141" r="0.7" fill="#fff" opacity="0.29"/><circle cx="583" cy="95" r="0.9" fill="#fff" opacity="0.44"/><circle cx="959" cy="233" r="1.2" fill="#fff" opacity="0.29"/><circle cx="154" cy="530" r="0.8" fill="#fff" opacity="0.19"/><circle cx="739" cy="554" r="1.3" fill="#fff" opacity="0.32"/><circle cx="604" cy="195" r="0.7" fill="#fff" opacity="0.56"/><circle cx="238" cy="381" r="1.2" fill="#fff" opacity="0.35"/><circle cx="293" cy="62" r="0.7" fill="#fff" opacity="0.37"/><circle cx="559" cy="488" r="0.9" fill="#fff" opacity="0.37"/><circle cx="204" cy="3" r="1.0" fill="#fff" opacity="0.32"/><circle cx="176" cy="164" r="0.8" fill="#fff" opacity="0.38"/><circle cx="891" cy="585" r="1.1" fill="#fff" opacity="0.25"/><circle cx="140" cy="8" r="1.7" fill="#fff" opacity="0.89"/><circle cx="140" cy="8" r="6" fill="url(#fh)"/><circle cx="910" cy="378" r="0.7" fill="#fff" opacity="0.36"/><circle cx="482" cy="399" r="1.3" fill="#fff" opacity="0.21"/><circle cx="546" cy="404" r="1.1" fill="#fff" opacity="0.37"/><circle cx="793" cy="535" r="1.1" fill="#fff" opacity="0.34"/><circle cx="871" cy="193" r="1.2" fill="#fff" opacity="0.44"/><circle cx="625" cy="172" r="1.1" fill="#fff" opacity="0.28"/><circle cx="639" cy="595" r="1.1" fill="#fff" opacity="0.21"/><circle cx="735" cy="296" r="1.2" fill="#fff" opacity="0.24"/><circle cx="750" cy="6" r="1.0" fill="#fff" opacity="0.39"/><circle cx="698" cy="242" r="1.3" fill="#fff" opacity="0.31"/><circle cx="11" cy="126" r="0.8" fill="#fff" opacity="0.33"/><circle cx="906" cy="350" r="1.2" fill="#fff" opacity="0.29"/><circle cx="666" cy="73" r="1.2" fill="#fff" opacity="0.62"/><circle cx="880" cy="173" r="0.9" fill="#fff" opacity="0.30"/><circle cx="496" cy="476" r="1.1" fill="#fff" opacity="0.38"/><circle cx="277" cy="60" r="0.9" fill="#fff" opacity="0.36"/><circle cx="414" cy="326" r="0.9" fill="#fff" opacity="0.45"/><circle cx="982" cy="214" r="1.7" fill="#fff" opacity="0.72"/><circle cx="982" cy="214" r="6" fill="url(#fh)"/><circle cx="31" cy="503" r="1.7" fill="#fff" opacity="0.49"/><circle cx="31" cy="503" r="6" fill="url(#fh)"/><circle cx="709" cy="289" r="1.2" fill="#fff" opacity="0.23"/><circle cx="136" cy="215" r="1.7" fill="#fff" opacity="0.72"/><circle cx="136" cy="215" r="6" fill="url(#fh)"/><circle cx="830" cy="93" r="0.7" fill="#fff" opacity="0.50"/><circle cx="446" cy="329" r="1.2" fill="#fff" opacity="0.48"/><circle cx="684" cy="74" r="0.8" fill="#fff" opacity="0.28"/><circle cx="472" cy="387" r="0.9" fill="#fff" opacity="0.28"/><circle cx="697" cy="257" r="1.2" fill="#fff" opacity="0.35"/><circle cx="792" cy="528" r="1.7" fill="#fff" opacity="0.46"/><circle cx="792" cy="528" r="6" fill="url(#fh)"/><circle cx="933" cy="393" r="1.0" fill="#fff" opacity="0.35"/><circle cx="910" cy="169" r="1.2" fill="#fff" opacity="0.52"/><circle cx="944" cy="221" r="0.8" fill="#fff" opacity="0.47"/><circle cx="818" cy="337" r="0.8" fill="#fff" opacity="0.46"/><circle cx="980" cy="582" r="1.2" fill="#fff" opacity="0.20"/><circle cx="910" cy="490" r="0.7" fill="#fff" opacity="0.26"/><circle cx="550" cy="426" r="0.7" fill="#fff" opacity="0.38"/><circle cx="64" cy="449" r="0.9" fill="#fff" opacity="0.36"/><circle cx="141" cy="50" r="1.1" fill="#fff" opacity="0.61"/><circle cx="689" cy="558" r="1.3" fill="#fff" opacity="0.16"/>
+      </svg>
+      <h2 id="t-fund">Gracias a los <b id="count" class="num"></b> que subieron primero.</h2>
+      <div class="fm" id="fm" role="list" aria-label="Nombres de los fundadores"></div>
+    </section>
+
+    <section class="faq on-l" id="preguntas" aria-labelledby="t-faq">
+      <div class="wrap">
+        <h2 id="t-faq">Preguntas.</h2>
+        <div class="qs">
+          <div class="c">
+            <details class="qa"><summary>¿Qué es Kumbra?<i aria-hidden="true"></i></summary><p>Una red social para escaladores. Apuntas tus sesiones de bloque o vía, las compartes y sigues lo que hace la gente que escala contigo.</p></details>
+            <details class="qa"><summary>¿Es gratis?<i aria-hidden="true"></i></summary><p>Sí. Registrar sesiones, seguir a otras personas, dar kudos y compartir es gratis. Kumbra Pro añade estadísticas avanzadas, todo tu historial, varios objetivos, retos sin límite, pulso con Apple Watch, fotos y vídeos en HD y packs de avatares.</p></details>
+            <details class="qa"><summary>¿Cuánto cuesta Pro?<i aria-hidden="true"></i></summary><p>3,99 € al mes o 29,99 € al año, con 7 días gratis al empezar.</p></details>
+            <details class="qa"><summary>¿Puedo cancelar Pro cuando quiera?<i aria-hidden="true"></i></summary><p>Sí. Pro se contrata desde la app con tu cuenta de App Store o Google Play y se cancela desde ahí, sin compromiso.</p></details>
+          </div>
+          <div class="c">
+            <details class="qa"><summary>¿Tengo que llevar el móvil en la pared?<i aria-hidden="true"></i></summary><p>No. Puedes apuntar en directo, un toque por bloque, o al terminar. También puedes registrar una sesión de otro día.</p></details>
+            <details class="qa"><summary>¿Funciona en mi rocódromo?<i aria-hidden="true"></i></summary><p>Si no aparece, puedes añadirlo al elegir dónde escalas. Cada rocódromo puede tener su propia escala de grados, por colores o por niveles.</p></details>
+            <details class="qa"><summary>¿Quién ve mis sesiones?<i aria-hidden="true"></i></summary><p>Quien te sigue. Si prefieres un perfil privado, apruebas tú a cada persona que quiera seguirte. Puedes reportar y bloquear a cualquiera.</p></details>
+            <details class="qa"><summary>¿Cómo borro mi cuenta?<i aria-hidden="true"></i></summary><p>Desde la app, en Ajustes → Eliminar cuenta. Si no puedes entrar, <a class="mail del" href="#">escríbenos</a> desde el correo de tu cuenta y la eliminamos por ti.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final wrap on-d" id="descarga" aria-labelledby="t-final">
+      <h2 id="t-final">Apunta tu primera sesión hoy.</h2>
+      <p class="lede">Gratis en iPhone y Android. Si reservaste tu @, entra con el mismo email.</p>
+      <div class="stores" data-stores></div>
+      <p class="proof" id="proof" aria-live="polite"></p>
+      <div data-ridge="4 4+ 5 4+ 5 5+ 5+ 6A 5+* 6A 6A+ 6B 6A+ 6B* 6C+? 6C+ 6B 6B+ 6C 6B+ 6B 6C* 6B+ 6B 6A+ 6B 6B+ 6B" data-tone="dark" data-wide></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap ft">
+      <div>
+        <a href="/kumbra/previa-7adf70/" aria-label="Kumbra, inicio"><img src="/kumbra/previa-7adf70/img/kumbra-logo-horizontal-blanco.svg" alt="Kumbra" width="120" height="34"></a>
+        <p>La red social de escalada.</p>
+        <div class="soc">
+          <a id="soc-ig" href="#" aria-label="Instagram de Kumbra" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/></svg></a>
+          <a id="soc-tt" href="#" aria-label="TikTok de Kumbra" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3c.4 2.6 2 4.2 4.5 4.5v3c-1.6 0-3-.5-4.5-1.4V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a3 3 0 1 0 2 2.8V3z" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div role="navigation" aria-label="Legal">
+        <h3>Legal</h3>
+        <ul><li><a href="/kumbra-privacy/">Privacidad</a></li><li><a href="/kumbra-terms/">Términos de uso</a></li><li><a href="/kumbra/seguridad-infantil/">Seguridad infantil</a></li><li><a class="mail del" href="#">Eliminar mi cuenta</a></li></ul>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <ul><li><a class="mail" href="#">Escríbenos</a></li><li><a class="mail gymm" href="#">Para rocódromos</a></li></ul>
+      </div>
+    </div>
+    <div class="wrap fl2"><small>© 2026 Kumbra</small><a href="#contenido">Volver arriba</a></div>
+  </footer>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"¿Qué es Kumbra?","acceptedAnswer":{"@type":"Answer","text":"Una red social para escaladores. Apuntas tus sesiones de bloque o vía, las compartes y sigues lo que hace la gente que escala contigo."}},
+    {"@type":"Question","name":"¿Es gratis?","acceptedAnswer":{"@type":"Answer","text":"Sí. Registrar sesiones, seguir a otras personas, dar kudos y compartir es gratis. Kumbra Pro añade estadísticas avanzadas, historial completo, retos sin límite y más."}},
+    {"@type":"Question","name":"¿Cuánto cuesta Pro?","acceptedAnswer":{"@type":"Answer","text":"3,99 € al mes o 29,99 € al año, con 7 días gratis al empezar."}}
+  ]}
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+(function () {
+  // Rellenar el día del lanzamiento. Vacío = el botón sale apagado y no enlaza a nada.
+  var CONFIG = {
+    ios: "https://apps.apple.com/app/id6818507035",
+    android: "https://play.google.com/store/apps/details?id=com.axclimb.kumbra",
+    contact: "axclimb@gmail.com",   // Correo de contacto (también el de rocódromos)
+    instagram: "",                  // Usuario de Instagram, sin @ (vacío = el icono se oculta)
+    tiktok: ""                      // Usuario de TikTok, sin @ (vacío = el icono se oculta)
+  };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  // ---- store buttons
+  var APPLE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8C7 7.4 5.6 8.3 4.8 9.7c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 2.9 2.4 1.2-.1 1.6-.8 3-.8s1.8.8 3 .7c1.3 0 2.1-1.2 2.8-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-3.9zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg>';
+  var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.3 12l-9.7 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z" fill="#00B8D9"/><path d="m16.6 15.3-3.3-3.3 3.3-3.3 3.8 2.2c1 .6 1 1.6 0 2.2z" fill="#F2B400"/><path d="M16.6 15.3 13.3 12l-9.7 9.7c.4.2.9.2 1.4-.1z" fill="#E5484D"/><path d="M16.6 8.7 5 2.4c-.5-.3-1-.3-1.4-.1l9.7 9.7z" fill="#2FA866"/></svg>';
+  function store(kind, dark) {
+    var url = CONFIG[kind], ios = kind === "ios", a = document.createElement("a");
+    a.className = "store" + (dark ? " dark" : "");
+    a.innerHTML = (ios ? APPLE : PLAY) + "<span><small>" + (ios ? "Descárgalo en la" : "Disponible en") + "</small><b>" + (ios ? "App Store" : "Google Play") + "</b></span>";
+    if (url) { a.href = url; a.rel = "noopener"; a.target = "_blank"; } else { a.setAttribute("aria-disabled", "true"); a.setAttribute("role", "link"); }
+    return a;
+  }
+  document.querySelectorAll("[data-stores]").forEach(function (box) { box.appendChild(store("ios")); box.appendChild(store("android")); });
+
+  // Hero: the waiting-list mountain with a sun behind -> the sun floods the screen, the Kumbra letters fly into the phone
+  var HERO_LIGHTS = function () {};
+  var HERO = (function () {
+    var hero = document.getElementById("hero"), pin = hero.querySelector(".pin"), canvas = document.getElementById("mt"), wm = document.getElementById("wm");
+    function clamp(v) { return Math.max(0, Math.min(1, v)); }
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    var G = { K: 4 }, P = 0, ticking = false, SX = 0, SY = 0;
+    function setVar(k, v) { pin.style.setProperty(k, typeof v === "number" ? +v.toFixed(3) : v); }
+    function layout() {
+      var W = hero.clientWidth, H = window.innerHeight, narrow = W < 800;
+      var fs = Math.min(W * 0.24, H * 0.3, 300); setVar("--fs", fs + "px");
+      var wt = narrow ? H * 0.12 : H * 0.1; setVar("--wt", wt);
+      var wmW = wm.offsetWidth || fs * 3.6, wmH = wm.offsetHeight || fs * 0.9; setVar("--kt", wt + wmH + 16);
+      var D = Math.min(W * 0.62, H * 0.36, 520); setVar("--D", D);
+      if (!SX) { SX = W / 2; SY = H * 0.5; setVar("--sx", SX); setVar("--sy", SY); }
+      G.K = 2 * Math.hypot(W / 2, Math.max(SY, H - SY)) / D + 0.08;
+      var ph = narrow ? Math.min(H * 0.66, W * 1.7) : Math.min(H * 0.8, 760), pw = ph * 0.4851, pt = narrow ? H * 0.27 : (H - ph) / 2 + H * 0.02;
+      var sc1 = 1;
+      G.sc = sc1; G.dy = 0;
+      setVar("--ph", ph); setVar("--pw", pw); setVar("--pt", pt);
+      ui();
+    }
+    function ui() {
+      ticking = false;
+      var span = hero.offsetHeight - window.innerHeight; P = span > 0 ? clamp(-hero.getBoundingClientRect().top / span) : 0;
+      // the old timeline (wordmark, sun, flood, phone) runs in the first 22 %; then a long stretch where the ridge forms; then the words
+      var p = Math.min(0.44, P * 2.2); RT = reduce ? 1 : clamp((P - 0.32) / 0.68); if (RO !== null) RD = RO; else ease2();
+      p = p, e = ease(clamp((p - 0.06) / 0.32)), ef = ease(clamp((p - 0.1) / 0.3));
+      setVar("--p", p); setVar("--ds", 1 + (G.K - 1) * e);
+      setVar("--fl", clamp((p - 0.26) / 0.1)); setVar("--ca", 1 - clamp((p - 0.3) / 0.08));
+      setVar("--ty", G.dy * ef); setVar("--sc", 1 + (G.sc - 1) * ef); setVar("--c", clamp((ef - 0.45) / 0.45)); setVar("--tf", clamp((p - 0.02) / 0.1));
+      setVar("--f", clamp((p - 0.3) / 0.14)); setVar("--wo", 1 - clamp((p - 0.27) / 0.09));
+      // once the phone has arrived the app installs by itself and the words come in; scrolling back above it resets them
+      if (p >= 0.4 && !T0) { T0 = performance.now(); requestAnimationFrame(timed); if (!reduce && !JUMP && P < 0.3) wall(true); } else if (p < 0.34 && T0) { wall(false); T0 = 0; TI = 0; hero.classList.remove("ready"); setVar("--w", 0); wm.classList.remove("hello"); hero.classList.remove("hello"); }
+      if (reduce && T0) TI = 1;
+      if (window.KPR && RO === null) window.KPR(TI, RD);
+    }
+    var T0 = 0, JUMP = false, RT = 0, easing = false, WY = null;
+    // while the app installs the page can't go further down than the phone: a wall, not a pull back. It only listens
+    // during those two seconds
+    function wy() { return hero.offsetTop + (hero.offsetHeight - window.innerHeight) * 0.3; }
+    function block(e) { if (WY === null) return; var dy = e.deltaY !== undefined ? e.deltaY : 0; if (window.scrollY >= WY - 1 && (dy > 0 || e.type === "touchmove")) e.preventDefault(); }
+    function clampY() { if (WY !== null && window.scrollY > WY + 1) window.scrollTo({ top: WY, behavior: "instant" }); }
+    var ty0 = 0; function tstart(e) { ty0 = e.touches[0].clientY; }
+    function tmove(e) { if (WY === null) return; var down = ty0 - e.touches[0].clientY > 0; if (down && window.scrollY >= WY - 1) e.preventDefault(); }
+    function wall(on) {
+      if (on && WY === null) { WY = wy(); window.addEventListener("wheel", block, { passive: false }); window.addEventListener("touchstart", tstart, { passive: true }); window.addEventListener("touchmove", tmove, { passive: false }); window.addEventListener("scroll", clampY, { passive: true }); }
+      if (!on && WY !== null) { WY = null; window.removeEventListener("wheel", block); window.removeEventListener("touchstart", tstart); window.removeEventListener("touchmove", tmove); window.removeEventListener("scroll", clampY); }
+    }
+    // the way in follows the scroll, but softly (a fast flick doesn't make it jump), and it waits for the app to finish
+    // installing: if you scrolled on meanwhile, it plays up to where you are as soon as the app is ready
+    function ease2() { if (easing) return; easing = true; requestAnimationFrame(function step() {
+      var tgt = TI < 1 ? 0 : RT, d = tgt - RD; RD = Math.abs(d) < 0.002 ? tgt : RD + Math.sign(d) * Math.min(Math.abs(d) * 0.14 + 0.002, 0.035);
+      hero.classList.toggle("going", RD > 0.01); if (window.KPR && RO === null) window.KPR(TI, RD);
+      if (RD !== tgt && RO === null) requestAnimationFrame(step); else easing = false; }); }
+    // a jump from a menu link passes through here on its way down: it doesn't stop for the download
+    document.addEventListener("click", function (e) { var a = e.target.closest('a[href^="#"]'); if (a) { JUMP = true; setTimeout(function () { JUMP = false; }, 1600); } });
+    function timed(now) { if (!T0) return; var t = now - T0; TI = reduce ? 1 : clamp((t - 250) / 1700); var w = reduce ? 1 : clamp((t - 1500) / 600);
+      setVar("--w", w); if (w >= 0.99) { wm.classList.add("hello"); hero.classList.add("hello"); }
+      if (window.KPR && RO === null) window.KPR(TI, RD);
+      if (TI < 1 || w < 1) requestAnimationFrame(timed); else { wall(false); hero.classList.add("ready"); ease2(); } }
+    // once it's installed, tapping the app goes in: the way in plays as its own little film (1.7 s), then the page is
+    // already at «Dos toques», where the film ends
+    document.getElementById("phone").addEventListener("click", function () {
+      if (!hero.classList.contains("ready") || RO !== null) return;
+      var r0 = RD, y1 = hero.offsetTop + hero.offsetHeight - window.innerHeight, t0 = performance.now(), d = reduce ? 1 : 1700 * (1 - r0);
+      if (r0 >= 1) return;
+      RO = r0;
+      (function go(now) { var k = clamp((now - t0) / d); RO = r0 + (1 - r0) * k; if (window.KPR) window.KPR(TI, RO); hero.classList.add("going");
+        if (k < 1) { requestAnimationFrame(go); return; }
+        RD = 1; RT = 1; window.scrollTo({ top: y1, behavior: "instant" }); RO = null; ui(); })(t0);
+    });
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(ui); } }, { passive: true });
+    window.addEventListener("resize", layout);
+    layout();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+
+    var renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (e) { renderer = null; }
+    if (!renderer) { hero.classList.add("nogl"); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    var scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(36, 1, 0.1, 200);
+    scene.fog = new THREE.FogExp2("#24122C", 0.07);
+    function hsh(x, y) { var a = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return a - Math.floor(a); }
+    function vnoise(x, y, sd) { var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf); var a = hsh(xi + sd, yi), b = hsh(xi + 1 + sd, yi), c = hsh(xi + sd, yi + 1), d = hsh(xi + 1 + sd, yi + 1); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+    function fbm(x, y, sd, o) { var v = 0, a = 0.5, f = 1; for (var i = 0; i < o; i++) { v += a * vnoise(x * f, y * f, sd); f *= 2.03; a *= 0.5; } return v; }
+    var SIZE = 16, HMAX = 7.2;
+    function heightAt(x, z) {
+      var u = x / SIZE * 110 + 55, w = z / SIZE * 110 + 55, d = Math.hypot(x, z * 1.1) / (SIZE / 2);
+      var ridge = 1 - Math.abs(fbm(u / 18, w / 18, 42.7, 5) * 2 - 1);
+      var h = Math.max(0, 1 - d * 1.05) * (0.62 + ridge * 0.45) + fbm(u / 9, w / 9, 45.7, 3) * 0.06;
+      return Math.pow(Math.max(0, h), 1.55) * HMAX;
+    }
+    var STOPS = [[0, "#22163A"], [0.12, "#3A2558"], [0.27, "#6A2E6E"], [0.42, "#C2366E"], [0.55, "#E5484D"], [0.67, "#F08A3C"], [0.76, "#F2B44A"], [0.8, "#FFF4E2"], [1, "#FFFFFF"]];
+    function colorAt(h) { for (var i = 1; i < STOPS.length; i++) if (h <= STOPS[i][0]) return new THREE.Color(STOPS[i - 1][1]).lerp(new THREE.Color(STOPS[i][1]), (h - STOPS[i - 1][0]) / (STOPS[i][0] - STOPS[i - 1][0])); return new THREE.Color("#fff"); }
+    var geo = new THREE.PlaneGeometry(SIZE * 2.2, SIZE * 2.2, 130, 130); geo.rotateX(-Math.PI / 2);
+    var pos = geo.attributes.position, cols = new Float32Array(pos.count * 3), peak = new THREE.Vector3();
+    for (var k = 0; k < pos.count; k++) { var x = pos.getX(k), z = pos.getZ(k), h = heightAt(x, z); pos.setY(k, h); if (h > peak.y) peak.set(x, h, z); var c = colorAt(h / HMAX); cols[k * 3] = c.r; cols[k * 3 + 1] = c.g; cols[k * 3 + 2] = c.b; }
+    geo.setAttribute("color", new THREE.BufferAttribute(cols, 3)); geo.computeVertexNormals();
+    var terrain = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.92, metalness: 0 }));
+    scene.add(terrain);
+    var rim = new THREE.DirectionalLight("#FF9A6C", 1.9); rim.position.set(-6, 5, -12); scene.add(rim);
+    var moon = new THREE.DirectionalLight("#C9B8FF", 0.95); moon.position.set(10, 14, 8); scene.add(moon);
+    scene.add(new THREE.HemisphereLight("#A98BE0", "#2A1424", 0.9));
+    function tex(stops, size) { var cv = document.createElement("canvas"); cv.width = cv.height = size; var g = cv.getContext("2d"), hh = size / 2, gr = g.createRadialGradient(hh, hh, 0, hh, hh, hh); stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); }); g.fillStyle = gr; g.fillRect(0, 0, size, size); return new THREE.CanvasTexture(cv); }
+    var glowTex = tex([[0, "rgba(255,240,210,1)"], [0.25, "rgba(242,180,74,.9)"], [1, "rgba(242,180,74,0)"]], 64);
+    function dots(n, spread, y0, y1, size, color, opacity) {
+      var g = new THREE.BufferGeometry(), a = new Float32Array(n * 3);
+      for (var i = 0; i < n; i++) { a[i * 3] = (Math.random() - 0.5) * spread; a[i * 3 + 1] = y0 + Math.random() * (y1 - y0); a[i * 3 + 2] = (Math.random() - 0.5) * spread; }
+      g.setAttribute("position", new THREE.BufferAttribute(a, 3));
+      var m = new THREE.Points(g, new THREE.PointsMaterial({ color: color, size: size, transparent: true, opacity: opacity, depthWrite: false, sizeAttenuation: true, fog: false }));
+      scene.add(m); return m;
+    }
+    var stars = dots(600, 160, 18, 70, 0.22, "#F5EFE6", 0.7);
+    var chalk = dots(160, 26, 2.2, 12, 0.07, "#FFFFFF", 0.55); chalk.material.fog = true;
+    var others = [];
+    function seeded(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return function () { h = Math.imul(h ^ (h >>> 15), 2246822507); h = Math.imul(h ^ (h >>> 13), 3266489909); return ((h ^= h >>> 16) >>> 0) / 4294967296; }; }
+    HERO_LIGHTS = function (names) {
+      names.slice(0, 120).forEach(function (name, i) {
+        var rnd = seeded(name), ang = rnd() * Math.PI * 2, f = 0.12 + rnd() * 0.66, target = peak.y * f, pt = null;
+        for (var r = 0.1; r < 14; r += 0.03) { var x = peak.x + Math.sin(ang) * r, z = peak.z + Math.cos(ang) * r; if (heightAt(x, z) <= target) { pt = new THREE.Vector3(x, heightAt(x, z) + 0.08, z); break; } }
+        if (!pt) return;
+        var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, fog: false, opacity: 0 })); sp.position.copy(pt); sp.scale.setScalar(0.32); scene.add(sp);
+        others.push({ sp: sp, ph: rnd() * 6, d: i * 0.012 });
+      });
+    };
+    var W = 0, H = 0;
+    function resize() { W = hero.clientWidth; H = window.innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
+    window.addEventListener("resize", resize); resize();
+    var t0 = performance.now(), visible = true, tmp = new THREE.Vector3();
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(hero);
+    function frame(now) {
+      requestAnimationFrame(frame);
+      var ca = parseFloat(pin.style.getPropertyValue("--ca")); if (!visible || ca <= 0) return;
+      var t = (now - t0) / 1000;
+      // the range rises out of the fog, with the app's little overshoot
+      var g = reduce ? 1 : Math.min(1, t / 3.2), c1 = 1.25, c3 = c1 + 1, e = g >= 1 ? 1 : 1 + c3 * Math.pow(g - 1, 3) + c1 * Math.pow(g - 1, 2);
+      terrain.scale.y = Math.max(0.001, e);
+      scene.fog.density = 0.07 - 0.046 * Math.min(1, t / 3.5);
+      var narrow = W < 800, yaw = 0.6 + t * 0.03 + P * 0.4, rad = (narrow ? 27 : 21) - P * 5;
+      camera.position.set(peak.x + Math.sin(yaw) * rad, narrow ? 7 : 6.2, peak.z + Math.cos(yaw) * rad);
+      camera.lookAt(peak.x, peak.y * 0.55, peak.z);
+      camera.setViewOffset(W, H, 0, H * (narrow ? -0.08 : -0.03), W, H);
+      camera.updateMatrixWorld();
+      // the sun sits behind the summit, wherever the camera has taken it
+      tmp.set(peak.x, peak.y * terrain.scale.y, peak.z).project(camera);
+      var nx = (tmp.x + 1) / 2 * W, ny = (1 - tmp.y) / 2 * H - parseFloat(pin.style.getPropertyValue("--D") || 0) * 0.16;
+      if (Math.abs(nx - SX) > 0.5 || Math.abs(ny - SY) > 0.5) { SX = nx; SY = ny; setVar("--sx", SX); setVar("--sy", SY); }
+      var cp = chalk.geometry.attributes.position;
+      for (var i = 0; i < cp.count; i++) { var y = cp.getY(i) + 0.004 + Math.sin(t + i) * 0.001; cp.setY(i, y > 12 ? 2.2 : y); cp.setX(i, cp.getX(i) + Math.sin(t * 0.3 + i) * 0.002); }
+      cp.needsUpdate = true;
+      stars.material.opacity = 0.55 + Math.sin(t * 0.7) * 0.1;
+      for (var j = 0; j < others.length; j++) { var o = others[j]; o.sp.material.opacity = clamp((t - 3) * 0.5 - o.d * 20) * (0.65 + Math.sin(t * 2 + o.ph) * 0.25); }
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  var RK = 0, TI = 0, RD = 0, RO = null;
+  // ---- the session ridge, a port of the app's AXSessionRidge (drawn in the app's points and scaled, so it looks like the app):
+  // peaks share the width (at most 0.16 each) and overlap one step each side; height = grade on the 4…8C scale with the
+  // 6A / 6C / 7B guides; colour by grade, darker towards the ground; flash = white snow with jagged edge; the crest line in the
+  // peak's colour 35 % lighter; projects behind, in their grade colour at 20 %; the hardest send gets its pill.
+  var GL = ["4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+", "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C"];
+  var BAND = ["#3FAE6A", "#E8C23A", "#F08A3C", "#E5484D", "#D1459A", "#8B5CF6", "#5B6CFF"];
+  function band(g) { var n = parseInt(g, 10); if (n < 6) return 0; var l = g.charAt(1); return Math.min(1 + (n - 6) * 3 + (l === "A" ? 0 : l === "B" ? 1 : 2), 6); }
+  function gc(g) { return BAND[band(g)]; }
+  function mix(h, to, t) { var c = parseInt(h.slice(1), 16), r = c >> 16, g = c >> 8 & 255, b = c & 255; return "rgb(" + Math.round(r + (to - r) * t) + "," + Math.round(g + (to - g) * t) + "," + Math.round(b + (to - b) * t) + ")"; }
+  function parse(s) { return s.trim().split(/\s+/).map(function (t) { return { g: t.replace(/[?*]/g, "").toUpperCase(), s: /\?/.test(t) ? "project" : /\*/.test(t) ? "flash" : "top", r: 1 }; }); }
+  function eob(t) { t = clamp(t); return Math.max(0, 1 + 2.4 * Math.pow(t - 1, 3) + 1.4 * Math.pow(t - 1, 2)); }
+  var uidN = 0;
+  function ridge(list, w, h, opt) {
+    opt = opt || {};
+    var dark = opt.tone === "dark", labels = opt.labels !== false, pill = opt.pill !== false;
+    var uid = "rg" + (uidN++), s = w / 323, ts = Math.min(s, opt.maxText || 1.9), gw = labels ? w - 22 * ts : w;
+    var top0 = pill ? Math.min(26 * ts, h * 0.3) : 2 * s, y0 = h - 1, ah = y0 - top0, n = list.length, step = Math.min(1 / n, 0.16), start = (1 - step * n) / 2;
+    function norm(g) { return 0.16 + 0.84 * GL.indexOf(g) / 20; }
+    var P = list.map(function (b, i) { var e = eob(b.r), ht = Math.max(0.12, norm(b.g)) * ah * e; return { g: b.g, s: b.s, r: b.r, i: i, x: (start + step * (i + 0.5)) * gw, hw: step * gw, ht: ht, top: y0 - ht, full: y0 - Math.max(0.12, norm(b.g)) * ah, c: gc(b.g) }; });
+    function flank(p, t, left, f) { var hw = p.hw * (f || 1), sx = p.x + (left ? -hw : hw), cx = p.x + (left ? -hw : hw) * 0.42, cy = y0 - p.ht * 0.32, u = 1 - t; return [u * u * sx + 2 * u * t * cx + t * t * p.x, u * u * y0 + 2 * u * t * cy + t * t * p.top]; }
+    function mtn(p, f) { var hw = p.hw * (f || 1); return "M" + (p.x - hw) + "," + y0 + "Q" + (p.x - hw * 0.42) + "," + (y0 - p.ht * 0.32) + " " + p.x + "," + p.top + "Q" + (p.x + hw * 0.42) + "," + (y0 - p.ht * 0.32) + " " + (p.x + hw) + "," + y0 + "Z"; }
+    var defs = "", gl = "", ghosts = "", body = "", crest = "", pl = "", gridC = dark ? "#4A4252" : "#D3CABE", labC = dark ? "#8F8496" : "#8A8190";
+    if (opt.grid !== false) ["6A", "6C", "7B"].forEach(function (g) { var yy = y0 - norm(g) * ah; if (yy < top0 - 4) return;
+      gl += '<line x1="0" x2="' + gw + '" y1="' + yy + '" y2="' + yy + '" stroke="' + gridC + '" stroke-width="' + Math.max(1, ts * 0.8) + '" stroke-dasharray="' + 2 * ts + " " + 4 * ts + '"/>' + (labels ? '<text x="' + (w - 1) + '" y="' + (yy + 3.6 * ts) + '" text-anchor="end" font-family="Inter,sans-serif" font-weight="500" font-size="' + 10 * ts + '" fill="' + labC + '">' + g + "</text>" : ""); });
+    P.forEach(function (p) { if (p.s === "project" && p.r > 0) ghosts += '<path d="' + mtn(p, 1.1) + '" fill="' + p.c + '" fill-opacity="' + (0.2 * clamp(p.r * 2)).toFixed(2) + '"/>'; });
+    var S = P.filter(function (p) { return p.s !== "project" && p.r > 0; });
+    S.slice().sort(function (a, b) { return b.ht - a.ht; }).forEach(function (p) {
+      var id = uid + "m" + p.i;
+      defs += '<linearGradient id="' + id + '" gradientUnits="userSpaceOnUse" x1="0" y1="' + p.top + '" x2="0" y2="' + y0 + '"><stop offset="0" stop-color="' + p.c + '"/><stop offset=".75" stop-color="' + mix(p.c, 0, 0.35) + '"/><stop offset="1" stop-color="' + mix(p.c, 0, 0.55) + '"/></linearGradient>';
+      body += '<path d="' + mtn(p) + '" fill="url(#' + id + ')"/>';
+      if (p.s === "flash" && p.r > 0.6 && p.ht > 4 * s) {
+        var depth = Math.min(15 * s, p.ht * 0.3), t = 1 - depth / p.ht, A = flank(p, t, true), B = flank(p, t, false), wd = B[0] - A[0], j = Math.min(3.5 * s, depth * 0.25);
+        body += '<path d="M' + A + "L" + p.x + "," + p.top + "L" + B + "L" + (A[0] + wd * 0.72) + "," + (A[1] - j) + "L" + (A[0] + wd * 0.52) + "," + (A[1] + j * 0.4) + "L" + (A[0] + wd * 0.3) + "," + (A[1] - j * 0.85) + 'Z" fill="#fff" fill-opacity="' + clamp((p.r - 0.6) / 0.3).toFixed(2) + '"/>';
+      }
+    });
+    if (S.length) {
+      var x0 = Math.floor(Math.min(0, Math.min.apply(null, S.map(function (p) { return p.x - p.hw; })))), x1 = Math.ceil(Math.max(gw, Math.max.apply(null, S.map(function (p) { return p.x + p.hw; })))), q = Math.max(1, Math.round(w / 600)), cols = Math.ceil((x1 - x0) / q), env = [], k;
+      for (k = 0; k <= cols; k++) env.push(y0);
+      S.forEach(function (p) { [true, false].forEach(function (left) { var pts = []; for (k = 0; k <= 24; k++) pts.push(flank(p, k / 24, left)); pts.sort(function (a, b) { return a[0] - b[0]; });
+        for (k = 1; k < pts.length; k++) { var A = pts[k - 1], B = pts[k];
+          for (var c = Math.max(0, Math.floor((A[0] - x0) / q)); c <= Math.min(cols, Math.ceil((B[0] - x0) / q)); c++) { var X = x0 + c * q, tt = B[0] - A[0] > 0.001 ? clamp((X - A[0]) / (B[0] - A[0])) : 0, Y = A[1] + (B[1] - A[1]) * tt; if (Y < env[c]) env[c] = Y; } } }); });
+      var d = "", on = false;
+      env.forEach(function (Y, c) { if (Y < y0 - 0.5) { d += (on ? "L" : "M") + (x0 + c * q) + "," + Y.toFixed(1) + " "; on = true; } else on = false; });
+      var stops = S.map(function (p) { return '<stop offset="' + (p.x / gw).toFixed(4) + '" stop-color="' + mix(p.c, 255, 0.35) + '"/>'; }).join("");
+      defs += '<linearGradient id="' + uid + 'cr" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="' + gw + '" y2="0">' + stops + "</linearGradient>";
+      crest = '<path d="' + d + '" fill="none" stroke="url(#' + uid + 'cr)" stroke-width="' + Math.min(2 * s, 4.5) + '" stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+    var hard = S.filter(function (p) { return p.r > 0.6; }).reduce(function (a, p) { return !a || p.ht > a.ht ? p : a; }, null);
+    if (pill && hard) { var fs = 11 * ts, pw = hard.g.length * fs * 0.72 + 14 * ts, ph = fs + 6 * ts, cx = Math.min(Math.max(hard.x, pw / 2), gw - pw / 2), cy = hard.top - 15 * ts;
+      pl = '<g opacity="' + clamp((hard.r - 0.6) / 0.4).toFixed(2) + '" transform="translate(' + (cx - pw / 2) + "," + (cy - ph / 2) + ')"><rect width="' + pw + '" height="' + ph + '" rx="' + ph / 2 + '" fill="' + hard.c + '"/><text x="' + pw / 2 + '" y="' + (ph / 2 + fs * 0.36) + '" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="' + fs + '" fill="#fff">' + hard.g + "</text></g>"; }
+    var svg = '<svg class="rg" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + " " + h + '" aria-hidden="true"><defs>' + defs + '<clipPath id="' + uid + 'k"><rect x="0" y="-80" width="' + gw + '" height="' + (h + 80) + '"/></clipPath></defs>' + gl + '<g clip-path="url(#' + uid + 'k)">' + ghosts + body + crest + "</g>" + '<line x1="0" x2="' + gw + '" y1="' + y0 + '" y2="' + y0 + '" stroke="' + gridC + '" stroke-width="' + Math.max(1, s * 0.5) + '"/>' + pl + "</svg>";
+    return { svg: svg, peaks: P, hard: hard };
+  }
+  // ---- gente: the app's feed card, a bit simpler (no menu, one photo)
+  (function () {
+    var FEEL = { "Fácil": ["#E4F3E4", "#3FA046"], "Bien": ["#FBEBD3", "#D9901F"], "Dura": ["#FBE3E8", "#E0336F"] };
+    var GAUGE = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 12l-3.5-3" stroke-linecap="round"/></svg>';
+    var GYM = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="11" height="18" rx="1.5"/><path d="M15 9h4.5v12H15M7 7h2M11 7h1M7 11h2M11 11h1M7 15h2M11 15h1"/></svg>';
+    var CLOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M10 2h4"/></svg>';
+    var CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>';
+    var FIRE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.6 3.6 5.5 5.2 5.5 10.5a5.5 5.5 0 0 1-11 0c0-2.3 1-3.7 2.2-4.8.2 1.8 1 2.8 2 3C10.2 8.5 10.8 5.2 12 2.5z"/></svg>';
+    var POSTS = [
+      ["Rubén V.", "canto", 3, .4, "Hace 2 h", "Bien", "Sharma Climbing Madrid", "4+ 5 5+ 5+* 6A 6A+ 6B* 6A+ 6B 6B+ 6C 6C+?", 10, 2, "6C", "p6", "Por fin el 6C del desplome.", "1 h 38 min", 118, 2, 4],
+      ["Carla F.", "regleta", 5, .7, "Ayer", "Fácil", "Climbat X-Madrid", "4 4+ 5* 5 5+* 6A* 6A 6A+ 6B 6A+", 10, 3, "6B", "p3", "Sesión corta antes de cenar.", "52 min", 74, 0, 7],
+      ["Lucía R.", "geko", 4, .25, "El domingo", "Dura", "Indoorwall Getafe", "5 5+ 5+ 6A* 6A+ 6B 6A+ 6B+ 6B 6B+?", 9, 1, "6B+", "p2", "Ese 6B+ cae la semana que viene.", "2 h 05 min", 96, 3, 2],
+      ["Marta G.", "gato", 2, .55, "El sábado", "Bien", "Salamandra Boulder Café", "4 4+ 4+ 5* 5 5+ 5+* 6A 5+ 6A+?", 9, 2, "6A", "p1", "Volviendo después de dos semanas sin escalar.", "1 h 12 min", 61, 1, 5],
+      ["Irene M.", "canto", 6, .1, "El viernes", "Dura", "Sharma Climbing BCN", "5 5+ 6A 6A+* 6B 6B+ 6B 6C 6B+* 7A?", 9, 2, "6C", "p7", "El amarillo de la esquina no hay quien lo lea.", "1 h 46 min", 133, 4, 3],
+      ["Ana P.", "regleta", 3, .85, "El jueves", "Fácil", "Uadibloc", "4 4+ 5 5* 5+ 6A 5+ 6A* 6A+ 6A+ 6B?", 10, 2, "6A+", "p4", "Con Marta mirando desde abajo, como siempre.", "1 h 20 min", 88, 1, 6]
+    ];
+    var feed = document.getElementById("feed"), C = 2 * Math.PI * 20;
+    feed.innerHTML = POSTS.map(function (d) {
+      var f = FEEL[d[5]];
+      return '<article class="post"><div class="top"><span class="av"><svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="none" stroke="#DBEFDC" stroke-width="3"/><circle cx="22" cy="22" r="20" fill="none" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-dasharray="' + C + '" stroke-dashoffset="' + (C * (1 - d[3])).toFixed(1) + '"/></svg><img src="/kumbra/previa-7adf70/img/avatars/' + d[1] + '.webp" alt="" width="34" height="34"></span>' +
+        '<div class="nm"><b>' + d[0] + '</b><span class="nv">Nv ' + d[2] + '</span><small>' + d[4] + '</small></div><span class="fe" style="background:' + f[0] + ';color:' + f[1] + '">' + GAUGE + d[5] + '</span></div>' +
+        '<div class="pl">' + GYM + d[6] + '</div><div data-ridge="' + d[7] + '"></div>' +
+        '<div class="st num"><div><small>TOPS</small><b>' + d[8] + '</b></div><div><small>FLASH</small><b style="color:#D9A21B">' + d[9] + '</b></div><div><small>MÁX</small><b style="color:' + gc(d[10]) + '">' + d[10] + '</b></div></div>' +
+        '<img class="pic" src="/kumbra/previa-7adf70/img/photos/' + d[11] + '.webp" alt="" loading="lazy">' +
+        '<p class="say">' + d[12] + '</p><div class="dur">' + CLOCK + d[13] + '</div>' +
+        '<div class="ft num"><span class="xp">+' + d[14] + ' XP</span><span class="cm">' + CHAT + d[15] + '</span><button class="kudo" type="button" data-k="' + d[16] + '" aria-pressed="false" aria-label="Dar kudos a ' + d[0] + '">' + FIRE + '<span>' + d[16] + '</span></button></div></article>';
+    }).join("");
+  })();
+  // ---- the phone in the hero. data-mode="lock": a lock screen where Kumbra notifications arrive as you scroll;
+  // data-mode="home": a home screen where Kumbra installs, the icon fills and pops
+  (function () {
+    var box = document.getElementById("pscene"); if (!box) return;
+    var mode = box.getAttribute("data-mode") || "lock", OPEN = box.getAttribute("data-open") || "cima", inapp, cam, lastK = -1, built = false, home, zoom = document.getElementById("zoom"), zpin = document.querySelector(".hero .pin");
+    var ICON = "/kumbra/previa-7adf70/img/icono-app.svg";
+    var STARS = [[.12, .06], [.08, .17], [.78, .07], [.9, .2], [.6, .04], [.16, .3], [.86, .3], [.92, .33], [.05, .36], [.36, .52], [.82, .5]];
+    var WALL = '<svg class="wall" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 200V96L34 70L58 88L96 44L130 82L156 64L196 104L232 58L262 84L300 66V200Z" fill="#2B1B3A"/><path d="M0 200V138L44 112L80 132L124 98L164 128L206 106L248 132L300 110V200Z" fill="#3A2148"/><path d="M0 138L44 112L80 132L124 98L164 128L206 106L248 132L300 110" fill="none" stroke="#A7377B" stroke-opacity=".5" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg>';
+    var NOTES = [["Marta te ha dado kudos", "A tu sesión del jueves en Roc 30."], ["Rubén ha subido una sesión", "10 tops y su primer 6C en Arkose Cuatro Caminos."], ["Irene ha encadenado su proyecto", "El 6B+ de la esquina, a la tercera."]], nts = [];
+    function stars(w, h) { return '<svg width="' + w + '" height="' + h + '" style="top:0;left:0">' + STARS.map(function (p) { return '<circle cx="' + p[0] * w + '" cy="' + p[1] * h + '" r="1.1" fill="#fff" opacity=".6"/>'; }).join("") + "</svg>"; }
+    function build() { var w = box.clientWidth, h = box.clientHeight; if (!w) return;
+      box.classList.add(mode === "lock" ? "lk" : "hm");
+      if (mode === "lock") {
+        box.innerHTML = stars(w, h) + WALL + '<p class="date">Lunes, 16 de noviembre</p><p class="time">19:42</p><div class="nts">' +
+          NOTES.map(function (n) { return '<div class="nt"><img src="' + ICON + '" alt=""><b>' + n[0] + "</b><small>ahora</small><p>" + n[1] + "</p></div>"; }).join("") + '</div><i class="bar"></i>';
+        nts = [].slice.call(box.querySelectorAll(".nt"));
+      } else {
+        box.innerHTML = '<div class="home">' + stars(w, h) + WALL + '<p class="sb">19:42</p><div class="ic"><div class="sq"><img src="' + ICON + '" alt=""><svg class="pg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="rgba(0,0,0,.45)" stroke="rgba(255,255,255,.85)" stroke-width="2.4"/><path d="M20 20V4A16 16 0 0 1 20 4Z" fill="rgba(255,255,255,.85)"/></svg></div><span>Kumbra</span></div><p class="tap">Toca para entrar<br>o sigue bajando</p></div>' +
+          '<div class="inapp"></div><i class="bar"></i>';
+        inapp = box.querySelector(".inapp");
+        home = box.querySelector(".home");
+      }
+      built = true; }
+    function draw(k) { if (!built) build(); if (!built) return;
+      if (mode === "lock") {
+        var c = k <= 0 ? 0 : k < 0.36 ? 1 : k < 0.7 ? 2 : 3, y = 0;
+        // newest on top, the others slide down under it
+        for (var j = c - 1; j >= 0; j--) { var e = nts[j]; e.classList.add("on"); e.style.transform = "translateY(" + y + "px)"; y += e.offsetHeight + box.clientWidth * 0.022; }
+        for (j = c; j < nts.length; j++) { nts[j].classList.remove("on"); nts[j].style.transform = ""; }
+      } else {
+        // 0–.1 it downloads, .11 it's ready; .3–.645 we go into the app (it ends just as the hero ends)
+        var ic = box.querySelector(".ic"), sqe = ic.querySelector(".sq"), pg = box.querySelector(".pg path"), q = clamp(k / 0.1), a = q * Math.PI * 2 - 1e-4;
+        ic.classList.toggle("in", k > 0.01);
+        pg.setAttribute("d", "M20 20V4A16 16 0 " + (q > 0.5 ? 1 : 0) + " 1 " + (20 + 16 * Math.sin(a)).toFixed(2) + " " + (20 - 16 * Math.cos(a)).toFixed(2) + "Z");
+        ic.classList.toggle("ready", k >= 0.11);
+        var ph = document.getElementById("phone"), o = clamp((k - 0.3) / 0.345);
+        var pr = zpin.getBoundingClientRect(), PW = pr.width, PH = pr.height;
+        if (OPEN === "cima") {
+          // the summit opens: the logo's mountain grows out of the icon until the page is inside it
+          if (o <= 0) { zoom.style.visibility = "hidden"; sqe.style.opacity = 1; return; }
+          var sq = sqe.getBoundingClientRect(), s0 = sq.width / 1024, ix = sq.left - pr.left, iy = sq.top - pr.top;
+          var e = Math.pow(o, 2.8), S = Math.pow(Math.max(PW, PH) / sq.width * 5, e);
+          var ax = ix + 512 * s0 + (PW / 2 - ix - 512 * s0) * e, ay = iy + 560 * s0 + (PH * 0.62 - iy - 560 * s0) * e;
+          var pts = [], t;
+          function Q(p0, c, p1, t) { var u = 1 - t; return [u * u * p0[0] + 2 * u * t * c[0] + t * t * p1[0], u * u * p0[1] + 2 * u * t * c[1] + t * t * p1[1]]; }
+          for (t = 0; t <= 1.0001; t += 0.125) pts.push(Q([139.59, 820], [355.59, 628], [512, 220], t));
+          for (t = 0.125; t <= 1.0001; t += 0.125) pts.push(Q([512, 220], [668.41, 628], [884.41, 820], t));
+          var L = 30 * e; pts.push([884.41 + 216 * L, 820 + 192 * L], [139.59 - 216 * L, 820 + 192 * L]);
+          var poly = pts.map(function (p) { return (ax + (ix + p[0] * s0 - ax) * S).toFixed(1) + "px " + (ay + (iy + p[1] * s0 - ay) * S).toFixed(1) + "px"; }).join(",");
+          zoom.style.visibility = "visible"; zoom.style.left = 0; zoom.style.top = 0; zoom.style.width = PW + "px"; zoom.style.height = PH + "px"; zoom.style.borderRadius = 0;
+          zoom.style.background = "#F2B44A"; zoom.style.clipPath = "polygon(" + poly + ")";
+          zoom.querySelector("img").style.display = "none";
+          ic.querySelector(".sq").style.opacity = 1;
+        } else {
+          // the camera goes into the phone: the app opens on the logging card; the phone comes at us turning, and straightens
+          // until its screen is the page; the card settles where it sits in the section, and the words come in around it
+          var oa = clamp(o / 0.25); oa = 1 - Math.pow(1 - oa, 3);
+          var od = clamp((o - 0.25) / 0.75); od = od < 0.5 ? 4 * od * od * od : 1 - Math.pow(-2 * od + 2, 3) / 2;
+          var tw = Math.sin(Math.PI * clamp(od / 0.9)), ry = -26 * tw, rx = 10 * tw;
+          ph.style.setProperty("--ry", ry.toFixed(2)); ph.style.setProperty("--rx", rx.toFixed(2)); ph.style.setProperty("--rz", (-4 * tw).toFixed(2));
+          var th = ph.offsetWidth * 0.045; ph.style.setProperty("--ex", (-th * Math.sin(ry * Math.PI / 180)).toFixed(2)); ph.style.setProperty("--ey", (th * Math.sin(rx * Math.PI / 180)).toFixed(2));
+          var W = box.clientWidth, H = box.clientHeight;
+          if (o <= 0) sqe.style.opacity = 1;
+          if (!cam && o <= 0) { document.getElementById("apunta").classList.add("pre"); return; }
+          if (!cam) {
+            var scrEl = box.parentNode, sx = 0, sy = 0, el = scrEl; while (el && el !== ph) { sx += el.offsetLeft; sy += el.offsetTop; el = el.offsetParent; }
+            var pl = ph.offsetLeft, pt = ph.offsetTop, ap = document.getElementById("apunta"), apr = ap.getBoundingClientRect();
+            cam = { scr: scrEl, sx: pl + sx, sy: pt + sy, sw: scrEl.offsetWidth, cx: pl + ph.offsetWidth / 2, cy: pt + ph.offsetHeight / 2 };
+            cam.Z = PW / cam.sw; cam.k = cam.sw / PW;
+            function grab(src) { var r = src.getBoundingClientRect(), c = src.cloneNode(true); c.removeAttribute("id"); c.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); });
+              c.style.cssText = "position:absolute;left:0;top:0;margin:0;width:" + r.width + "px;transform-origin:0 0"; return { el: c, x: r.left - apr.left, y: r.top - apr.top, w: r.width, h: r.height }; }
+            cam.hd = grab(ap.firstElementChild); cam.pk = grab(document.getElementById("picker"));
+            inapp.innerHTML = ""; var wrap = document.createElement("div"); wrap.className = "apunta-in"; wrap.appendChild(cam.hd.el); wrap.appendChild(cam.pk.el); inapp.appendChild(wrap);
+          }
+          inapp.style.visibility = oa > 0 ? "visible" : "hidden";
+          // the app opens from the icon, like on the phone: its window grows out of it
+          var sq2 = sqe.getBoundingClientRect(), br = box.getBoundingClientRect(), sc = W / br.width;
+          var t2 = (sq2.top - br.top) * sc, l2 = (sq2.left - br.left) * sc, r2 = W - l2 - sq2.width * sc, b2 = H - t2 - sq2.height * sc;
+          var iw = sq2.width * sc, sxk = iw / W + (1 - iw / W) * oa, syk = iw / H + (1 - iw / H) * oa;
+          inapp.style.transformOrigin = "0 0";
+          inapp.style.transform = oa >= 1 ? "none" : "translate(" + (l2 * (1 - oa)).toFixed(2) + "px," + (t2 * (1 - oa)).toFixed(2) + "px) scale(" + sxk.toFixed(4) + "," + syk.toFixed(4) + ")";
+          inapp.style.borderRadius = oa >= 1 ? "0" : (W * 0.062 * (1 - oa) / Math.min(sxk, syk) + W * 0.11 * oa).toFixed(1) + "px";
+          inapp.querySelector(".apunta-in").style.opacity = clamp((oa - 0.3) / 0.25);
+          // it leaves the icon as the icon: dark with its mountain, and turns amber as it opens
+          var cb = clamp((oa - 0.08) / 0.3), A0 = [27, 23, 25], A1 = [242, 180, 74];
+          inapp.style.background = oa >= 1 ? "" : "rgb(" + A0.map(function (v, i) { return Math.round(v + (A1[i] - v) * cb); }).join(",") + ")";
+          var mi = inapp.querySelector(".mi"); if (!mi) { mi = document.createElement("img"); mi.className = "mi"; mi.src = ICON; mi.alt = ""; inapp.insertBefore(mi, inapp.firstChild); }
+          mi.style.opacity = 1 - clamp(oa / 0.3); mi.style.width = (iw / Math.min(sxk, syk)).toFixed(1) + "px";
+          sqe.style.opacity = 1 - clamp(oa * 4);
+          // the card: first big and centred on the phone's screen, at the end on its own place in the section
+          var k0 = (W * 0.9) / cam.pk.w, k1 = cam.k, kk = k0 + (k1 - k0) * od;
+          var x = W * 0.05 + (cam.pk.x * k1 - W * 0.05) * od, y = (H - cam.pk.h * k0) / 2 + (cam.pk.y * k1 - (H - cam.pk.h * k0) / 2) * od;
+          cam.pk.el.style.transform = "translate(" + x.toFixed(2) + "px," + y.toFixed(2) + "px) scale(" + kk.toFixed(5) + ")";
+          cam.hd.el.style.transform = "translate(" + (cam.hd.x * k1).toFixed(2) + "px," + (cam.hd.y * k1).toFixed(2) + "px) scale(" + k1.toFixed(5) + ")";
+          cam.hd.el.style.opacity = clamp((od - 0.45) / 0.45);
+          // the screen's top-left corner goes to the page's top-left corner, its width to the page's width
+          var z = 1 + (cam.Z - 1) * od;
+          ph.style.setProperty("--zs", z.toFixed(4));
+          ph.style.setProperty("--zx", ((-(cam.cx + cam.Z * (cam.sx - cam.cx))) * od).toFixed(2));
+          ph.style.setProperty("--zy", ((-(cam.cy + cam.Z * (cam.sy - cam.cy))) * od).toFixed(2));
+          cam.scr.style.borderRadius = od > 0 ? (12.2 * (1 - od)) + "% / " + (5.9 * (1 - od)) + "%" : "";
+          cam.scr.querySelector(".island").style.opacity = 1 - clamp(od * 3);
+          cam.scr.classList.toggle("inapp-on", oa > 0);
+          document.getElementById("apunta").classList.toggle("pre", od < 1); if (od >= 1 && window.KAPgo) window.KAPgo();
+        }
+      } }
+    window.KPR = function (ti, rd) { var k = rd > 0 ? 0.3 + rd * 0.345 : ti * 0.25; if (Math.abs(k - lastK) > 0.0005 || (k === 0 && lastK !== 0)) { lastK = k; draw(k); } };
+    window.addEventListener("resize", function () { built = false; cam = null; lastK = -1; window.KPR(TI, RD); });
+    window.KPR(TI, RD);
+  })();
+
+  // Static ridges (feed, final), drawn at their box size
+  document.querySelectorAll("[data-ridge]").forEach(function (el) {
+    function draw() { var w = el.clientWidth || 300, h = el.hasAttribute("data-wide") ? Math.max(110, Math.min(220, w * 0.16)) : el.clientHeight || 64; el.innerHTML = ridge(parse(el.getAttribute("data-ridge")), w, h, { tone: el.getAttribute("data-tone"), labels: !el.hasAttribute("data-wide"), pill: !el.hasAttribute("data-wide"), grid: !el.hasAttribute("data-wide"), maxText: 1 }).svg; }
+    draw(); window.addEventListener("resize", draw);
+  });
+
+  // ---- play once when it arrives (no scroll stretch); `play(p)` gets 0..1
+  function onArrive(el, dur, play) {
+    if (reduce || !("IntersectionObserver" in window)) { play(1); return; }
+    play(0);
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return; io.disconnect();
+      var t0 = performance.now(); (function step(now) { var p = Math.min(1, (now - t0) / dur); play(p); if (p < 1) requestAnimationFrame(step); })(t0);
+    }, { threshold: 0.45 });
+    io.observe(el);
+  }
+
+  // ---- apunta: four blocks logged, each with its grade and how it went
+  (function () {
+    var grid = document.getElementById("grid"), log = document.getElementById("log"), how = document.querySelectorAll(".how span");
+    var G = ["4", "4+", "5", "5+", "6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+"];
+    G.forEach(function (g) { var b = document.createElement("span"); b.className = "gd"; b.textContent = g; b.style.setProperty("--c", gc(g)); grid.appendChild(b); });
+    var cells = grid.children, steps = [["6A", "flash"], ["6A+", "top"], ["6B", "top"], ["6B+", "project"]], done = -1;
+    function hit(el) { el.classList.add("hit"); setTimeout(function () { el.classList.remove("hit"); }, 260); }
+    // replays every time it comes back into view
+    var pk = document.getElementById("picker"), run = 0;
+    function play(p) {
+      var k = p === 1 ? steps.length - 1 : Math.min(steps.length - 1, Math.floor(p * steps.length * 1.05 - 0.15));
+      while (done < k) {
+        done++; var s = steps[done], ci = G.indexOf(s[0]), hi = s[1] === "flash" ? 0 : s[1] === "top" ? 1 : 2;
+        if (p < 1 || !reduce) { hit(cells[ci]); setTimeout(hit.bind(null, how[hi]), 380); }
+        var chip = document.createElement("i"); chip.className = s[1] === "project" ? "p" : ""; chip.innerHTML = "<s style='--c:" + gc(s[0]) + "'></s>" + s[0] + (s[1] === "flash" ? ", a la primera" : s[1] === "project" ? ", proyecto" : "");
+        log.appendChild(chip);
+      }
+    }
+    if (reduce || !("IntersectionObserver" in window)) play(1);
+    else {
+      // it waits while the section is still hidden behind the phone at the end of the hero
+      var vis = false, going = false, ap = document.getElementById("apunta");
+      window.KAPgo = function () { if (!vis || going || ap.classList.contains("pre")) return; going = true;
+        var id = ++run, t0 = performance.now();
+        (function step(now) { if (id !== run) return; var p = Math.min(1, (now - t0) / 5600); play(p); if (p < 1) requestAnimationFrame(step); })(t0); };
+      new IntersectionObserver(function (es) {
+        vis = es[0].isIntersecting;
+        if (!vis) { run++; going = false; done = -1; log.querySelectorAll("i").forEach(function (c) { c.remove(); }); return; }
+        window.KAPgo();
+      }, { threshold: 0.45 }).observe(pk);
+    }
+  })();
+
+  // ---- sesión: the app's ridge, zoomed; it rises peak by peak when it comes into view and the notes appear when their peak is up
+  (function () {
+    var sec = document.getElementById("sesion"), stage = document.getElementById("stage");
+    var B = parse("4 5 5+* 6A 6A+ 6B* 6A+ 6B+ 6C* 6C+ 7A?");
+    // [peak, text, label height as a share of the ridge box (0 = its top), side]
+    var notes = [[3, "<b>Montaña</b>: un bloque encadenado", 0.44, ""], [5, "<b>Nieve</b>: a la primera", 0.18, "rt"], [9, "<b>6C+</b>, tu máximo de hoy", -0.02, "rt"], [10, "<b>En sombra</b>: tu proyecto", 0.1, ""]];
+    var tops = document.getElementById("t-tops"), fl = document.getElementById("t-fl"), mx = document.getElementById("t-mx"), last = -1, W = 0, H = 0, els = [];
+    notes.forEach(function (n) { var d = document.createElement("div"); d.className = "an " + n[3]; d.innerHTML = n[1]; stage.appendChild(d); els.push(d); });
+    function draw(p) {
+      W = stage.clientWidth; H = stage.clientHeight; if (!W || !H) return;
+      var n = B.length, narrow = W < 640, rw = Math.min(W * (narrow ? 1 : 0.82), (H - 40) / 0.34, 1040), rh = rw * 0.34, off = H - rh;
+      var list = B.map(function (b, i) { return { g: b.g, s: b.s, r: clamp((p * 1.2 - i / n * 0.95) * n / 1.8) }; });
+      var R = ridge(list, rw, rh, { maxText: narrow ? 1.2 : 1.9 });
+      stage.innerHTML = R.svg; els.forEach(function (e) { stage.appendChild(e); });
+      var t = 0, f = 0, m = -1;
+      list.forEach(function (b) { if (b.r > 0.6 && b.s !== "project") { t++; if (b.s === "flash") f++; m = Math.max(m, GL.indexOf(b.g)); } });
+      tops.textContent = t; fl.textContent = f; mx.textContent = m < 0 ? "–" : GL[m];
+      notes.forEach(function (nt, k) {
+        var e = els[k], pk = R.peaks[nt[0]]; if (narrow && k === 2) { e.classList.remove("on"); return; }
+        // on a phone the three notes stack above the ridge, ordered so that no line crosses another note's text
+        e.classList.toggle("rt", narrow ? k === 3 : nt[3] === "rt");
+        var py = off + pk.full, ly = Math.max(0, narrow ? off - (k === 0 ? 108 : k === 3 ? 72 : 36) : off + nt[2] * rh), len = Math.max(14, py - ly - 26 - (R.hard && R.hard.i === nt[0] ? 34 : 0));
+        e.style.left = pk.x + "px"; e.style.top = ly + "px"; e.style.setProperty("--l", len + "px"); e.classList.toggle("on", pk.r > 0.85);
+      });
+    }
+    // it plays by itself when it comes into view (about 3.5 s), and again each time it comes back
+    var run = 0; last = 0; draw(0);
+    function play() { var id = ++run, t0 = performance.now();
+      (function step(now) { if (id !== run) return; var p = Math.min(1, (now - t0) / 3600); last = p; draw(p); if (p < 1) requestAnimationFrame(step); })(t0); }
+    if (reduce || !("IntersectionObserver" in window)) { last = 1; draw(1); }
+    else new IntersectionObserver(function (es) { if (es[0].isIntersecting) play(); else { run++; last = 0; draw(0); } }, { threshold: 0.5 }).observe(stage);
+    window.addEventListener("resize", function () { draw(last); });
+  })();
+
+  // ---- gente: the deck. Tap or swipe the top session to see the next one
+  (function () {
+    var deck = document.getElementById("feed"), cards = [].slice.call(deck.querySelectorAll(".post")), n = cards.length, top = 0, busy = false, seen = false, hover = false, timer = 0, label = document.getElementById("dk-n");
+    function lay() { cards.forEach(function (c, i) { c.setAttribute("data-k", Math.min(3, (i - top + n) % n)); c.setAttribute("aria-hidden", (i - top + n) % n ? "true" : "false"); }); label.textContent = (top + 1) + " de " + n; }
+    function fit() { deck.style.height = Math.max.apply(null, cards.map(function (c) { return c.offsetHeight; })) + 40 + "px"; }
+    function next() { if (busy) return; busy = true; var c = cards[top]; c.classList.add("out"); setTimeout(function () { top = (top + 1) % n; c.classList.remove("out"); lay(); busy = false; }, reduce ? 0 : 420); }
+    function set(b, on) { var k = +b.getAttribute("data-k") + (on ? 1 : 0); b.setAttribute("aria-pressed", on); b.classList.toggle("on", on); b.querySelector("span").textContent = k; }
+    deck.addEventListener("click", function (e) { var k = e.target.closest(".kudo"); if (k) { set(k, k.getAttribute("aria-pressed") !== "true"); return; } if (moved) return; next(); restart(); });
+    // swipe left on the top session (a tap also moves on)
+    var sx = null, dx = 0, moved = false;
+    deck.addEventListener("pointerdown", function (e) { if (e.target.closest(".kudo")) return; sx = e.clientX; dx = 0; moved = false; cards[top].classList.add("drag"); });
+    window.addEventListener("pointermove", function (e) { if (sx === null) return; dx = e.clientX - sx; if (Math.abs(dx) > 6) moved = true; cards[top].style.transform = "translateX(" + dx + "px) rotate(" + dx / 30 + "deg)"; });
+    window.addEventListener("pointerup", function () { if (sx === null) return; var c = cards[top]; c.classList.remove("drag"); c.style.transform = ""; sx = null; if (moved && Math.abs(dx) > 60) { next(); restart(); } });
+    deck.addEventListener("mouseenter", function () { hover = true; }); deck.addEventListener("mouseleave", function () { hover = false; });
+    function restart() {}
+    lay(); fit(); window.addEventListener("resize", fit); cards.forEach(function (c) { var im = c.querySelector("img.pic"); if (im) im.addEventListener("load", fit); });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen) { var k = cards[top].querySelector(".kudo"); if (k.getAttribute("aria-pressed") !== "true") setTimeout(function () { set(k, true); }, 900); } restart(); }, { threshold: 0.5 }).observe(deck);
+  })();
+
+  // ---- números: the bars rise one after another, the ring fills and the pulse draws when it comes into view (again each time)
+  (function () {
+    var box = document.getElementById("nums"), bars = [].slice.call(box.querySelectorAll(".bar")), ring = box.querySelector(".ring"), pulse = box.querySelector(".pulse");
+    bars.forEach(function (b, i) { b.style.transitionDelay = (i * 0.06) + "s"; });
+    function set(v) { bars.forEach(function (b) { b.style.setProperty("--s", v); }); ring.style.setProperty("--r", v ? .74 : 0); pulse.style.setProperty("--r", v); }
+    function instant(v) { box.classList.add("still"); set(v); box.offsetHeight; box.classList.remove("still"); }
+    if (reduce || !("IntersectionObserver" in window)) { instant(1); return; }
+    new IntersectionObserver(function (es) { if (es[0].isIntersecting) set(1); else instant(0); }, { threshold: 0.4 }).observe(box);
+  })();
+
+  // ---- plans: monthly / yearly
+  (function () {
+    var pp = document.getElementById("pp"), pu = document.getElementById("pu"), pn = document.getElementById("pn"), bs = document.querySelectorAll(".sw button");
+    var D = { m: ["3,99 €", "al mes", "Sin compromiso. Cancela cuando quieras."], a: ["29,99 €", "al año", "Unos 2,50 € al mes: ahorras 17,89 € frente a pagar mes a mes."] };
+    bs.forEach(function (b) { b.addEventListener("click", function () { var d = D[b.getAttribute("data-p")]; pp.textContent = d[0]; pu.textContent = d[1]; pn.textContent = d[2]; bs.forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); }); }); });
+  })();
+
+  // ---- the real «Dos toques» section shows once the hero has been scrolled through
+  (function () { var hero = document.getElementById("hero"), ap = document.getElementById("apunta");
+    function chk() { if (hero.getBoundingClientRect().bottom <= window.innerHeight + 2) { ap.classList.remove("pre"); if (window.KAPgo) window.KAPgo(); } }
+    window.addEventListener("scroll", chk, { passive: true }); chk(); })();
+
+  // ---- nav turns solid once past the top
+  var nav = document.getElementById("nav");
+  function solid() { nav.classList.toggle("solid", window.scrollY > 24); }
+  window.addEventListener("scroll", solid, { passive: true }); solid();
+
+  // ---- short rise for headings and blocks of text, once each
+  var items = [];
+  if (!reduce && "IntersectionObserver" in window) {
+    items.forEach(function (el) { if (!el.closest(".sesion") && !el.closest(".gente")) el.classList.add("rise"); });
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.15 });
+    document.querySelectorAll(".rise").forEach(function (el) { io.observe(el); });
+  }
+
+  // ---- founders: the same endpoint as the teaser
+  fetch("/api/kumbraFounders").then(function (r) { return r.ok ? r.json() : null; }).then(function (b) {
+    if (!b) return;
+    var total = b.total || (b.names ? b.names.length : 0);
+    if (b.names && b.names.length) HERO_LIGHTS(b.names);
+    if (total <= 0) return;
+    document.getElementById("proof").innerHTML = "<b>" + total.toLocaleString("es-ES") + "</b> " + (total === 1 ? "persona reservó" : "personas reservaron") + " su nombre antes de abrir.";
+    document.getElementById("count").textContent = total.toLocaleString("es-ES");
+    document.getElementById("fundadores").classList.add("has");
+    var list = (b.names || []).map(function (n) { return String(n).replace(/^@/, "").replace(/[<>&]/g, ""); });
+    if (!list.length) return;
+    // the names light up one by one like stars, all of them in turn
+    var fm = document.getElementById("fm");
+    if (reduce) { fm.classList.add("still"); fm.innerHTML = list.map(function (n) { return '<span class="nm" role="listitem"><b>@' + n + "</b></span>"; }).join(""); return; }
+    var order = list.slice().sort(function () { return Math.random() - 0.5; }), at = 0, live = [], seen = false;
+    function spot(w) { var W = fm.clientWidth, H = fm.clientHeight, best = null;
+      for (var t = 0; t < 20; t++) { var x = Math.random() * Math.max(10, W - w), y = Math.random() * (H - 30), ok = live.every(function (r) { return x > r.x + r.w + 20 || x + w + 20 < r.x || Math.abs(y - r.y) > 40; }); if (ok) return { x: x, y: y }; }
+      return null; }
+    function one() { if (!seen || document.hidden) return; var n = order[at % order.length]; at++;
+      var e = document.createElement("span"); e.className = "nm"; e.setAttribute("role", "listitem"); e.innerHTML = "<b>@" + n + "</b>"; fm.appendChild(e);
+      var w = e.offsetWidth, p = spot(w); if (!p) { e.remove(); at--; return; } var r = { x: p.x, y: p.y, w: w }; e.style.left = p.x + "px"; e.style.top = p.y + "px"; live.push(r);
+      setTimeout(function () { e.remove(); live.splice(live.indexOf(r), 1); }, 6000); }
+    setInterval(one, 1100);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen && !live.length) { one(); setTimeout(one, 350); setTimeout(one, 700); } }).observe(fm); else seen = true;
+  }).catch(function () {});
+
+  // ---- contact and social links come from CONFIG
+  (function () {
+    var m = CONFIG.contact;
+    if (m) document.getElementById("gym-cta").href = "mailto:" + m + "?subject=" + encodeURIComponent("Mi rocódromo en Kumbra");
+    document.querySelectorAll(".mail").forEach(function (a) {
+      var subj = a.classList.contains("gymm") ? "Kumbra en mi rocódromo" : a.classList.contains("prm") ? "Prensa y colaboraciones" : a.classList.contains("del") ? "Eliminar mi cuenta" : "Hola Kumbra";
+      if (m) a.href = "mailto:" + m + "?subject=" + encodeURIComponent(subj); else if (a.closest("li")) a.closest("li").hidden = true;
+    });
+    if (CONFIG.instagram) { var ig = document.getElementById("soc-ig"); ig.href = "https://instagram.com/" + CONFIG.instagram; ig.hidden = false; }
+    if (CONFIG.tiktok) { var tt = document.getElementById("soc-tt"); tt.href = "https://www.tiktok.com/@" + CONFIG.tiktok; tt.hidden = false; }
+  })();
+})();
+  </script>
+</body>
+</html>

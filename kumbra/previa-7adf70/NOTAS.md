@@ -3,7 +3,7 @@
 Archivo principal: `index.html` (en esta carpeta). Todo en un solo archivo (CSS + JS inline). Imágenes en `img/` (`img/photos/`, `img/avatars/`, logos). Three.js r128 desde cdnjs.
 
 ## Verla en local
-`cd ~/Developer/kumbra-web && npx vercel dev` y abrir http://localhost:3000/kumbra/app/ (las imágenes usan rutas absolutas `/kumbra/app/img/...`, así que no se ven abriendo el archivo suelto). Para que salgan los fundadores reales hace falta `SUPABASE_SERVICE_ROLE_KEY` en un `.env` en la raíz (Vercel no descarga las variables sensibles; `vercel dev` lee `.env`, no `.env.local`). Ambos están en `.gitignore`.
+`cd ~/Developer/kumbra-web && npx vercel dev` y abrir http://localhost:3000/kumbra/previa-7adf70/ (las imágenes usan rutas absolutas `/kumbra/previa-7adf70/img/...`, así que no se ven abriendo el archivo suelto). Para que salgan los fundadores reales hace falta `SUPABASE_SERVICE_ROLE_KEY` en un `.env` en la raíz (Vercel no descarga las variables sensibles; `vercel dev` lee `.env`, no `.env.local`). Ambos están en `.gitignore`.
 
 ## Marca
 Night #1B1719, Cream #F3EEE6, Ink #1A1A1A. Degradado del logo: ámbar #F2B44A → naranja #F08A3C → rojo #E5484D → magenta #A7377B → violeta #533794 → ciruela #382562. Tipografías: Nunito Black (títulos) + Inter. Sin naranja plano.
