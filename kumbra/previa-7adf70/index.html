@@ -73,7 +73,7 @@ h2 { font-size: clamp(54px, 8.6vw, 128px); }
 
 /* hero: the mountain with the sun (from the first version), shorter */
 .hero { position: relative; height: 240svh; background: #0F0C14; --p: 0; --ds: 1; --c: 0; --f: 0; --na: 0; --ca: 1; --fl: 0; --w: 0; --tf: 0; }
-.hero .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; background: linear-gradient(180deg, #0F0C14 0%, #1d1226 55%, #3a1a3a 100%); color: var(--cream); }
+.hero .pin { position: sticky; top: 0; height: 100svh; height: 100lvh; overflow: hidden; background: linear-gradient(180deg, #0F0C14 0%, #1d1226 55%, #3a1a3a 100%); color: var(--cream); }
 .hero .sunwrap { position: absolute; z-index: 1; left: calc(var(--sx) * 1px); top: calc(var(--sy) * 1px); width: 0; height: 0; }
 .hero .sun { position: absolute; left: calc(var(--D) * -.5px); top: calc(var(--D) * -.5px); width: calc(var(--D) * 1px); height: calc(var(--D) * 1px); border-radius: 50%; background: linear-gradient(180deg, #F2B44A 0%, #F08A3C 28%, #E5484D 58%, #A7377B 100%); transform: scale(var(--ds)); will-change: transform; animation: khsun 2.6s var(--ease) .3s both; }
 @keyframes khsun { from { opacity: 0; translate: 0 36%; } to { opacity: 1; translate: 0 0; } }
@@ -186,9 +186,9 @@ h2 { font-size: clamp(54px, 8.6vw, 128px); }
 .hero .phone .stores { display: grid; }
 
 /* apunta: the grade picker, in the app's dark mode */
-.apunta { position: relative; z-index: 3; margin-top: -100svh; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 6vw; align-items: center; padding-block: calc(var(--navh, 64px) + clamp(28px, 4vw, 56px)) clamp(80px, 12vw, 150px); }
+.apunta { position: relative; z-index: 3; margin-top: -100svh; margin-top: -100lvh; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 6vw; align-items: center; padding-block: calc(var(--navh, 64px) + clamp(28px, 4vw, 56px)) clamp(80px, 12vw, 150px); }
 .apunta.pre { visibility: hidden; }
-.apunta { min-height: 100svh; }
+.apunta { min-height: 100svh; min-height: 100lvh; }
 .apunta .lede { margin-top: 24px; }
 .picker { justify-self: end; width: min(100%, 560px); padding: 22px; border-radius: 28px; background: var(--night-2); border: 1px solid var(--line-d); font-size: 15px; }
 .picker .ph { display: flex; justify-content: space-between; align-items: baseline; color: var(--mute-d); font-size: 14px; }
@@ -718,7 +718,7 @@ footer > * { position: relative; }
     }
     function ui() {
       ticking = false;
-      var span = hero.offsetHeight - window.innerHeight; P = span > 0 ? clamp(-hero.getBoundingClientRect().top / span) : 0;
+      var span = hero.offsetHeight - pin.offsetHeight; P = span > 0 ? clamp(-hero.getBoundingClientRect().top / span) : 0;
       // the old timeline (wordmark, sun, flood, phone) runs in the first 22 %; then a long stretch where the ridge forms; then the words
       var p = Math.min(0.44, P * 2.2); RT = reduce ? 1 : clamp((P - 0.32) / 0.68); if (RO !== null) RD = RO; else ease2();
       p = p, e = ease(clamp((p - 0.06) / 0.32)), ef = ease(clamp((p - 0.1) / 0.3));
@@ -734,7 +734,7 @@ footer > * { position: relative; }
     var T0 = 0, JUMP = false, RT = 0, easing = false, WY = null;
     // while the app installs the page can't go further down than the phone: a wall, not a pull back. It only listens
     // during those two seconds
-    function wy() { return hero.offsetTop + (hero.offsetHeight - window.innerHeight) * 0.3; }
+    function wy() { return hero.offsetTop + (hero.offsetHeight - pin.offsetHeight) * 0.3; }
     function block(e) { if (WY === null) return; var dy = e.deltaY !== undefined ? e.deltaY : 0; if (window.scrollY >= WY - 1 && (dy > 0 || e.type === "touchmove")) e.preventDefault(); }
     function clampY() { if (WY !== null && window.scrollY > WY + 1) window.scrollTo({ top: WY, behavior: "instant" }); }
     var ty0 = 0; function tstart(e) { ty0 = e.touches[0].clientY; }
@@ -759,7 +759,7 @@ footer > * { position: relative; }
     // already at «Dos toques», where the film ends
     document.getElementById("phone").addEventListener("click", function () {
       if (!hero.classList.contains("ready") || RO !== null) return;
-      var r0 = RD, y1 = hero.offsetTop + hero.offsetHeight - window.innerHeight, t0 = performance.now(), d = reduce ? 1 : 1700 * (1 - r0);
+      var r0 = RD, y1 = hero.offsetTop + hero.offsetHeight - pin.offsetHeight, t0 = performance.now(), d = reduce ? 1 : 1700 * (1 - r0);
       if (r0 >= 1) return;
       RO = r0;
       (function go(now) { var k = clamp((now - t0) / d); RO = r0 + (1 - r0) * k; if (window.KPR) window.KPR(TI, RO); hero.classList.add("going");
@@ -821,7 +821,7 @@ footer > * { position: relative; }
       });
     };
     var W = 0, H = 0;
-    function resize() { W = hero.clientWidth; H = window.innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
+    function resize() { W = hero.clientWidth; H = hero.querySelector(".pin").offsetHeight || window.innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
     window.addEventListener("resize", resize); resize();
     var t0 = performance.now(), visible = true, tmp = new THREE.Vector3();
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(hero);
@@ -1167,7 +1167,7 @@ footer > * { position: relative; }
 
   // ---- the real «Dos toques» section shows once the hero has been scrolled through
   (function () { var hero = document.getElementById("hero"), ap = document.getElementById("apunta");
-    function chk() { if (hero.getBoundingClientRect().bottom <= window.innerHeight + 2) { ap.classList.remove("pre"); if (window.KAPgo) window.KAPgo(); } }
+    function chk() { if (hero.getBoundingClientRect().bottom <= hero.querySelector(".pin").offsetHeight + 2) { ap.classList.remove("pre"); if (window.KAPgo) window.KAPgo(); } }
     window.addEventListener("scroll", chk, { passive: true }); chk(); })();
 
   // ---- nav turns solid once past the top
