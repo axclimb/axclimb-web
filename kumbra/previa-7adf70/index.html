@@ -57,7 +57,20 @@ h2 { font-size: clamp(54px, 8.6vw, 128px); }
 .nav a.l { text-decoration: none; font-size: 15px; color: #CFC6D3; }
 .nav a.l:hover { color: var(--cream); }
 .nav .dl { text-decoration: none; padding: 10px 16px; border-radius: 10px; background: var(--cream); color: var(--ink); font: 600 15px var(--sans); }
-@media (max-width: 860px) { .nav a.l { display: none; } }
+.nav .mb { display: none; width: 44px; height: 44px; margin-right: -10px; place-items: center; border-radius: 10px; color: var(--cream); }
+.nav .mb line { transition: transform .3s var(--ease); transform-origin: 12px 12px; }
+.nav .mb[aria-expanded="true"] .a { transform: translateY(3px) rotate(45deg); }
+.nav .mb[aria-expanded="true"] .b { transform: translateY(-3px) rotate(-45deg); }
+.nav.open { background: rgba(20, 17, 24, .97); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.menu { display: none; }
+@media (max-width: 860px) {
+  .nav { gap: 14px; } .nav a.l { display: none; } .nav .mb { display: grid; }
+  .menu { display: grid; position: fixed; z-index: 19; left: 0; right: 0; top: calc(68px + env(safe-area-inset-top, 0px)); padding: 4px var(--gut) 22px; background: rgba(20, 17, 24, .97); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line-d); opacity: 0; visibility: hidden; translate: 0 -10px; transition: opacity .25s, translate .3s var(--ease), visibility 0s .3s; }
+  .menu.open { opacity: 1; visibility: visible; translate: 0 0; transition: opacity .25s, translate .3s var(--ease); }
+  .menu a { padding: 12px 0; border-bottom: 1px solid var(--line-d); text-decoration: none; font: 900 34px/1 var(--title); color: var(--cream); }
+  .menu a:last-child { border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .menu, .menu.open, .nav .mb line { transition: none; } }
 
 /* store buttons */
 .stores { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -463,7 +476,14 @@ footer > * { position: relative; }
     <a class="l" href="#rocodromos">Rocódromos</a>
     <a class="l" href="#preguntas">Preguntas</a>
     <a class="dl" href="#descarga">Descargar</a>
+    <button class="mb" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menú"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line class="a" x1="4" y1="9" x2="20" y2="9"/><line class="b" x1="4" y1="15" x2="20" y2="15"/></svg></button>
   </nav>
+  <div class="menu" id="menu">
+    <a href="#apunta">Cómo funciona</a>
+    <a href="#pro">Pro</a>
+    <a href="#rocodromos">Rocódromos</a>
+    <a href="#preguntas">Preguntas</a>
+  </div>
 
   <main id="contenido">
     <header class="hero" id="hero">
@@ -1222,6 +1242,18 @@ footer > * { position: relative; }
     if (CONFIG.tiktok) { var tt = document.getElementById("soc-tt"); tt.href = "https://www.tiktok.com/@" + CONFIG.tiktok; tt.hidden = false; }
   })();
 })();
-  </script>
+  
+  // ---- menu on narrow screens
+  (function () {
+    var nav = document.getElementById("nav"), btn = nav.querySelector(".mb"), menu = document.getElementById("menu");
+    function set(o) { btn.setAttribute("aria-expanded", o ? "true" : "false"); menu.classList.toggle("open", o); nav.classList.toggle("open", o); if (o) menu.removeAttribute("inert"); else menu.setAttribute("inert", ""); }
+    set(false);
+    btn.addEventListener("click", function () { set(btn.getAttribute("aria-expanded") !== "true"); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) set(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && menu.classList.contains("open")) { set(false); btn.focus(); } });
+    document.addEventListener("click", function (e) { if (menu.classList.contains("open") && !menu.contains(e.target) && !btn.contains(e.target)) set(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 860) set(false); });
+  })();
+</script>
 </body>
 </html>
