@@ -29,6 +29,15 @@
     {
       "path": "/api/kumbraDigest",
       "schedule": "0 21 * * *"
+    },
+    {
+      "path": "/api/kumbraLaunch",
+      "schedule": "0 9 * * *"
     }
-  ]
+  ],
+  "functions": {
+    "api/kumbraLaunch.js": {
+      "maxDuration": 60
+    }
+  }
 }
