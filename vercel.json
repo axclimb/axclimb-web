@@ -39,5 +39,17 @@
     "api/kumbraLaunch.js": {
       "maxDuration": 60
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/kumbra/previa-7adf70",
+      "destination": "/kumbra",
+      "permanent": true
+    },
+    {
+      "source": "/kumbra/previa-7adf70/:path*",
+      "destination": "/kumbra",
+      "permanent": true
+    }
+  ]
 }

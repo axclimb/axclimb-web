@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /invita
+Disallow: /u/
+Disallow: /kumbra-aprobar
+Disallow: /kumbra/lista-de-espera
+
+Sitemap: https://www.axclimb.com/sitemap.xml
