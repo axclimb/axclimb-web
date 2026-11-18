@@ -62,8 +62,18 @@
   var isAnd = /Android/i.test(ua);
   var platform = isIOS ? "ios" : (isAnd ? "android" : "other");
 
+  // One visit and one store jump per phone every 30 min: the iPhone camera can preload the page when it
+  // spots the QR and load it again on tap, and Safari reloads it when coming back from the App Store.
+  function once(kind) {
+    try {
+      var k = "kumbraQr:" + src + ":" + kind, now = Date.now(), last = Number(localStorage.getItem(k)) || 0;
+      if (now - last < 30 * 60 * 1000) return false;
+      localStorage.setItem(k, String(now));
+    } catch (e) {}
+    return true;
+  }
   function track(kind, where) {
-    if (!src) return;
+    if (!src || !once(kind)) return;
     var data = JSON.stringify({ src: src, kind: kind, platform: where || platform });
     try {
       if (navigator.sendBeacon && navigator.sendBeacon("/api/kumbraQr", new Blob([data], { type: "text/plain" }))) return;
@@ -73,7 +83,9 @@
   var jumped = false;
   function toStore(where) { if (!jumped) { jumped = true; track("store", where); } }
 
-  track("visit");
+  // A preloaded page (document.prerendering) only counts if the person actually opens it.
+  if (document.prerendering) document.addEventListener("prerenderingchange", function () { track("visit"); }, { once: true });
+  else track("visit");
   document.getElementById("ios").addEventListener("click", function () { toStore("ios"); });
   document.getElementById("and").addEventListener("click", function () { toStore("android"); });
 
