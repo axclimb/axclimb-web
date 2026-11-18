@@ -49,10 +49,11 @@
    App Analytics > Campaigns > "Generate a campaign link") is filled in. */
 (function () {
   var IOS_PT = ""; // App Store Connect provider token; without it the App Store link has no campaign.
-  var src = (new URLSearchParams(location.search).get("src") || "direct").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40) || "direct";
-  var IOS = "https://apps.apple.com/app/id6818507035" + (IOS_PT ? "?pt=" + IOS_PT + "&ct=" + src + "&mt=8" : "");
-  var AND = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra&referrer=" +
-    encodeURIComponent("utm_source=" + src + "&utm_medium=qr&utm_campaign=kumbra_join");
+  // Only visits with ?src (the printed QRs) are counted; plain /kumbra/join is not tracked at all.
+  var src = (new URLSearchParams(location.search).get("src") || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40);
+  var IOS = "https://apps.apple.com/app/id6818507035" + (src && IOS_PT ? "?pt=" + IOS_PT + "&ct=" + src + "&mt=8" : "");
+  var AND = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra" + (src ? "&referrer=" +
+    encodeURIComponent("utm_source=" + src + "&utm_medium=qr&utm_campaign=kumbra_join") : "");
   document.getElementById("ios").href = IOS;
   document.getElementById("and").href = AND;
 
@@ -62,6 +63,7 @@
   var platform = isIOS ? "ios" : (isAnd ? "android" : "other");
 
   function track(kind, where) {
+    if (!src) return;
     var data = JSON.stringify({ src: src, kind: kind, platform: where || platform });
     try {
       if (navigator.sendBeacon && navigator.sendBeacon("/api/kumbraQr", new Blob([data], { type: "text/plain" }))) return;
