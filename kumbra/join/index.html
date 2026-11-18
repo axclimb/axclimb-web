@@ -35,23 +35,50 @@
   <h1>Descarga <b>Kumbra</b></h1>
   <p id="hint">Elige tu tienda para instalar la app.</p>
   <div class="stores">
-    <a class="btn" href="https://apps.apple.com/app/id6818507035">App Store (iPhone)</a>
-    <a class="btn" href="https://play.google.com/store/apps/details?id=com.axclimb.kumbra">Google Play (Android)</a>
+    <a class="btn" id="ios" href="https://apps.apple.com/app/id6818507035">App Store (iPhone)</a>
+    <a class="btn" id="and" href="https://play.google.com/store/apps/details?id=com.axclimb.kumbra">Google Play (Android)</a>
   </div>
 </main>
 <script>
 /* QR landing: renders the store buttons first, then redirects iOS to the App Store and Android to Google Play.
-   If the browser blocks the automatic jump (in-app scanners, no user gesture), the buttons stay as fallback. */
+   If the browser blocks the automatic jump (in-app scanners, no user gesture), the buttons stay as fallback.
+   Analytics: ?src=<name> tags where people came from (each printed QR gets its own, e.g. ?src=qr-rocodromo).
+   Each visit and each jump to a store is sent to /api/kumbraQr (Supabase qr_events, anonymous).
+   Installs are counted by the stores themselves: Google Play gets utm_source=<src> in the referrer (Play
+   Console > Acquisition), and the App Store gets ct=<src> once IOS_PT (App Store Connect provider token,
+   App Analytics > Campaigns > "Generate a campaign link") is filled in. */
 (function () {
-  var IOS = "https://apps.apple.com/app/id6818507035";
-  var AND = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra";
+  var IOS_PT = ""; // App Store Connect provider token; without it the App Store link has no campaign.
+  var src = (new URLSearchParams(location.search).get("src") || "direct").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 40) || "direct";
+  var IOS = "https://apps.apple.com/app/id6818507035" + (IOS_PT ? "?pt=" + IOS_PT + "&ct=" + src + "&mt=8" : "");
+  var AND = "https://play.google.com/store/apps/details?id=com.axclimb.kumbra&referrer=" +
+    encodeURIComponent("utm_source=" + src + "&utm_medium=qr&utm_campaign=kumbra_join");
+  document.getElementById("ios").href = IOS;
+  document.getElementById("and").href = AND;
+
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var isAnd = /Android/i.test(ua);
+  var platform = isIOS ? "ios" : (isAnd ? "android" : "other");
+
+  function track(kind, where) {
+    var data = JSON.stringify({ src: src, kind: kind, platform: where || platform });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon("/api/kumbraQr", new Blob([data], { type: "text/plain" }))) return;
+    } catch (e) {}
+    try { fetch("/api/kumbraQr", { method: "POST", headers: { "Content-Type": "application/json" }, body: data, keepalive: true }); } catch (e) {}
+  }
+  var jumped = false;
+  function toStore(where) { if (!jumped) { jumped = true; track("store", where); } }
+
+  track("visit");
+  document.getElementById("ios").addEventListener("click", function () { toStore("ios"); });
+  document.getElementById("and").addEventListener("click", function () { toStore("android"); });
+
   var target = isIOS ? IOS : (isAnd ? AND : null);
   if (!target) return;
   document.getElementById("hint").textContent = "Abriendo la tienda… Si no se abre, pulsa tu botón.";
-  setTimeout(function () { window.location.href = target; }, 300);
+  setTimeout(function () { toStore(); window.location.href = target; }, 300);
 })();
 </script>
 </body>

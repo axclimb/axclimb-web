@@ -29,6 +29,23 @@ const madridDay = (date) =>
   date.toLocaleDateString("es-ES", { timeZone: "Europe/Madrid", weekday: "long", day: "numeric", month: "long" });
 const escapeHtml = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
+/// { visits, ios, android, other, bySrc: { src: visits } }; ios/android/other count jumps to a store.
+function qrSummary(events) {
+  const out = { visits: 0, ios: 0, android: 0, other: 0, bySrc: {} };
+  for (const e of events) {
+    if (e.kind === "visit") {
+      out.visits++;
+      out.bySrc[e.src] = (out.bySrc[e.src] || 0) + 1;
+    } else if (e.kind === "store") out[e.platform] = (out[e.platform] || 0) + 1;
+  }
+  return out;
+}
+
+const qrText = (label, s) => {
+  const srcs = Object.entries(s.bySrc).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}: ${v}`).join(", ");
+  return `${label}: ${s.visits} visitas, ${s.ios + s.android + s.other} a la tienda (iOS ${s.ios}, Android ${s.android})${srcs ? ` · por origen: ${srcs}` : ""}`;
+};
+
 export default async function handler(req, res) {
   if (!isCron(req)) return res.status(401).json({ error: "unauthorized" });
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -42,6 +59,22 @@ export default async function handler(req, res) {
     )).json();
     const totalRange = (await supabase("waitlist?select=id&limit=1", key, { Prefer: "count=exact" })).headers.get("content-range") || "";
     const total = Number(totalRange.split("/")[1]) || 0;
+
+    // QR landing (/kumbra/join?src=...): visits and jumps to a store, last 24 h and all time.
+    let qr = null;
+    try {
+      const recent = await (await supabase(
+        `qr_events?select=src,kind,platform&created_at=gte.${encodeURIComponent(since)}&limit=10000`, key)).json();
+      const count = async (filter) => Number(((await supabase(`qr_events?select=id&limit=1&${filter}`, key,
+        { Prefer: "count=exact" })).headers.get("content-range") || "").split("/")[1]) || 0;
+      const [visits, ios, android, other] = await Promise.all([
+        count("kind=eq.visit"), count("kind=eq.store&platform=eq.ios"),
+        count("kind=eq.store&platform=eq.android"), count("kind=eq.store&platform=eq.other"),
+      ]);
+      qr = { day: qrSummary(recent), total: { visits, ios, android, other, bySrc: {} } };
+    } catch (error) {
+      console.error("kumbraDigest qr", error && error.message);
+    }
 
     const day = madridDay(new Date());
     const n = rows.length;
@@ -62,6 +95,7 @@ export default async function handler(req, res) {
       ...rows.map(line),
       "",
       `Total en la lista: ${total}`,
+      ...(qr ? ["", "QR de descarga (/kumbra/join):", qrText("Últimas 24 h", qr.day), qrText("Total", qr.total)] : []),
     ].join("\n");
 
     const cell = "padding:6px 10px;border-bottom:1px solid #eee;font:14px -apple-system,Segoe UI,Roboto,Arial,sans-serif;";
@@ -72,6 +106,8 @@ ${n === 0 ? "" : `<table cellpadding="0" cellspacing="0" style="border-collapse:
 ${rows.map((w) => `<tr><td style="${cell}">${madridTime(w.created_at)}</td><td style="${cell}"><b>@${escapeHtml(w.username)}</b></td><td style="${cell}">${escapeHtml(w.email)}</td><td style="${cell}">${escapeHtml(w.rocodromo || "—")}</td><td style="${cell}">${w.ref ? "@" + escapeHtml(w.ref) : ""}</td></tr>`).join("\n")}
 </table>`}
 <p style="margin:16px 0 0;">Total en la lista: <b>${total}</b></p>
+${qr ? `<p style="margin:20px 0 6px;"><b>QR de descarga</b> (/kumbra/join)</p>
+<p style="margin:0;">${escapeHtml(qrText("Últimas 24 h", qr.day))}<br>${escapeHtml(qrText("Total", qr.total))}</p>` : ""}
 </body></html>`;
 
     const r = await fetch("https://api.resend.com/emails", {
