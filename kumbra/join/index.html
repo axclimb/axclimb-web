@@ -83,14 +83,26 @@
   var jumped = false;
   function toStore(where) { if (!jumped) { jumped = true; track("store", where); } }
 
+  // The first open marks the URL (?seen=1, without a new history entry). When Safari restores or reloads the
+  // tab later (reopening the app, coming back from the store), the page sees the mark and neither counts a
+  // visit nor jumps to the store again: it just shows the buttons.
+  var params = new URLSearchParams(location.search);
+  var nav = (performance.getEntriesByType && performance.getEntriesByType("navigation")[0]) || {};
+  var reopened = params.get("seen") === "1" || nav.type === "reload" || nav.type === "back_forward";
+  if (!reopened) {
+    try { params.set("seen", "1"); history.replaceState(null, "", location.pathname + "?" + params.toString() + location.hash); } catch (e) {}
+  }
+
   // A preloaded page (document.prerendering) only counts if the person actually opens it.
-  if (document.prerendering) document.addEventListener("prerenderingchange", function () { track("visit"); }, { once: true });
-  else track("visit");
+  if (!reopened) {
+    if (document.prerendering) document.addEventListener("prerenderingchange", function () { track("visit"); }, { once: true });
+    else track("visit");
+  }
   document.getElementById("ios").addEventListener("click", function () { toStore("ios"); });
   document.getElementById("and").addEventListener("click", function () { toStore("android"); });
 
   var target = isIOS ? IOS : (isAnd ? AND : null);
-  if (!target) return;
+  if (!target || reopened) return;
   document.getElementById("hint").textContent = "Abriendo la tienda… Si no se abre, pulsa tu botón.";
   setTimeout(function () { toStore(); window.location.href = target; }, 300);
 })();
